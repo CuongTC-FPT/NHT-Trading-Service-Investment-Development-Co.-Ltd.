@@ -1,0 +1,11 @@
+node_modules/
+.env
+data/leads.json
+.idea/
+.venv/
+
+backend/node_modules/
+backend/.env
+backend/data/leads.json
+backend/data/nht.sqlite
+backend/uploads/

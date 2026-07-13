@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Giới Thiệu Về NHT | Trách Nhiệm & Tận Tâm</title>
+  <meta name="description" content="Tìm hiểu về NHT: Đơn vị tư vấn kế toán thuế trọn gói, thủ tục pháp lý doanh nghiệp chuyên nghiệp và hiệu suất cao. Thành lập từ 2018." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: "#e05915",
+              hover: "#bf480d",
+              light: "#fff7ed"
+            },
+            navy: {
+              DEFAULT: "#0f172a",
+              light: "#1e293b",
+              muted: "#475569"
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-slate-50 text-navy selection:bg-brand/10 selection:text-brand">
+  <div class="relative min-h-screen flex flex-col overflow-hidden">
+    <!-- Header -->
+    <header id="main-header" class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100/80 transition-all duration-300">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+        <a href="index.html" class="flex items-center text-lg font-semibold text-navy">
+          <img src="logo.png" alt="NHT Logo" class="h-10 w-auto max-w-[160px] object-contain" />
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden items-center gap-8 md:flex">
+          <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
+            <a href="index.html" class="nav-link-accent transition hover:text-navy">Trang chủ</a>
+            <a href="dich-vu.html" class="nav-link-accent transition hover:text-navy">Dịch vụ</a>
+            <a href="bang-gia.html" class="nav-link-accent transition hover:text-navy">Bảng giá</a>
+            <a href="thong-tu-phap-luat.html" class="nav-link-accent transition hover:text-navy">Thông tư pháp luật</a>
+          </nav>
+          <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand/10 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand/20">Nhận báo giá</a>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-navy focus:outline-none" aria-label="Toggle Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 bg-navy/40 backdrop-blur-sm transform translate-x-full transition-transform duration-300 ease-in-out md:hidden" aria-hidden="true">
+      <div id="drawer-backdrop" class="absolute inset-0"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-64 bg-white p-6 shadow-2xl flex flex-col gap-6 z-10">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <img src="logo.png" alt="NHT Logo" class="h-8 w-auto object-contain" />
+          <button id="close-menu-btn" class="text-navy focus:outline-none" aria-label="Close Menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 text-base font-semibold text-slate-600">
+          <a href="index.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Trang chủ</a>
+          <a href="dich-vu.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Dịch vụ</a>
+          <a href="bang-gia.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Bảng giá</a>
+          <a href="thong-tu-phap-luat.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Thông tư pháp luật</a>
+          <a href="lien-he.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Liên hệ</a>
+        </nav>
+        <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Nhận báo giá</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow mx-auto max-w-7xl px-6 pb-24 pt-10 lg:pt-20 relative w-full">
+      <!-- Background Blobs -->
+      <div class="premium-blob bg-brand/5 w-[500px] h-[500px] -top-10 -left-10 animate-pulse-slow"></div>
+      <div class="premium-blob bg-slate-300/30 w-96 h-96 bottom-10 right-0"></div>
+
+      <!-- Hero Header -->
+      <section class="grid gap-12 lg:grid-cols-[1fr_1fr] items-center relative z-10 fade-up">
+        <div class="space-y-8">
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-brand/20 bg-brand/5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand">
+            Người bạn đồng hành tin cậy
+          </span>
+          <div class="space-y-6">
+            <h1 class="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl leading-[1.15]">
+              Giới thiệu <br class="hidden sm:inline" />
+              về công ty <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-brand-hover">NHT</span>
+            </h1>
+            <p class="max-w-xl text-lg leading-relaxed text-slate-600 font-medium">
+              NHT hoạt động chuyên sâu trong lĩnh vực tư vấn kế toán, thủ tục pháp lý cho doanh nghiệp và cá nhân, đồng hành cùng khách hàng bằng sự trách nhiệm, chuyên nghiệp, hiệu suất và tận tâm.
+            </p>
+          </div>
+          <div class="grid gap-4 grid-cols-3">
+            <div class="rounded-2xl border border-slate-200/60 bg-white p-5 shadow-premium">
+              <p class="text-3xl font-extrabold text-brand">2018</p>
+              <p class="mt-2 text-xs font-bold text-slate-500 uppercase tracking-wider">Thành lập</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200/60 bg-white p-5 shadow-premium">
+              <p class="text-3xl font-extrabold text-brand">30+</p>
+              <p class="mt-2 text-xs font-bold text-slate-500 uppercase tracking-wider">Chuyên viên</p>
+            </div>
+            <div class="rounded-2xl border border-slate-200/60 bg-white p-5 shadow-premium">
+              <p class="text-3xl font-extrabold text-brand">1.000+</p>
+              <p class="mt-2 text-xs font-bold text-slate-500 uppercase tracking-wider">Khách hàng</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Corporate Editorial Greeting Panel -->
+        <div class="rounded-3xl border border-slate-200/80 bg-white p-8 md:p-10 shadow-premium relative overflow-hidden flex flex-col justify-between h-full min-h-[320px]">
+          <div class="absolute top-0 right-0 w-24 h-24 bg-brand/5 rounded-bl-full"></div>
+          <div class="space-y-6">
+            <h2 class="text-xl font-extrabold text-navy border-b border-slate-100 pb-4">Kính gửi Quý Khách hàng,</h2>
+            <p class="text-slate-600 leading-relaxed text-base font-medium">
+              Chúng tôi là <strong>Công ty TNHH NHT</strong>, hoạt động chuyên sâu trong lĩnh vực <strong>tư vấn kế toán, thủ tục pháp lý</strong> cho doanh nghiệp và cá nhân. Đặc biệt, chúng tôi có thế mạnh vượt trội trong <strong>dịch vụ kế toán tổng hợp và chuyên sâu</strong>.
+            </p>
+            <p class="text-slate-600 leading-relaxed text-base font-medium">
+              Với phương châm <strong>“Trách nhiệm - Chuyên nghiệp - Hiệu suất - Tận tâm”</strong>, NHT tự hào là một trong những đơn vị tiên phong luôn mang đến giải pháp tối ưu với chi phí hợp lý nhất, thời gian xử lý nhanh và phong cách làm việc chuyên nghiệp.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Vision & Mission -->
+      <section class="mt-28 grid gap-12 lg:grid-cols-[1.1fr_0.9fr] lg:items-center relative z-10 fade-up">
+        <div class="rounded-3xl border border-slate-200 bg-white p-8 md:p-10 shadow-premium">
+          <span class="inline-flex rounded-full bg-brand/10 px-3.5 py-1 text-xs font-bold uppercase tracking-wider text-brand">Tầm nhìn & Sứ mệnh</span>
+          <h2 class="mt-6 text-3xl font-extrabold text-navy sm:text-4xl">Cùng thắng là nguyên tắc cốt lõi</h2>
+          <div class="mt-6 space-y-4 text-base leading-relaxed text-slate-600 font-medium">
+            <p>Tại NHT, chúng tôi coi trọng việc <strong class="text-brand font-bold">“cùng thắng” (Win - Win)</strong> không chỉ là mục tiêu kinh doanh mà còn là nguyên tắc đạo đức trong mọi mối quan hệ hợp tác.</p>
+            <p>Mỗi thành công hay giải pháp đưa ra đều phải mang lại giá trị tích cực, công bằng và bền vững nhất cho cả doanh nghiệp khách hàng và NHT.</p>
+            <p class="font-extrabold text-navy border-l-4 border-brand pl-4 mt-6">Sự phát triển vững mạnh của khách hàng chính là động lực và thành tựu lớn nhất của chúng tôi.</p>
+          </div>
+        </div>
+
+        <!-- Core Values Graphic (Concentric Circle Redesign) -->
+        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-premium flex flex-col items-center justify-center">
+          <h2 class="text-center text-xl font-extrabold text-navy mb-8">Giá trị cốt lõi từ thương hiệu</h2>
+          
+          <div class="relative flex aspect-square w-full max-w-[280px] items-center justify-center rounded-full p-4 border border-dashed border-slate-200">
+            <div class="absolute inset-4 rounded-full border border-brand/20 animate-pulse-slow"></div>
+            <div class="absolute inset-8 rounded-full border border-dashed border-slate-200"></div>
+            <div class="flex h-full w-full flex-col items-center justify-center rounded-full bg-slate-50 border border-slate-100 text-center shadow-sm p-4 z-10">
+              <img src="logo.png" alt="NHT Logo" class="h-10 w-auto object-contain" />
+              <p class="mt-3 text-[9px] font-extrabold uppercase tracking-widest text-brand">Necessity · Quality · Trustee</p>
+            </div>
+          </div>
+          
+          <div class="mt-8 flex flex-wrap justify-center gap-2 max-w-sm">
+            <span class="rounded-full bg-slate-100 px-4 py-1.5 text-xs font-bold text-navy border border-slate-200/40">Trách nhiệm</span>
+            <span class="rounded-full bg-brand/10 px-4 py-1.5 text-xs font-bold text-brand border border-brand/10">Cùng thắng</span>
+            <span class="rounded-full bg-slate-100 px-4 py-1.5 text-xs font-bold text-navy border border-slate-200/40">Chuyên nghiệp</span>
+            <span class="rounded-full bg-brand/10 px-4 py-1.5 text-xs font-bold text-brand border border-brand/10">Tận tâm</span>
+            <span class="rounded-full bg-navy/5 px-6 py-1.5 text-xs font-bold text-navy border border-slate-200/40 w-full text-center">Hiệu suất tối đa</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Commitments Grid -->
+      <section class="mt-28 relative z-10 fade-up">
+        <div class="max-w-3xl mb-16">
+          <span class="inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-slate-600">Cam kết hợp tác</span>
+          <h2 class="mt-4 text-3xl font-extrabold text-navy sm:text-4xl">Nền tảng làm việc tại NHT</h2>
+        </div>
+        <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          <!-- Card 1 -->
+          <article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-premium shadow-premium-hover transition-all duration-300">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand mb-6 font-bold text-sm">01</div>
+            <h3 class="text-lg font-bold text-navy mb-2">Cùng thắng</h3>
+            <p class="text-sm text-slate-500 leading-relaxed font-medium">Mỗi kết quả đạt được đều mang lại giá trị công bằng, giúp cả hai bên phát triển lâu dài và bền vững.</p>
+          </article>
+          <!-- Card 2 -->
+          <article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-premium shadow-premium-hover transition-all duration-300">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand mb-6 font-bold text-sm">02</div>
+            <h3 class="text-lg font-bold text-navy mb-2">Tôn trọng đối tác</h3>
+            <p class="text-sm text-slate-500 leading-relaxed font-medium">Lắng nghe, thấu hiểu nhu cầu thực tế và mục tiêu của đối tác, đồng thời minh bạch trong mọi trao đổi.</p>
+          </article>
+          <!-- Card 3 -->
+          <article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-premium shadow-premium-hover transition-all duration-300">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand mb-6 font-bold text-sm">03</div>
+            <h3 class="text-lg font-bold text-navy mb-2">Gắn kết bền vững</h3>
+            <p class="text-sm text-slate-500 leading-relaxed font-medium">Duy trì mối quan hệ hợp tác lâu dài dựa trên sự tin cậy, uy tín pháp lý và tinh thần trách nhiệm cao.</p>
+          </article>
+          <!-- Card 4 -->
+          <article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-premium shadow-premium-hover transition-all duration-300">
+            <div class="flex h-10 w-10 items-center justify-center rounded-xl bg-brand/10 text-brand mb-6 font-bold text-sm">04</div>
+            <h3 class="text-lg font-bold text-navy mb-2">Đóng góp giá trị</h3>
+            <p class="text-sm text-slate-500 leading-relaxed font-medium">Không chỉ mang lại lợi ích kinh tế mà còn hướng đến giá trị nhân văn và xây dựng môi trường kinh doanh lành mạnh.</p>
+          </article>
+        </div>
+      </section>
+
+      <!-- CTA Section -->
+      <section class="mt-28 rounded-3xl bg-navy p-8 md:p-16 text-white shadow-xl relative overflow-hidden fade-up">
+        <div class="absolute right-0 top-0 w-96 h-96 bg-brand/10 rounded-full translate-x-12 -translate-y-12 blur-3xl"></div>
+        <div class="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
+          <div class="space-y-4">
+            <h2 class="text-3xl font-extrabold sm:text-4xl">Cùng NHT xây dựng nền tảng kế toán vững chắc</h2>
+            <p class="text-lg text-white/90 leading-relaxed max-w-xl">Chúng tôi mong có cơ hội hợp tác và trao đổi sâu hơn về những giải pháp hỗ trợ thuế tốt nhất dành cho Quý Doanh nghiệp.</p>
+          </div>
+          <div class="flex flex-col gap-4 sm:flex-row lg:justify-end">
+            <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-6 py-3.5 text-sm font-bold text-white shadow-md transition hover:-translate-y-0.5 hover:bg-brand-hover">Liên hệ tư vấn</a>
+            <a href="dich-vu.html" class="inline-flex items-center justify-center rounded-full border border-white/30 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-white/10 hover:border-white/50">Xem dịch vụ</a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-slate-100 py-16 relative z-10">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-12 lg:grid-cols-12 pb-12 border-b border-slate-200/60">
+          <div class="lg:col-span-5 space-y-6">
+            <a href="index.html" class="inline-block">
+              <img src="logo.png" alt="NHT Logo" class="h-10 w-auto object-contain" />
+            </a>
+            <p class="text-sm font-bold text-brand uppercase tracking-wider">Công ty TNHH Thương Mại Dịch Vụ Đầu Tư Phát Triển NHT</p>
+            <p class="max-w-md text-sm leading-relaxed text-slate-500 font-medium">
+              Giải pháp kế toán, thuế và tư vấn quản trị tài chính chuyên nghiệp cho doanh nghiệp Việt Nam. Hướng đến sự chính xác, an toàn và phát triển bền vững.
+            </p>
+          </div>
+          
+          <div class="lg:col-span-7 grid gap-8 sm:grid-cols-3">
+            <div>
+              <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Về chúng tôi</h4>
+              <nav class="flex flex-col gap-3 text-sm">
+                <a href="ve-chung-toi.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Về NHT</a>
+                <a href="dieu-khoan.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Điều khoản dịch vụ</a>
+              </nav>
+            </div>
+            <div>
+              <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Dịch vụ chính</h4>
+              <nav class="flex flex-col gap-3 text-sm">
+                <a href="dich-vu.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Kế toán thuế</a>
+                <a href="bang-gia.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Bảng giá gói</a>
+              </nav>
+            </div>
+            <div>
+              <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Liên hệ hỗ trợ</h4>
+              <p class="text-sm text-slate-500 font-semibold mb-2">Hotline: 0788 788 919</p>
+              <p class="text-sm text-slate-500 font-semibold mb-4">Email: ketoannht.hcm@gmail.com</p>
+              <div class="flex gap-3">
+                <a href="https://www.facebook.com/ketoannht.hcm/" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-200/60 text-slate-600 hover:bg-[#1877F2] hover:text-white transition-all duration-300" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M22 12.07C22 6.5 17.52 2 12 2S2 6.5 2 12.07c0 5 3.66 9.13 8.44 9.93v-7.03H8.9v-2.9h1.54V9.41c0-1.52.9-2.36 2.28-2.36.66 0 1.34.12 1.34.12v1.48h-.76c-.75 0-.98.46-.98.93v1.12h1.67l-.27 2.9h-1.4v7.03C18.34 21.2 22 17.08 22 12.07z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-semibold">
+          <p><a href="admin-login.html" class="hover:text-slate-500 transition-colors" tabindex="-1">© <span id="currentYear">2026</span> NHT Co., Ltd.</a> All rights reserved.</p>
+          <p class="flex gap-4">
+            <a href="dieu-khoan.html" class="hover:text-brand transition-colors">Điều khoản sử dụng</a>
+            <span class="text-slate-200">|</span>
+            <a href="lien-he.html" class="hover:text-brand transition-colors">Liên hệ tư vấn</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
+    });
+  </script>
+</body>
+</html>

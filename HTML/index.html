@@ -1,0 +1,383 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Kế toán NHT | Dịch Vụ Kế Toán Thuế & Báo Cáo Tài Chính Trọn Gói</title>
+  <meta name="description" content="NHT cung cấp dịch vụ kế toán trọn gói chuyên nghiệp: kế toán thuế, kiểm tra BCTC, BHXH và tiền lương cho doanh nghiệp Việt Nam. Uy tín, chính xác." />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              DEFAULT: "#e05915",
+              hover: "#bf480d",
+              light: "#fff7ed"
+            },
+            navy: {
+              DEFAULT: "#0f172a",
+              light: "#1e293b",
+              muted: "#475569"
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body class="bg-white text-navy selection:bg-brand/10 selection:text-brand">
+  <div class="relative min-h-screen flex flex-col overflow-hidden">
+    <!-- Header -->
+    <header id="main-header" class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100/80 transition-all duration-300">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+        <a href="index.html" class="flex items-center text-lg font-semibold text-navy">
+          <img src="logo.png" alt="NHT Logo" class="h-10 w-auto max-w-[160px] object-contain" />
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden items-center gap-8 md:flex">
+          <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
+            <a href="index.html" class="nav-link-accent nav-link-active text-brand">Trang chủ</a>
+            <a href="dich-vu.html" class="nav-link-accent transition hover:text-navy">Dịch vụ</a>
+            <a href="bang-gia.html" class="nav-link-accent transition hover:text-navy">Bảng giá</a>
+            <a href="thong-tu-phap-luat.html" class="nav-link-accent transition hover:text-navy">Thông tư pháp luật</a>
+          </nav>
+          <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand/10 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand/20">Nhận báo giá</a>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-navy focus:outline-none" aria-label="Toggle Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 bg-navy/40 backdrop-blur-sm transform translate-x-full transition-transform duration-300 ease-in-out md:hidden" aria-hidden="true">
+      <div id="drawer-backdrop" class="absolute inset-0"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-64 bg-white p-6 shadow-2xl flex flex-col gap-6 z-10">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <img src="logo.png" alt="NHT Logo" class="h-8 w-auto object-contain" />
+          <button id="close-menu-btn" class="text-navy focus:outline-none" aria-label="Close Menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 text-base font-semibold text-slate-600">
+          <a href="index.html" class="py-2 border-b border-slate-50 transition hover:text-brand text-brand">Trang chủ</a>
+          <a href="dich-vu.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Dịch vụ</a>
+          <a href="bang-gia.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Bảng giá</a>
+          <a href="thong-tu-phap-luat.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Thông tư pháp luật</a>
+          <a href="lien-he.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Liên hệ</a>
+        </nav>
+        <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Nhận báo giá</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="flex-grow mx-auto max-w-7xl px-6 pb-24 pt-10 lg:pt-20 relative w-full">
+      <!-- Background Blobs -->
+      <div class="premium-blob bg-brand/10 w-96 h-96 -top-20 -left-20 animate-pulse-slow"></div>
+      <div class="premium-blob bg-slate-300/30 w-[500px] h-[500px] top-1/2 right-0 -translate-y-1/2"></div>
+
+      <!-- Hero Section -->
+      <section class="grid gap-12 lg:grid-cols-2 items-center relative z-10 fade-up">
+        <div class="space-y-8">
+          <span class="inline-flex items-center gap-1.5 rounded-full border border-brand/20 bg-brand/5 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-brand">
+            <span class="w-1.5 h-1.5 rounded-full bg-brand animate-ping"></span>
+            Đối tác tài chính tin cậy
+          </span>
+          <div class="space-y-6">
+            <h1 class="text-4xl font-extrabold tracking-tight text-navy sm:text-5xl lg:text-6xl leading-[1.15]">
+              Chính xác trong <br class="hidden sm:inline" />
+              <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-brand-hover">từng con số</span>.<br />
+              Tin cậy mọi quyết định.
+            </h1>
+            <p class="max-w-xl text-lg leading-relaxed text-slate-600 sm:text-xl font-medium">
+              Nâng tầm hệ thống kế toán của bạn với giải pháp công nghệ hiện đại, mang lại sự minh bạch, an toàn pháp lý và tốc độ xử lý vượt trội.
+            </p>
+          </div>
+          <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
+            <a href="dich-vu.html" class="inline-flex items-center justify-center rounded-full bg-brand px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-brand/15 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand/20">Khám phá ngay</a>
+            <a href="bang-gia.html" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-7 py-3.5 text-sm font-bold text-navy shadow-sm transition-all duration-300 hover:border-brand hover:text-brand hover:-translate-y-0.5 hover:shadow-md">Xem bảng giá</a>
+          </div>
+        </div>
+        
+        <!-- Hero Media Graphic -->
+        <div class="relative max-w-xl mx-auto lg:mx-0">
+          <div class="absolute -left-6 -top-6 w-72 h-72 bg-brand/10 rounded-full blur-3xl opacity-60"></div>
+          <div class="absolute -right-6 -bottom-6 w-72 h-72 bg-slate-200/40 rounded-full blur-3xl opacity-40"></div>
+          <div class="relative overflow-hidden rounded-[2rem] border border-slate-100 bg-white p-3 shadow-premium animate-float">
+            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=1200&q=80" alt="Bảng điều khiển tài chính" class="w-full h-auto object-cover rounded-[1.7rem] shadow-sm" />
+          </div>
+          
+          <!-- Floating Stat Card 1 -->
+          <div class="absolute -left-4 bottom-8 rounded-2xl bg-white/95 backdrop-blur-md p-4 shadow-xl border border-slate-100/50 flex items-center gap-3 hover:scale-105 transition-transform duration-300">
+            <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Chất lượng dịch vụ</p>
+              <p class="text-sm font-extrabold text-navy">Cam Kết 100%</p>
+            </div>
+          </div>
+
+          <!-- Floating Stat Card 2 -->
+          <div class="absolute -right-4 top-8 rounded-2xl bg-white/95 backdrop-blur-md p-4 shadow-xl border border-slate-100/50 flex items-center gap-3 hover:scale-105 transition-transform duration-300">
+            <div class="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div>
+              <p class="text-[10px] text-slate-500 font-bold uppercase tracking-wider">Thời gian phản hồi</p>
+              <p class="text-sm font-extrabold text-navy">Cam Kết &lt; 24 Giờ</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Core Values Section -->
+      <section class="mt-28 relative z-10 fade-up">
+        <div class="max-w-3xl mb-16">
+          <span class="inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-slate-600">Giá trị cốt lõi từ NHT</span>
+          <h2 class="mt-4 text-3xl font-extrabold text-navy sm:text-4xl">Kiến tạo cấu trúc tài chính vững chắc</h2>
+          <p class="mt-4 text-lg leading-relaxed text-slate-600">Chúng tôi không chỉ xử lý số liệu, chúng tôi đồng hành xây dựng nền tảng tài chính bền vững giúp doanh nghiệp tập trung bứt phá kinh doanh.</p>
+        </div>
+        <div class="grid gap-8 md:grid-cols-3">
+          <!-- Card 1 -->
+          <div class="rounded-3xl border border-slate-100 bg-white p-8 shadow-premium shadow-premium-hover">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand/10 text-brand mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+              </svg>
+            </div>
+            <div class="text-4xl font-extrabold text-brand tracking-tight mb-2">10+</div>
+            <h3 class="text-lg font-bold text-navy mb-2">Năm kinh nghiệm</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">Hơn một thập kỷ tư vấn và triển khai dịch vụ kế toán chuyên sâu cho nhiều quy mô doanh nghiệp.</p>
+          </div>
+          <!-- Card 2 -->
+          <div class="rounded-3xl border border-slate-100 bg-white p-8 shadow-premium shadow-premium-hover">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand/10 text-brand mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+              </svg>
+            </div>
+            <div class="text-4xl font-extrabold text-brand tracking-tight mb-2">200+</div>
+            <h3 class="text-lg font-bold text-navy mb-2">Đối tác doanh nghiệp</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">Được hàng trăm doanh nghiệp tại nhiều lĩnh vực tin tưởng và cộng tác lâu dài.</p>
+          </div>
+          <!-- Card 3 -->
+          <div class="rounded-3xl border border-slate-100 bg-white p-8 shadow-premium shadow-premium-hover">
+            <div class="flex h-12 w-12 items-center justify-center rounded-2xl bg-brand/10 text-brand mb-6">
+              <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+              </svg>
+            </div>
+            <div class="text-4xl font-extrabold text-brand tracking-tight mb-2">24h</div>
+            <h3 class="text-lg font-bold text-navy mb-2">Hỗ trợ nhanh</h3>
+            <p class="text-sm text-slate-500 leading-relaxed">Hệ thống tiếp nhận thông tin khoa học đảm bảo mọi yêu cầu thuế và pháp lý được xử lý nhanh gọn.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Services Split Block -->
+      <section class="mt-28 rounded-3xl bg-gradient-to-br from-navy to-navy-light p-8 md:p-16 text-white shadow-xl relative overflow-hidden fade-up">
+        <div class="absolute right-0 top-0 w-96 h-96 bg-brand/5 rounded-full translate-x-12 -translate-y-12 blur-3xl"></div>
+        <div class="relative z-10 grid gap-12 lg:grid-cols-5 items-center">
+          <div class="lg:col-span-3 space-y-6">
+            <span class="inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white border border-white/10 backdrop-blur-sm">Dịch vụ chính</span>
+            <h2 class="text-3xl font-extrabold sm:text-4xl leading-tight">Giải pháp kế toán & tài chính toàn diện</h2>
+            <p class="text-lg text-slate-300 leading-relaxed max-w-xl">
+              Từ kế toán thuế định kỳ, soát xét báo cáo tài chính đến BHXH và tiền lương, NHT cung cấp chuỗi dịch vụ pháp lý và tài chính mang tính chiến lược cao.
+            </p>
+            <div class="pt-2">
+              <a href="dich-vu.html" class="inline-flex items-center justify-center rounded-full bg-brand px-7 py-3.5 text-sm font-bold text-white shadow-lg transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5">Khám phá dịch vụ</a>
+            </div>
+          </div>
+          <div class="lg:col-span-2 grid gap-4 grid-cols-2">
+            <div class="bg-white/5 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-colors duration-300">
+              <h3 class="text-white text-base font-bold mb-2">Kế toán thuế</h3>
+              <p class="text-xs text-slate-300">Kê khai thuế trọn gói và quyết toán chuẩn chỉ.</p>
+            </div>
+            <div class="bg-white/5 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-colors duration-300">
+              <h3 class="text-white text-base font-bold mb-2">Báo cáo tài chính</h3>
+              <p class="text-xs text-slate-300">Soát xét minh bạch, chuẩn hóa số liệu sổ sách.</p>
+            </div>
+            <div class="bg-white/5 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-colors duration-300">
+              <h3 class="text-white text-base font-bold mb-2">BHXH & Lương</h3>
+              <p class="text-xs text-slate-300">Quản lý lương, hợp đồng và bảo hiểm tối ưu.</p>
+            </div>
+            <div class="bg-white/5 backdrop-blur-md rounded-2xl p-5 border border-white/10 hover:bg-white/10 transition-colors duration-300">
+              <h3 class="text-white text-base font-bold mb-2">Thành lập DN</h3>
+              <p class="text-xs text-slate-300">Đầy đủ thủ tục pháp lý thành lập nhanh nhất.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Why Choose Us & Director Profile -->
+      <section class="mt-28 grid gap-12 lg:grid-cols-12 relative z-10 fade-up">
+        <!-- Why Choose Us -->
+        <div class="lg:col-span-7 space-y-8">
+          <div class="space-y-4">
+            <span class="inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-slate-600">Quy trình & Cam kết</span>
+            <h2 class="text-3xl font-extrabold text-navy sm:text-4xl">Tại sao chọn NHT?</h2>
+            <p class="text-lg leading-relaxed text-slate-600">Quy trình làm việc chuẩn mực của NHT giúp giảm thiểu rủi ro pháp lý, tối ưu chi phí thuế và bảo vệ quyền lợi doanh nghiệp.</p>
+          </div>
+          
+          <div class="space-y-6">
+            <!-- Item 1 -->
+            <div class="flex gap-4 p-5 rounded-2xl border border-slate-100 hover:bg-slate-50/50 transition-colors duration-200">
+              <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-navy text-base mb-1">Quy trình rõ ràng</h3>
+                <p class="text-sm text-slate-500 leading-relaxed">Mọi công đoạn từ nhận chứng từ đến lập báo cáo tài chính đều được thực hiện theo checklist minh bạch và báo cáo định kỳ cho khách hàng.</p>
+              </div>
+            </div>
+            <!-- Item 2 -->
+            <div class="flex gap-4 p-5 rounded-2xl border border-slate-100 hover:bg-slate-50/50 transition-colors duration-200">
+              <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-navy text-base mb-1">Hỗ trợ chuyên gia</h3>
+                <p class="text-sm text-slate-500 leading-relaxed">Đội ngũ chuyên viên giàu kinh nghiệm, cập nhật liên tục các văn bản pháp luật về thuế để tư vấn giải pháp có lợi nhất.</p>
+              </div>
+            </div>
+            <!-- Item 3 -->
+            <div class="flex gap-4 p-5 rounded-2xl border border-slate-100 hover:bg-slate-50/50 transition-colors duration-200">
+              <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-xl bg-brand/10 text-brand">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-navy text-base mb-1">Công nghệ quản lý hiện đại</h3>
+                <p class="text-sm text-slate-500 leading-relaxed">Sử dụng các phần mềm kế toán và quản trị dữ liệu tiên tiến giúp bảo mật an toàn, tránh thất lạc hóa đơn và chứng từ.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Director Card Redesign -->
+        <div class="lg:col-span-5 rounded-3xl border border-slate-100 bg-white p-8 shadow-premium flex flex-col justify-between">
+          <div>
+            <span class="inline-flex rounded-full border border-brand/20 bg-brand/5 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">Ban điều hành</span>
+            <h3 class="mt-4 text-2xl font-extrabold text-navy">Người đại diện pháp luật</h3>
+            <p class="mt-3 text-sm text-slate-500 leading-relaxed">Sự lãnh đạo chuyên nghiệp của đội ngũ giám đốc luôn mang lại độ tin cậy tuyệt đối trong từng bộ hồ sơ dịch vụ bàn giao.</p>
+            
+            <div class="mt-8 rounded-2xl bg-slate-50/70 p-6 border border-slate-100/30">
+              <div class="flex flex-col items-center">
+                <!-- Avatar block -->
+                <div class="relative h-28 w-28 overflow-hidden rounded-full border-4 border-white bg-gradient-to-br from-navy-light to-navy shadow-md flex items-center justify-center">
+                  <span class="text-3xl font-extrabold tracking-wider text-white">TTL</span>
+                </div>
+                
+                <div class="mt-4 text-center">
+                  <h4 class="text-xl font-extrabold text-navy">TRẦN TÚ LINH</h4>
+                  <p class="text-xs font-bold text-brand uppercase tracking-widest mt-1">GIÁM ĐỐC / ĐẠI DIỆN PHÁP LUẬT</p>
+                  <div class="mx-auto mt-3 h-0.5 w-12 bg-slate-200"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 grid gap-4 grid-cols-2">
+            <div class="rounded-xl border border-slate-100 bg-slate-50/30 p-4 hover:bg-slate-50 transition-colors duration-200">
+              <p class="text-xl font-extrabold text-brand">10+ năm</p>
+              <p class="mt-1 text-[11px] font-medium text-slate-500 leading-normal">Kinh nghiệm quản trị kế toán, thuế doanh nghiệp.</p>
+            </div>
+            <div class="rounded-xl border border-slate-100 bg-slate-50/30 p-4 hover:bg-slate-50 transition-colors duration-200">
+              <p class="text-xl font-extrabold text-brand">200+ DN</p>
+              <p class="mt-1 text-[11px] font-medium text-slate-500 leading-normal">Được tư vấn giải pháp cấu trúc tài chính hiệu quả.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-200 bg-slate-100 py-16 relative z-10">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-12 lg:grid-cols-12 pb-12 border-b border-slate-200/60">
+          <div class="lg:col-span-5 space-y-6">
+            <a href="index.html" class="inline-block">
+              <img src="logo.png" alt="NHT Logo" class="h-10 w-auto object-contain" />
+            </a>
+            <p class="text-sm font-bold text-brand uppercase tracking-wider">Công ty TNHH Thương Mại Dịch Vụ Đầu Tư Phát Triển NHT</p>
+            <p class="max-w-md text-sm leading-relaxed text-slate-500 font-medium">
+              Giải pháp kế toán, thuế và tư vấn quản trị tài chính chuyên nghiệp cho doanh nghiệp Việt Nam. Hướng đến sự chính xác, an toàn và phát triển bền vững.
+            </p>
+          </div>
+          
+          <div class="lg:col-span-7 grid gap-8 sm:grid-cols-3">
+            <div>
+              <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Về chúng tôi</h4>
+              <nav class="flex flex-col gap-3 text-sm">
+                <a href="ve-chung-toi.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Về NHT</a>
+                <a href="dieu-khoan.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Điều khoản dịch vụ</a>
+              </nav>
+            </div>
+            <div>
+              <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Dịch vụ chính</h4>
+              <nav class="flex flex-col gap-3 text-sm">
+                <a href="dich-vu.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Kế toán thuế</a>
+                <a href="bang-gia.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Bảng giá gói</a>
+              </nav>
+            </div>
+            <div>
+              <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Liên hệ hỗ trợ</h4>
+              <p class="text-sm text-slate-500 font-semibold mb-2">Hotline: 0788 788 919</p>
+              <p class="text-sm text-slate-500 font-semibold mb-4">Email: ketoannht.hcm@gmail.com</p>
+              <div class="flex gap-3">
+                <a href="https://www.facebook.com/ketoannht.hcm/" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-200/60 text-slate-600 hover:bg-[#1877F2] hover:text-white transition-all duration-300" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M22 12.07C22 6.5 17.52 2 12 2S2 6.5 2 12.07c0 5 3.66 9.13 8.44 9.93v-7.03H8.9v-2.9h1.54V9.41c0-1.52.9-2.36 2.28-2.36.66 0 1.34.12 1.34.12v1.48h-.76c-.75 0-.98.46-.98.93v1.12h1.67l-.27 2.9h-1.4v7.03C18.34 21.2 22 17.08 22 12.07z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-semibold">
+          <p><a href="admin-login.html" class="hover:text-slate-500 transition-colors" tabindex="-1">© <span id="currentYear">2026</span> NHT Co., Ltd.</a> All rights reserved.</p>
+          <p class="flex gap-4">
+            <a href="dieu-khoan.html" class="hover:text-brand transition-colors">Điều khoản sử dụng</a>
+            <span class="text-slate-200">|</span>
+            <a href="lien-he.html" class="hover:text-brand transition-colors">Liên hệ tư vấn</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) entry.target.classList.add("visible");
+        });
+      }, { threshold: 0.1 });
+      document.querySelectorAll(".fade-up").forEach((el) => observer.observe(el));
+    });
+  </script>
+</body>
+</html>

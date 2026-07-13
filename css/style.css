@@ -1,0 +1,191 @@
+/* NHT Accounting Premium Style System */
+@import url('https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Montserrat:wght@400;500;600;700;800&display=swap');
+
+:root {
+  --primary: #e05915;
+  --primary-hover: #bf480d;
+  --navy: #0f172a;
+  --font-body: 'Montserrat', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-heading: 'Lora', Georgia, "Times New Roman", serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  font-family: var(--font-body);
+  color: #0f172a;
+  background-color: #ffffff;
+  overflow-x: hidden;
+}
+
+h1,
+h2,
+h3,
+h4,
+.font-heading {
+  font-family: var(--font-heading);
+  letter-spacing: 0;
+}
+
+h1.font-extrabold,
+h2.font-extrabold,
+h3.font-extrabold,
+h4.font-extrabold {
+  font-weight: 600;
+  line-height: 1.22;
+}
+
+h1.tracking-tight,
+h2.tracking-tight,
+h3.tracking-tight,
+h4.tracking-tight {
+  letter-spacing: 0;
+}
+
+.nav-link-accent,
+button,
+input,
+select,
+textarea {
+  font-family: var(--font-body);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f8fafc;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Page Transition Animations */
+body.page-transition {
+  /* Nội dung vẫn phải hiển thị nếu JavaScript hoặc tài nguyên tải chậm. */
+  opacity: 1;
+  transform: translateY(0);
+}
+
+body.page-transition.page-ready {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 300ms cubic-bezier(0.215, 0.61, 0.355, 1), transform 300ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+body.page-transition.page-leaving {
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 230ms cubic-bezier(0.215, 0.61, 0.355, 1), transform 230ms cubic-bezier(0.215, 0.61, 0.355, 1);
+}
+
+/* Fade-up Reveal Animation */
+.fade-up {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, opacity;
+}
+
+.fade-up.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Premium Blob Blur Backgrounds */
+.premium-blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.12;
+  pointer-events: none;
+  z-index: 0;
+  will-change: transform;
+}
+
+/* Hover Accent Line for Nav Links */
+.nav-link-accent {
+  position: relative;
+}
+.nav-link-accent::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: var(--primary);
+  transition: width 0.25s ease-in-out;
+}
+.nav-link-accent:hover::after {
+  width: 100%;
+}
+
+.nav-link-accent:hover {
+  color: var(--primary-hover);
+}
+
+/* Hero gradient background */
+.hero-gradient {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+}
+
+.nav-link-active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--primary);
+}
+
+/* Floating Animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes pulse-slow {
+  0%, 100% { opacity: 0.12; transform: scale(1); }
+  50% { opacity: 0.18; transform: scale(1.1); }
+}
+.animate-pulse-slow {
+  animation: pulse-slow 8s ease-in-out infinite;
+}
+
+/* Value Ring Layout */
+.value-ring-clean {
+  background: conic-gradient(from 0deg, #e05915 0deg 72deg, #bf480d 72deg 144deg, #334155 144deg 216deg, #475569 216deg 288deg, #cbd5e1 288deg 360deg);
+}
+
+/* Custom shadow classes */
+.shadow-premium {
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.04), 0 1px 3px rgba(15, 23, 42, 0.01);
+}
+.shadow-premium-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.shadow-premium-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -15px rgba(15, 23, 42, 0.08), 0 1px 10px rgba(15, 23, 42, 0.02);
+}
+.shadow-glow-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.shadow-glow-hover:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 40px -10px rgba(224, 89, 21, 0.12), 0 1px 10px rgba(224, 89, 21, 0.02);
+}
