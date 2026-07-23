@@ -7,6 +7,22 @@ document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
   let isLeaving = false;
 
+  if (notice) {
+    notice.setAttribute("role", "status");
+    notice.setAttribute("aria-live", "polite");
+  }
+
+  const main = document.querySelector("main");
+  if (main && !main.id) main.id = "main-content";
+  if (main) main.tabIndex = -1;
+  if (main && !document.querySelector(".skip-link")) {
+    const skipLink = document.createElement("a");
+    skipLink.className = "skip-link";
+    skipLink.href = "#main-content";
+    skipLink.textContent = "Bỏ qua đến nội dung chính";
+    body.prepend(skipLink);
+  }
+
   body.classList.add("page-transition");
   requestAnimationFrame(() => {
     body.classList.add("page-ready");
@@ -51,9 +67,9 @@ document.addEventListener("DOMContentLoaded", () => {
     yearEl.textContent = new Date().getFullYear();
   }
 
-  const handleNavScroll = () => {
+  const setHeaderState = (isCompact) => {
     if (!header) return;
-    if (window.scrollY > 20) {
+    if (isCompact) {
       header.classList.add("bg-white/95", "shadow-sm", "border-slate-200/80");
       header.classList.remove("bg-white/80", "border-slate-100/80");
     } else {
@@ -62,24 +78,54 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   };
 
-  handleNavScroll();
-  window.addEventListener("scroll", handleNavScroll);
+  if (header) {
+    const navSentinel = document.createElement("span");
+    navSentinel.setAttribute("aria-hidden", "true");
+    navSentinel.style.cssText = "position:absolute;top:20px;width:1px;height:1px;pointer-events:none";
+    body.prepend(navSentinel);
+    const headerObserver = new IntersectionObserver(([entry]) => {
+      setHeaderState(!entry.isIntersecting);
+    });
+    headerObserver.observe(navSentinel);
+  }
 
   const mobileMenuBtn = document.getElementById("mobile-menu-btn");
   const closeMenuBtn = document.getElementById("close-menu-btn");
   const mobileMenuDrawer = document.getElementById("mobile-menu-drawer");
   const drawerBackdrop = document.getElementById("drawer-backdrop");
 
+  if (mobileMenuBtn) {
+    mobileMenuBtn.setAttribute("aria-expanded", "false");
+    mobileMenuBtn.setAttribute("aria-controls", "mobile-menu-drawer");
+    mobileMenuBtn.setAttribute("aria-label", "Mở menu");
+  }
+  if (closeMenuBtn) closeMenuBtn.setAttribute("aria-label", "Đóng menu");
+
+  const contentImages = Array.from(document.querySelectorAll("main img"));
+  contentImages.forEach((image, index) => {
+    image.decoding = "async";
+    if (index === 0) {
+      image.fetchPriority = "high";
+    } else {
+      image.loading = "lazy";
+    }
+  });
+
   const openDrawer = () => {
     if (mobileMenuDrawer) {
       mobileMenuDrawer.classList.remove("translate-x-full");
+      mobileMenuDrawer.setAttribute("aria-hidden", "false");
+      mobileMenuBtn?.setAttribute("aria-expanded", "true");
       body.style.overflow = "hidden";
+      closeMenuBtn?.focus();
     }
   };
 
   const closeDrawer = () => {
     if (mobileMenuDrawer) {
       mobileMenuDrawer.classList.add("translate-x-full");
+      mobileMenuDrawer.setAttribute("aria-hidden", "true");
+      mobileMenuBtn?.setAttribute("aria-expanded", "false");
       body.style.overflow = "";
     }
   };
@@ -87,6 +133,12 @@ document.addEventListener("DOMContentLoaded", () => {
   if (mobileMenuBtn) mobileMenuBtn.addEventListener("click", openDrawer);
   if (closeMenuBtn) closeMenuBtn.addEventListener("click", closeDrawer);
   if (drawerBackdrop) drawerBackdrop.addEventListener("click", closeDrawer);
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape" && mobileMenuDrawer?.getAttribute("aria-hidden") === "false") {
+      closeDrawer();
+      mobileMenuBtn?.focus();
+    }
+  });
 
   const drawerLinks = mobileMenuDrawer ? mobileMenuDrawer.querySelectorAll("nav a") : [];
   drawerLinks.forEach((link) => {
@@ -112,14 +164,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const requiredFields = form.querySelectorAll("[required]");
     const isInvalid = Array.from(requiredFields).some((field) => !field.value.trim());
     if (isInvalid) {
-      setNotice("Vui long dien day du email va so dien thoai.", "error");
+      setNotice("Vui lòng điền đầy đủ các thông tin bắt buộc.", "error");
       return;
     }
 
     const submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) {
       submitBtn.disabled = true;
-      submitBtn.innerHTML = `<span>Dang gui...</span>`;
+      submitBtn.innerHTML = `<span>Đang gửi...</span>`;
     }
 
     notice.textContent = "";
@@ -144,39 +196,39 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
-        setNotice(data.error || "Co loi xay ra. Vui long thu lai.", "error");
+        setNotice(data.error || "Có lỗi xảy ra. Vui lòng thử lại.", "error");
         return;
       }
 
       if (data.warning === "no_smtp") {
         setNotice(
-          "Da luu thong tin, nhung SMTP chua cau hinh nen chua gui email tu dong.",
+          "Đã lưu thông tin. Hệ thống email tự động hiện chưa được cấu hình.",
           "warning"
         );
       } else if (data.warning === "customer_mail_failed") {
         setNotice(
-          "Da luu lead, nhung email xac nhan cho khach chua gui duoc. Vui long kiem tra SMTP.",
+          "Đã lưu yêu cầu, nhưng chưa gửi được email xác nhận. NHT sẽ liên hệ trực tiếp với bạn.",
           "warning"
         );
       } else if (data.warning === "admin_mail_failed") {
         setNotice(
-          "Da gui email xac nhan cho khach, nhung email thong bao noi bo chua gui duoc.",
+          "Đã gửi email xác nhận. Thông báo nội bộ đang được xử lý.",
           "warning"
         );
       } else {
-        setNotice("Gui thanh cong! Chung toi da luu thong tin va gui email tu dong.", "success");
+        setNotice("Gửi thành công. NHT đã nhận được yêu cầu của bạn.", "success");
       }
 
       form.reset();
     } catch {
       setNotice(
-        "Khong ket noi duoc may chu. Vui long lien he truc tiep qua Hotline hoac Zalo.",
+        "Không kết nối được máy chủ. Vui lòng liên hệ trực tiếp qua hotline hoặc Zalo.",
         "error"
       );
     } finally {
       if (submitBtn) {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = `<span>Gui yeu cau</span>`;
+        submitBtn.innerHTML = `<span>Gửi yêu cầu</span>`;
       }
     }
   });

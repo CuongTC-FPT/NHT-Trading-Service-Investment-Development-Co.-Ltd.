@@ -1,19 +1,29 @@
 @echo off
 cd /d "%~dp0backend"
+set "LOCAL_URL=http://localhost:3000"
+set "ADMIN_URL=http://localhost:3000/admin-login.html"
 
 netstat -ano | findstr /R /C:":3000 .*LISTENING" >nul
 if not errorlevel 1 (
   echo.
-  echo Port 3000 dang duoc su dung. Hay dong cua so backend cu hoac dung tien trinh Node dang chay truoc.
-  echo Sau do chay lai file start-backend.bat.
+  echo Backend NHT dang chay tai:
+  echo %LOCAL_URL%
   echo.
-  pause
-  exit /b 1
+  echo Dang mo website tren trinh duyet...
+  start "" "%LOCAL_URL%"
+  echo.
+  exit /b 0
 )
 
-echo Dang chay backend NHT tai http://localhost:3000
-echo Trang admin: http://localhost:3000/admin-login.html
+echo Dang chay backend NHT tai:
+echo %LOCAL_URL%
+echo.
+echo Trang admin:
+echo %ADMIN_URL%
+echo.
+echo Dang mo website tren trinh duyet...
 echo Nhan Ctrl+C de dung server.
 echo.
+start "" "%LOCAL_URL%"
 node index.js
 pause
