@@ -1,55 +1,54 @@
-const fs = require("fs");
-const path = require("path");
-const initSqlJs = require("sql.js");
-
-const DATABASE_FILE = path.join(__dirname, "data", "nht.sqlite");
+const { Pool } = require("pg");
 
 const SCHEMA = `
   CREATE TABLE IF NOT EXISTS legal_documents (
-    id TEXT PRIMARY KEY,
-    title TEXT NOT NULL,
-    summary TEXT NOT NULL DEFAULT '',
+    id UUID PRIMARY KEY,
+    title VARCHAR(250) NOT NULL,
+    summary VARCHAR(600) NOT NULL DEFAULT '',
     content TEXT NOT NULL DEFAULT '',
-    document_number TEXT NOT NULL DEFAULT '',
-    issuing_body TEXT NOT NULL DEFAULT '',
-    issued_date TEXT,
-    effective_date TEXT,
-    source_url TEXT NOT NULL DEFAULT '',
-    image_url TEXT NOT NULL DEFAULT '',
-    status TEXT NOT NULL DEFAULT 'draft' CHECK(status IN ('draft', 'published')),
-    created_by TEXT NOT NULL,
-    created_at TEXT NOT NULL,
-    updated_at TEXT NOT NULL,
-    published_at TEXT
+    document_number VARCHAR(100) NOT NULL DEFAULT '',
+    issuing_body VARCHAR(200) NOT NULL DEFAULT '',
+    issued_date DATE,
+    effective_date DATE,
+    source_url VARCHAR(2000) NOT NULL DEFAULT '',
+    image_url VARCHAR(500) NOT NULL DEFAULT '',
+    image_public_id VARCHAR(300) NOT NULL DEFAULT '',
+    status VARCHAR(20) NOT NULL DEFAULT 'draft' CHECK (status IN ('draft', 'published')),
+    created_by VARCHAR(100) NOT NULL,
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    published_at TIMESTAMPTZ
   );
+
+  ALTER TABLE legal_documents
+    ADD COLUMN IF NOT EXISTS image_public_id VARCHAR(300) NOT NULL DEFAULT '';
 
   CREATE INDEX IF NOT EXISTS idx_legal_documents_public
     ON legal_documents(status, published_at DESC, created_at DESC);
 `;
 
-async function createDatabase() {
-  const SQL = await initSqlJs({
-    locateFile: (file) => path.join(__dirname, "node_modules", "sql.js", "dist", file),
+function createPool() {
+  const connectionString = String(process.env.DATABASE_URL || "").trim();
+  if (connectionString) {
+    return new Pool({
+      connectionString,
+      ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : undefined,
+    });
+  }
+
+  return new Pool({
+    host: process.env.DB_HOST || "localhost",
+    port: Number(process.env.DB_PORT || 5432),
+    database: process.env.DB_NAME || "ke_toan_db",
+    user: process.env.DB_USER || "postgres",
+    password: process.env.DB_PASSWORD,
   });
-  const database = fs.existsSync(DATABASE_FILE)
-    ? new SQL.Database(fs.readFileSync(DATABASE_FILE))
-    : new SQL.Database();
+}
 
-  database.run(SCHEMA);
-  const columns = database.exec("PRAGMA table_info(legal_documents)")[0]?.values || [];
-  const hasImageUrl = columns.some((column) => column[1] === "image_url");
-  if (!hasImageUrl) {
-    database.run("ALTER TABLE legal_documents ADD COLUMN image_url TEXT NOT NULL DEFAULT ''");
-  }
-
-  function save() {
-    const directory = path.dirname(DATABASE_FILE);
-    if (!fs.existsSync(directory)) fs.mkdirSync(directory, { recursive: true });
-    fs.writeFileSync(DATABASE_FILE, Buffer.from(database.export()));
-  }
-
-  save();
-  return { database, save, databaseFile: DATABASE_FILE };
+async function createDatabase() {
+  const pool = createPool();
+  await pool.query(SCHEMA);
+  return pool;
 }
 
 module.exports = { createDatabase };

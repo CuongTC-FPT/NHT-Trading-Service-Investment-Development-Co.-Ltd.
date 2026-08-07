@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const express = require("express");
 const nodemailer = require("nodemailer");
 const multer = require("multer");
+const cloudinary = require("cloudinary").v2;
 const { createDatabase } = require("./database");
 
 require("dotenv").config({ path: path.join(__dirname, ".env") });
@@ -12,13 +13,11 @@ const FRONTEND_ROOT = path.join(__dirname, "..");
 const HTML_ROOT = path.join(FRONTEND_ROOT, "HTML");
 const PICTURE_ROOT = path.join(FRONTEND_ROOT, "picture");
 const LEADS_FILE = path.join(__dirname, "data", "leads.json");
-const UPLOAD_ROOT = path.join(__dirname, "uploads", "legal-documents");
 const ADMIN_COOKIE_NAME = "nht_admin_session";
 const ADMIN_SESSION_TTL_MS = 1000 * 60 * 60 * 8;
 
 const app = express();
 let legalDatabase;
-let persistDatabase;
 app.use(express.json({ limit: "32kb" }));
 
 function setNoStoreHeaders(res) {
@@ -45,25 +44,44 @@ app.get("/admin-login.html", (_req, res) => {
 app.use(express.static(HTML_ROOT));
 app.use(express.static(PICTURE_ROOT));
 app.use(express.static(FRONTEND_ROOT));
-app.use("/uploads", express.static(path.join(__dirname, "uploads")));
-
-const imageStorage = multer.diskStorage({
-  destination: (_req, _file, callback) => {
-    fs.mkdirSync(UPLOAD_ROOT, { recursive: true });
-    callback(null, UPLOAD_ROOT);
-  },
-  filename: (_req, file, callback) => {
-    const extension = { "image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp" }[file.mimetype];
-    callback(null, `${crypto.randomUUID()}${extension}`);
-  },
-});
 const uploadLegalImage = multer({
-  storage: imageStorage,
+  storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024, files: 1 },
   fileFilter: (_req, file, callback) => {
     callback(null, ["image/jpeg", "image/png", "image/webp"].includes(file.mimetype));
   },
 });
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+  secure: true,
+});
+
+function isCloudinaryConfigured() {
+  return ["CLOUDINARY_CLOUD_NAME", "CLOUDINARY_API_KEY", "CLOUDINARY_API_SECRET"]
+    .every((key) => String(process.env[key] || "").trim() && !String(process.env[key]).startsWith("THAY_BANG_"));
+}
+
+function uploadImageToCloudinary(buffer) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      { folder: "nht/legal-documents", resource_type: "image" },
+      (error, result) => error ? reject(error) : resolve(result)
+    );
+    stream.end(buffer);
+  });
+}
+
+async function destroyCloudinaryImage(publicId) {
+  if (!publicId || !isCloudinaryConfigured()) return;
+  try {
+    await cloudinary.uploader.destroy(publicId, { resource_type: "image", invalidate: true });
+  } catch (error) {
+    console.error(`Could not delete Cloudinary image ${publicId}:`, error.message);
+  }
+}
 
 function escapeHtml(value) {
   return String(value)
@@ -174,7 +192,6 @@ function setAdminCookie(res, token) {
     httpOnly: true,
     sameSite: "strict",
     secure: isTruthyEnv(process.env.COOKIE_SECURE),
-    maxAge: ADMIN_SESSION_TTL_MS,
     path: "/",
   });
 }
@@ -191,23 +208,20 @@ function clearAdminCookie(res) {
 function requireAdmin(req, res, next) {
   const session = getAdminSession(req);
   if (!session) {
-    return res.status(401).json({ ok: false, error: "Chua dang nhap." });
+    return res.status(401).json({ ok: false, error: "Chưa đăng nhập." });
   }
   req.admin = session;
   next();
 }
 
-function queryAll(sql, params = []) {
-  const statement = legalDatabase.prepare(sql);
-  statement.bind(params);
-  const rows = [];
-  while (statement.step()) rows.push(statement.getAsObject());
-  statement.free();
-  return rows;
+async function queryAll(sql, params = []) {
+  const result = await legalDatabase.query(sql, params);
+  return result.rows;
 }
 
-function queryOne(sql, params = []) {
-  return queryAll(sql, params)[0] || null;
+async function queryOne(sql, params = []) {
+  const rows = await queryAll(sql, params);
+  return rows[0] || null;
 }
 
 function normalizeLegalDocument(input) {
@@ -226,21 +240,26 @@ function normalizeLegalDocument(input) {
     effectiveDate: value("effectiveDate", 10),
     sourceUrl: value("sourceUrl", 2000),
     imageUrl: value("imageUrl", 500),
+    imagePublicId: value("imagePublicId", 300),
     status,
   };
 }
 
 function validateLegalDocument(document) {
-  if (!document.title) return "Vui long nhap tieu de.";
-  if (!document.summary && !document.content) return "Vui long nhap tom tat hoac noi dung.";
+  if (!document.title) return "Vui lòng nhập tiêu đề.";
+  if (!document.summary && !document.content) return "Vui lòng nhập tóm tắt hoặc nội dung.";
   if (document.sourceUrl && !/^https?:\/\//i.test(document.sourceUrl)) {
-    return "Duong dan van ban goc phai bat dau bang http:// hoac https://.";
+    return "Đường dẫn văn bản gốc phải bắt đầu bằng http:// hoặc https://.";
   }
-  if (document.imageUrl && !/^\/uploads\/legal-documents\/[a-f0-9-]+\.(jpg|png|webp)$/i.test(document.imageUrl)) {
-    return "Duong dan anh khong hop le.";
+  if (document.imageUrl && !/^https:\/\/res\.cloudinary\.com\/[a-z0-9_-]+\/image\/upload\//i.test(document.imageUrl)) {
+    return "Đường dẫn ảnh không hợp lệ.";
   }
+  if (document.imagePublicId && !/^nht\/legal-documents\/[a-z0-9_-]+$/i.test(document.imagePublicId)) {
+    return "Mã ảnh Cloudinary không hợp lệ.";
+  }
+  if (Boolean(document.imageUrl) !== Boolean(document.imagePublicId)) return "Thông tin ảnh không đầy đủ.";
   for (const date of [document.issuedDate, document.effectiveDate]) {
-    if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) return "Ngay khong dung dinh dang.";
+    if (date && !/^\d{4}-\d{2}-\d{2}$/.test(date)) return "Ngày không đúng định dạng.";
   }
   return null;
 }
@@ -287,11 +306,11 @@ app.post("/api/contact", async (req, res) => {
   const message = String(req.body.message || "").trim();
 
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return res.status(400).json({ ok: false, error: "Email khong hop le." });
+    return res.status(400).json({ ok: false, error: "Email không hợp lệ." });
   }
 
   if (!phone || phone.replace(/\D/g, "").length < 8) {
-    return res.status(400).json({ ok: false, error: "So dien thoai khong hop le." });
+    return res.status(400).json({ ok: false, error: "Số điện thoại không hợp lệ." });
   }
 
   const lead = appendLead({ email, phone, name, company, service, message });
@@ -352,7 +371,7 @@ NHT`,
     console.error(error);
     return res.status(500).json({
       ok: false,
-      error: "Khong gui duoc email. Vui long thu lai sau hoac goi hotline.",
+      error: "Không gửi được email. Vui lòng thử lại sau hoặc gọi hotline.",
     });
   }
 });
@@ -363,7 +382,7 @@ app.post("/api/admin/login", (req, res) => {
   if (!configuredPassword || !sessionSecret) {
     return res.status(500).json({
       ok: false,
-      error: "Admin chua duoc cau hinh. Hay them ADMIN_PASSWORD va ADMIN_SESSION_SECRET trong backend/.env.",
+      error: "Admin chưa được cấu hình. Hãy thêm ADMIN_PASSWORD và ADMIN_SESSION_SECRET trong backend/.env.",
     });
   }
 
@@ -371,7 +390,7 @@ app.post("/api/admin/login", (req, res) => {
   const password = String(req.body.password || "").trim();
 
   if (!safeEqual(username, getAdminUsername()) || !safeEqual(password, configuredPassword)) {
-    return res.status(401).json({ ok: false, error: "Sai tai khoan hoac mat khau." });
+    return res.status(401).json({ ok: false, error: "Sai tài khoản hoặc mật khẩu." });
   }
 
   setAdminCookie(res, createAdminSession(username));
@@ -392,57 +411,70 @@ app.get("/api/leads", requireAdmin, (req, res) => {
 });
 
 app.post("/api/admin/legal-documents/upload-image", requireAdmin, (req, res) => {
-  uploadLegalImage.single("image")(req, res, (error) => {
+  uploadLegalImage.single("image")(req, res, async (error) => {
     if (error) {
       const message = error.code === "LIMIT_FILE_SIZE"
-        ? "Anh toi da 5 MB."
-        : "Chi chap nhan anh JPG, PNG hoac WebP.";
+        ? "Ảnh tối đa 5 MB."
+        : "Chỉ chấp nhận ảnh JPG, PNG hoặc WebP.";
       return res.status(400).json({ ok: false, error: message });
     }
-    if (!req.file) return res.status(400).json({ ok: false, error: "Vui long chon anh JPG, PNG hoac WebP." });
-    return res.status(201).json({
-      ok: true,
-      imageUrl: `/uploads/legal-documents/${req.file.filename}`,
-    });
+    if (!req.file) return res.status(400).json({ ok: false, error: "Vui lòng chọn ảnh JPG, PNG hoặc WebP." });
+    if (!isCloudinaryConfigured()) {
+      return res.status(503).json({ ok: false, error: "Cloudinary chưa được cấu hình trên máy chủ." });
+    }
+    try {
+      const result = await uploadImageToCloudinary(req.file.buffer);
+      return res.status(201).json({ ok: true, imageUrl: result.secure_url, imagePublicId: result.public_id });
+    } catch (uploadError) {
+      console.error("Cloudinary upload failed:", uploadError.message);
+      return res.status(502).json({ ok: false, error: "Không tải được ảnh lên Cloudinary." });
+    }
   });
 });
 
-app.get("/api/legal-documents", (req, res) => {
-  const documents = queryAll(
-    `SELECT id, title, summary, document_number AS documentNumber, issuing_body AS issuingBody,
-            issued_date AS issuedDate, effective_date AS effectiveDate, source_url AS sourceUrl, image_url AS imageUrl,
-            published_at AS publishedAt
+app.get("/api/legal-documents", async (req, res, next) => {
+  try {
+    const documents = await queryAll(
+    `SELECT id, title, summary, document_number AS "documentNumber", issuing_body AS "issuingBody",
+            issued_date AS "issuedDate", effective_date AS "effectiveDate", source_url AS "sourceUrl", image_url AS "imageUrl",
+            published_at AS "publishedAt"
      FROM legal_documents
      WHERE status = 'published'
      ORDER BY COALESCE(published_at, created_at) DESC`
-  );
-  res.json({ ok: true, documents });
+    );
+    res.json({ ok: true, documents });
+  } catch (error) { next(error); }
 });
 
-app.get("/api/legal-documents/:id", (req, res) => {
-  const document = queryOne(
-    `SELECT id, title, summary, content, document_number AS documentNumber, issuing_body AS issuingBody,
-            issued_date AS issuedDate, effective_date AS effectiveDate, source_url AS sourceUrl, image_url AS imageUrl,
-            published_at AS publishedAt
-     FROM legal_documents WHERE id = ? AND status = 'published'`,
+app.get("/api/legal-documents/:id", async (req, res, next) => {
+  try {
+    const document = await queryOne(
+    `SELECT id, title, summary, content, document_number AS "documentNumber", issuing_body AS "issuingBody",
+            issued_date AS "issuedDate", effective_date AS "effectiveDate", source_url AS "sourceUrl", image_url AS "imageUrl",
+            published_at AS "publishedAt"
+     FROM legal_documents WHERE id = $1 AND status = 'published'`,
     [req.params.id]
-  );
-  if (!document) return res.status(404).json({ ok: false, error: "Khong tim thay van ban." });
-  res.json({ ok: true, document });
+    );
+    if (!document) return res.status(404).json({ ok: false, error: "Không tìm thấy văn bản." });
+    res.json({ ok: true, document });
+  } catch (error) { next(error); }
 });
 
-app.get("/api/admin/legal-documents", requireAdmin, (req, res) => {
-  const documents = queryAll(
-    `SELECT id, title, summary, content, document_number AS documentNumber, issuing_body AS issuingBody,
-            issued_date AS issuedDate, effective_date AS effectiveDate, source_url AS sourceUrl, image_url AS imageUrl,
-            status, created_by AS createdBy, created_at AS createdAt, updated_at AS updatedAt,
-            published_at AS publishedAt
+app.get("/api/admin/legal-documents", requireAdmin, async (req, res, next) => {
+  try {
+    const documents = await queryAll(
+    `SELECT id, title, summary, content, document_number AS "documentNumber", issuing_body AS "issuingBody",
+            issued_date AS "issuedDate", effective_date AS "effectiveDate", source_url AS "sourceUrl", image_url AS "imageUrl", image_public_id AS "imagePublicId",
+            status, created_by AS "createdBy", created_at AS "createdAt", updated_at AS "updatedAt",
+            published_at AS "publishedAt"
      FROM legal_documents ORDER BY updated_at DESC`
-  );
-  res.json({ ok: true, documents });
+    );
+    res.json({ ok: true, documents });
+  } catch (error) { next(error); }
 });
 
-app.post("/api/admin/legal-documents", requireAdmin, (req, res) => {
+app.post("/api/admin/legal-documents", requireAdmin, async (req, res, next) => {
+  try {
   const document = normalizeLegalDocument(req.body || {});
   const validationError = validateLegalDocument(document);
   if (validationError) return res.status(400).json({ ok: false, error: validationError });
@@ -450,54 +482,58 @@ app.post("/api/admin/legal-documents", requireAdmin, (req, res) => {
   const now = new Date().toISOString();
   const id = crypto.randomUUID();
   const publishedAt = document.status === "published" ? now : null;
-  legalDatabase.run(
+  await legalDatabase.query(
     `INSERT INTO legal_documents
-     (id, title, summary, content, document_number, issuing_body, issued_date, effective_date, source_url, image_url, status, created_by, created_at, updated_at, published_at)
-     VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+     (id, title, summary, content, document_number, issuing_body, issued_date, effective_date, source_url, image_url, image_public_id, status, created_by, created_at, updated_at, published_at)
+     VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`,
     [id, document.title, document.summary, document.content, document.documentNumber, document.issuingBody,
-      document.issuedDate || null, document.effectiveDate || null, document.sourceUrl, document.imageUrl, document.status,
+      document.issuedDate || null, document.effectiveDate || null, document.sourceUrl, document.imageUrl, document.imagePublicId, document.status,
       req.admin.username, now, now, publishedAt]
   );
-  persistDatabase();
-  res.status(201).json({ ok: true, document: queryOne("SELECT * FROM legal_documents WHERE id = ?", [id]) });
+  res.status(201).json({ ok: true, document: await queryOne("SELECT * FROM legal_documents WHERE id = $1", [id]) });
+  } catch (error) { next(error); }
 });
 
-app.put("/api/admin/legal-documents/:id", requireAdmin, (req, res) => {
-  const existing = queryOne("SELECT id, published_at AS publishedAt FROM legal_documents WHERE id = ?", [req.params.id]);
-  if (!existing) return res.status(404).json({ ok: false, error: "Khong tim thay van ban." });
+app.put("/api/admin/legal-documents/:id", requireAdmin, async (req, res, next) => {
+  try {
+  const existing = await queryOne("SELECT id, published_at AS \"publishedAt\", image_public_id AS \"imagePublicId\" FROM legal_documents WHERE id = $1", [req.params.id]);
+  if (!existing) return res.status(404).json({ ok: false, error: "Không tìm thấy văn bản." });
   const document = normalizeLegalDocument(req.body || {});
   const validationError = validateLegalDocument(document);
   if (validationError) return res.status(400).json({ ok: false, error: validationError });
 
   const now = new Date().toISOString();
   const publishedAt = document.status === "published" ? (existing.publishedAt || now) : null;
-  legalDatabase.run(
-    `UPDATE legal_documents SET title = ?, summary = ?, content = ?, document_number = ?, issuing_body = ?,
-       issued_date = ?, effective_date = ?, source_url = ?, image_url = ?, status = ?, updated_at = ?, published_at = ? WHERE id = ?`,
+  await legalDatabase.query(
+    `UPDATE legal_documents SET title = $1, summary = $2, content = $3, document_number = $4, issuing_body = $5,
+       issued_date = $6, effective_date = $7, source_url = $8, image_url = $9, image_public_id = $10, status = $11, updated_at = $12, published_at = $13 WHERE id = $14`,
     [document.title, document.summary, document.content, document.documentNumber, document.issuingBody,
-      document.issuedDate || null, document.effectiveDate || null, document.sourceUrl, document.imageUrl, document.status, now,
+      document.issuedDate || null, document.effectiveDate || null, document.sourceUrl, document.imageUrl, document.imagePublicId, document.status, now,
       publishedAt, req.params.id]
   );
-  persistDatabase();
-  res.json({ ok: true, document: queryOne("SELECT * FROM legal_documents WHERE id = ?", [req.params.id]) });
+  if (existing.imagePublicId && existing.imagePublicId !== document.imagePublicId) {
+    await destroyCloudinaryImage(existing.imagePublicId);
+  }
+  res.json({ ok: true, document: await queryOne("SELECT * FROM legal_documents WHERE id = $1", [req.params.id]) });
+  } catch (error) { next(error); }
 });
 
-app.delete("/api/admin/legal-documents/:id", requireAdmin, (req, res) => {
-  const existing = queryOne("SELECT id FROM legal_documents WHERE id = ?", [req.params.id]);
-  if (!existing) return res.status(404).json({ ok: false, error: "Khong tim thay van ban." });
-  legalDatabase.run("DELETE FROM legal_documents WHERE id = ?", [req.params.id]);
-  persistDatabase();
+app.delete("/api/admin/legal-documents/:id", requireAdmin, async (req, res, next) => {
+  try {
+  const existing = await queryOne("SELECT id, image_public_id AS \"imagePublicId\" FROM legal_documents WHERE id = $1", [req.params.id]);
+  if (!existing) return res.status(404).json({ ok: false, error: "Không tìm thấy văn bản." });
+  await legalDatabase.query("DELETE FROM legal_documents WHERE id = $1", [req.params.id]);
+  await destroyCloudinaryImage(existing.imagePublicId);
   res.json({ ok: true });
+  } catch (error) { next(error); }
 });
 
 const PORT = Number(process.env.PORT || 3000);
 async function start() {
-  const storage = await createDatabase();
-  legalDatabase = storage.database;
-  persistDatabase = storage.save;
+  legalDatabase = await createDatabase();
   app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`);
-    console.log(`Legal documents database: ${storage.databaseFile}`);
+    console.log("Legal documents database: PostgreSQL");
     if (!createTransporter() || !getFromAddress()) {
       console.warn("SMTP not ready yet. Configure backend/.env to enable automatic email sending.");
     }

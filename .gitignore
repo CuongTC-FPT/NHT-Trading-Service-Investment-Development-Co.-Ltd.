@@ -7,5 +7,4 @@ data/leads.json
 backend/node_modules/
 backend/.env
 backend/data/leads.json
-backend/data/nht.sqlite
 backend/uploads/
