@@ -12,7 +12,10 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const FRONTEND_ROOT = path.join(__dirname, "..");
 const HTML_ROOT = path.join(FRONTEND_ROOT, "HTML");
 const PICTURE_ROOT = path.join(FRONTEND_ROOT, "picture");
+const EMAIL_LOGO_PATH = path.join(PICTURE_ROOT, "logo.png");
 const LEADS_FILE = path.join(__dirname, "data", "leads.json");
+const CUSTOMER_EMAIL_TEMPLATE = path.join(__dirname, "uploads", "Customer Email", "code.html");
+const ADMIN_EMAIL_TEMPLATE = path.join(__dirname, "uploads", "Admin email", "code.html");
 const ADMIN_COOKIE_NAME = "nht_admin_session";
 const ADMIN_SESSION_TTL_MS = 1000 * 60 * 60 * 8;
 
@@ -89,6 +92,13 @@ function escapeHtml(value) {
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
+}
+
+function renderEmailTemplate(templatePath, values) {
+  const template = fs.readFileSync(templatePath, "utf8");
+  return template.replace(/{{\s*([a-zA-Z0-9_]+)\s*}}/g, (_match, key) =>
+    escapeHtml(values[key] ?? "")
+  );
 }
 
 function readLeads() {
@@ -302,6 +312,7 @@ app.post("/api/contact", async (req, res) => {
   const phone = String(req.body.phone || "").trim();
   const name = String(req.body.name || "").trim();
   const company = String(req.body.company || "").trim();
+  const taxCode = String(req.body.taxCode || "").trim();
   const service = String(req.body.service || "").trim();
   const message = String(req.body.message || "").trim();
 
@@ -313,7 +324,14 @@ app.post("/api/contact", async (req, res) => {
     return res.status(400).json({ ok: false, error: "Số điện thoại không hợp lệ." });
   }
 
-  const lead = appendLead({ email, phone, name, company, service, message });
+  if (!/^(?:\d{10}|\d{12}|\d{10}-\d{3})$/.test(taxCode)) {
+    return res.status(400).json({
+      ok: false,
+      error: "Mã số thuế phải gồm 10 chữ số, mã cá nhân/CCCD 12 chữ số hoặc có dạng 0123456789-001.",
+    });
+  }
+
+  const lead = appendLead({ email, phone, name, company, taxCode, service, message });
   const transporter = createTransporter();
   const fromAddr = getFromAddress();
 
@@ -323,20 +341,27 @@ app.post("/api/contact", async (req, res) => {
   }
 
   const displayName = name || "Quy khach";
+  const now = new Date();
+  const customerHtml = renderEmailTemplate(CUSTOMER_EMAIL_TEMPLATE, {
+    name: displayName,
+    date: new Intl.DateTimeFormat("vi-VN", { dateStyle: "long", timeZone: "Asia/Ho_Chi_Minh" }).format(now),
+    year: now.getFullYear(),
+  });
   const customerMail = {
     from: `"NHT" <${fromAddr}>`,
     to: email,
     subject: process.env.MAIL_CUSTOMER_SUBJECT || "Da nhan thong tin lien he - NHT",
     replyTo: fromAddr,
-    text: `Xin chao ${displayName},
+    text: `Cảm ơn khách hàng ${displayName} đã tin tưởng NHT Accounting
 
-Cam on ban da de lai thong tin tai website. Chung toi da nhan duoc yeu cau va se lien he som nhat.
+Thông tin quý khách cung cấp đã được bộ phận chuyên môn tiếp nhận và xử lý. NHT Accounting sẽ chủ động liên hệ và phản hồi đến khách hàng trong vòng 24 giờ làm việc.
 
-Tran trong,
-NHT`,
-    html: `<p>Xin chao <strong>${escapeHtml(displayName)}</strong>,</p>
-<p>Cam on ban da de lai thong tin. Chung toi da nhan duoc yeu cau va se lien he som nhat.</p>
-<p>Tran trong,<br/>NHT</p>`,
+Đây là email tự động, quý khách vui lòng không phản hồi email này.
+
+Trân trọng,
+Đội ngũ NHT Accounting`,
+    html: customerHtml,
+    attachments: [{ filename: "nht-logo.png", path: EMAIL_LOGO_PATH, cid: "nht-logo" }],
   };
 
   try {
@@ -349,9 +374,23 @@ NHT`,
           to: adminTo,
           subject: `[Lead] ${phone} - ${email}`,
           text: JSON.stringify(lead, null, 2),
-          html: `<p>Lead moi:</p><pre style="font-family:monospace;font-size:12px">${escapeHtml(
-            JSON.stringify(lead, null, 2)
-          )}</pre>`,
+          replyTo: email,
+          attachments: [{ filename: "nht-logo.png", path: EMAIL_LOGO_PATH, cid: "nht-logo" }],
+          html: renderEmailTemplate(ADMIN_EMAIL_TEMPLATE, {
+            name: name || "Không cung cấp",
+            email,
+            phone,
+            company: company || "Không cung cấp",
+            taxCode,
+            service: service || "Không cung cấp",
+            message: message || "Không có lời nhắn",
+            submittedAt: new Intl.DateTimeFormat("vi-VN", {
+              dateStyle: "medium",
+              timeStyle: "short",
+              timeZone: "Asia/Ho_Chi_Minh",
+            }).format(now),
+            leadId: lead.id,
+          }),
         })
       : { ok: true };
 

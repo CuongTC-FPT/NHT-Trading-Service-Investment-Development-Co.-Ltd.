@@ -122,6 +122,11 @@
             </div>
 
             <div class="space-y-2">
+              <label for="taxCode" class="text-xs font-bold text-slate-500 uppercase tracking-wider">Mã số thuế <span class="text-brand">*</span></label>
+              <input id="taxCode" name="taxCode" type="text" inputmode="numeric" autocomplete="off" maxlength="14" placeholder="0312345678" pattern="[0-9]{10}|[0-9]{12}|[0-9]{10}-[0-9]{3}" title="Nhập mã số thuế 10 chữ số, mã số thuế cá nhân/CCCD 12 chữ số hoặc mã đơn vị phụ thuộc dạng 0123456789-001" class="w-full rounded-2xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-sm text-navy placeholder-slate-400 focus:border-brand focus:bg-white focus:ring-1 focus:ring-brand focus:outline-none transition-all duration-200" required />
+            </div>
+
+            <div class="space-y-2">
               <label for="service" class="text-xs font-bold text-slate-500 uppercase tracking-wider">Dịch vụ quan tâm</label>
               <select id="service" class="w-full rounded-2xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-sm text-navy focus:border-brand focus:bg-white focus:ring-1 focus:ring-brand focus:outline-none transition-all duration-200">
                 <option value="" selected disabled>Chọn dịch vụ</option>

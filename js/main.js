@@ -183,6 +183,7 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: document.getElementById("phone")?.value.trim(),
       name: document.getElementById("name")?.value.trim(),
       company: document.getElementById("company")?.value.trim(),
+      taxCode: document.getElementById("taxCode")?.value.trim(),
       service: selectedService === "Dịch vụ quan tâm" ? "" : selectedService,
       message: document.getElementById("message")?.value.trim(),
     };

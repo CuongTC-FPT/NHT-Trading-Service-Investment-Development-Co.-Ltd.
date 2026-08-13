@@ -7,4 +7,8 @@ data/leads.json
 backend/node_modules/
 backend/.env
 backend/data/leads.json
-backend/uploads/
+backend/uploads/**
+!backend/uploads/Customer Email/
+!backend/uploads/Customer Email/code.html
+!backend/uploads/Admin email/
+!backend/uploads/Admin email/code.html
