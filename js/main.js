@@ -5,7 +5,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const header = document.getElementById("main-header");
   const internalLinks = document.querySelectorAll('a[href$=".html"]');
   const body = document.body;
+  const termsModal = document.getElementById("termsModal");
+  const termsDialog = termsModal?.querySelector(".terms-modal__dialog");
+  const termsConsent = document.getElementById("termsConsent");
+  const termsConfirmBtn = document.getElementById("termsConfirmBtn");
+  const termsConsentError = document.getElementById("termsConsentError");
   let isLeaving = false;
+  let termsConfirmed = false;
+  let lastFocusedElement = null;
 
   if (notice) {
     notice.setAttribute("role", "status");
@@ -147,6 +154,65 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!form || !notice) return;
 
+  const closeTermsModal = () => {
+    if (!termsModal) return;
+    termsModal.classList.remove("is-open");
+    termsModal.setAttribute("aria-hidden", "true");
+    body.classList.remove("terms-modal-open");
+    if (termsConsent) termsConsent.checked = false;
+    if (termsConfirmBtn) termsConfirmBtn.disabled = true;
+    if (termsConsentError) termsConsentError.hidden = true;
+    lastFocusedElement?.focus();
+  };
+
+  const openTermsModal = () => {
+    if (!termsModal) return;
+    lastFocusedElement = document.activeElement;
+    termsModal.classList.add("is-open");
+    termsModal.setAttribute("aria-hidden", "false");
+    body.classList.add("terms-modal-open");
+    window.requestAnimationFrame(() => termsConsent?.focus());
+  };
+
+  termsConsent?.addEventListener("change", () => {
+    if (termsConfirmBtn) termsConfirmBtn.disabled = !termsConsent.checked;
+    if (termsConsentError) termsConsentError.hidden = termsConsent.checked;
+  });
+
+  termsModal?.querySelectorAll("[data-terms-close]").forEach((control) => {
+    control.addEventListener("click", closeTermsModal);
+  });
+
+  termsConfirmBtn?.addEventListener("click", () => {
+    if (!termsConsent?.checked) {
+      if (termsConsentError) termsConsentError.hidden = false;
+      termsConsent?.focus();
+      return;
+    }
+    termsConfirmed = true;
+    closeTermsModal();
+    form.requestSubmit();
+  });
+
+  termsModal?.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeTermsModal();
+      return;
+    }
+    if (event.key !== "Tab" || !termsDialog) return;
+    const focusable = Array.from(termsDialog.querySelectorAll('a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'));
+    if (!focusable.length) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (event.shiftKey && document.activeElement === first) {
+      event.preventDefault();
+      last.focus();
+    } else if (!event.shiftKey && document.activeElement === last) {
+      event.preventDefault();
+      first.focus();
+    }
+  });
+
   const setNotice = (text, tone) => {
     const toneClass =
       tone === "error"
@@ -167,6 +233,12 @@ document.addEventListener("DOMContentLoaded", () => {
       setNotice("Vui lòng điền đầy đủ các thông tin bắt buộc.", "error");
       return;
     }
+
+    if (!termsConfirmed) {
+      openTermsModal();
+      return;
+    }
+    termsConfirmed = false;
 
     const submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) {

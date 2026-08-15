@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const api = async (url, options) => {
     const res = await fetch(url, options);
     const data = await res.json().catch(() => ({}));
-    if (!res.ok) throw new Error(data.error || "Khong the xu ly yeu cau.");
+    if (!res.ok) throw new Error(data.error || "Không thể xử lý yêu cầu.");
     return data;
   };
   const checkSession = async () => { try { return (await api("/api/admin/me")).user; } catch { return null; } };
@@ -52,7 +52,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if ($("legalImageUrl")) $("legalImageUrl").value = "";
     if ($("legalImagePublicId")) $("legalImagePublicId").value = "";
     if ($("legalImagePreview")) { $("legalImagePreview").src = ""; $("legalImagePreview").classList.add("hidden"); }
-    if ($("saveLegalDocumentBtn")) $("saveLegalDocumentBtn").textContent = "Luu van ban";
+    if ($("saveLegalDocumentBtn")) $("saveLegalDocumentBtn").textContent = "Lưu văn bản";
     setNotice("legalNotice", "");
   };
   const renderLegalDocuments = () => {
@@ -68,7 +68,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return user;
   };
   const loadDashboard = async () => {
-    try { const user = await ensureDashboardSession(); if (!user) return; $("adminUser").textContent = user.username; await loadLegalDocuments(); setNotice("adminNotice", "Du lieu da duoc cap nhat.", "success"); }
+    try { const user = await ensureDashboardSession(); if (!user) return; $("adminUser").textContent = user.username; await loadLegalDocuments(); setNotice("adminNotice", "Dữ liệu đã được cập nhật.", "success"); }
     catch (error) { setNotice("adminNotice", error.message, "error"); }
   };
 

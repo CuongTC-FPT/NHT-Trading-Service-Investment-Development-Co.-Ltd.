@@ -25,6 +25,23 @@ const SCHEMA = `
 
   CREATE INDEX IF NOT EXISTS idx_legal_documents_public
     ON legal_documents(status, published_at DESC, created_at DESC);
+
+  CREATE TABLE IF NOT EXISTS contact_leads (
+    id UUID PRIMARY KEY,
+    name VARCHAR(150) NOT NULL,
+    email VARCHAR(254) NOT NULL,
+    phone VARCHAR(30) NOT NULL,
+    company VARCHAR(200) NOT NULL,
+    tax_code VARCHAR(14) NOT NULL,
+    service VARCHAR(100) NOT NULL DEFAULT '',
+    message TEXT NOT NULL DEFAULT '',
+    customer_mail_status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    admin_mail_status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+  );
+
+  CREATE INDEX IF NOT EXISTS idx_contact_leads_created_at
+    ON contact_leads(created_at DESC);
 `;
 
 function createPool() {

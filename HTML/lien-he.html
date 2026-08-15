@@ -283,6 +283,35 @@
     </footer>
   </div>
 
+  <div id="termsModal" class="terms-modal" aria-hidden="true">
+    <div class="terms-modal__backdrop" data-terms-close></div>
+    <section class="terms-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="termsModalTitle" aria-describedby="termsModalDescription" tabindex="-1">
+      <header class="terms-modal__header">
+        <div>
+          <h2 id="termsModalTitle">Xác nhận điều khoản</h2>
+        </div>
+        <button id="termsModalClose" class="terms-modal__close" type="button" aria-label="Đóng cửa sổ xác nhận" data-terms-close>
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </header>
+
+      <div class="terms-modal__body">
+        <p id="termsModalDescription">Để bảo vệ quyền lợi của bạn, vui lòng đọc và xác nhận đồng ý với các điều khoản trước khi gửi yêu cầu tư vấn.</p>
+        <label class="terms-consent" for="termsConsent">
+          <input id="termsConsent" type="checkbox" />
+          <span class="terms-consent__box" aria-hidden="true"></span>
+          <span>Tôi đã đọc và đồng ý với <a href="dieu-khoan.html" target="_blank" rel="noopener noreferrer">Điều khoản sử dụng</a>.</span>
+        </label>
+        <p id="termsConsentError" class="terms-consent__error" role="alert" hidden>Vui lòng đồng ý với điều khoản để tiếp tục.</p>
+      </div>
+
+      <footer class="terms-modal__actions">
+        <button id="termsConfirmBtn" type="button" class="terms-modal__confirm" disabled>Đồng ý và gửi yêu cầu</button>
+        <button type="button" class="terms-modal__cancel" data-terms-close>Quay lại</button>
+      </footer>
+    </section>
+  </div>
+
   <script src="js/main.js"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {

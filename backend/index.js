@@ -13,7 +13,6 @@ const FRONTEND_ROOT = path.join(__dirname, "..");
 const HTML_ROOT = path.join(FRONTEND_ROOT, "HTML");
 const PICTURE_ROOT = path.join(FRONTEND_ROOT, "picture");
 const EMAIL_LOGO_PATH = path.join(PICTURE_ROOT, "logo.png");
-const LEADS_FILE = path.join(__dirname, "data", "leads.json");
 const CUSTOMER_EMAIL_TEMPLATE = path.join(__dirname, "uploads", "Customer Email", "code.html");
 const ADMIN_EMAIL_TEMPLATE = path.join(__dirname, "uploads", "Admin email", "code.html");
 const ADMIN_COOKIE_NAME = "nht_admin_session";
@@ -99,34 +98,6 @@ function renderEmailTemplate(templatePath, values) {
   return template.replace(/{{\s*([a-zA-Z0-9_]+)\s*}}/g, (_match, key) =>
     escapeHtml(values[key] ?? "")
   );
-}
-
-function readLeads() {
-  try {
-    if (!fs.existsSync(LEADS_FILE)) return [];
-    const raw = fs.readFileSync(LEADS_FILE, "utf8");
-    return JSON.parse(raw || "[]");
-  } catch {
-    return [];
-  }
-}
-
-function saveLeads(leads) {
-  const dir = path.dirname(LEADS_FILE);
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-  fs.writeFileSync(LEADS_FILE, JSON.stringify(leads, null, 2), "utf8");
-}
-
-function appendLead(entry) {
-  const leads = readLeads();
-  const lead = {
-    ...entry,
-    id: `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`,
-    createdAt: new Date().toISOString(),
-  };
-  leads.push(lead);
-  saveLeads(leads);
-  return lead;
 }
 
 function isTruthyEnv(value) {
@@ -307,7 +278,7 @@ async function sendMailSafely(transporter, mailOptions) {
   }
 }
 
-app.post("/api/contact", async (req, res) => {
+app.post("/api/contact", async (req, res, next) => {
   const email = String(req.body.email || "").trim();
   const phone = String(req.body.phone || "").trim();
   const name = String(req.body.name || "").trim();
@@ -331,12 +302,38 @@ app.post("/api/contact", async (req, res) => {
     });
   }
 
-  const lead = appendLead({ email, phone, name, company, taxCode, service, message });
+  const lead = {
+    id: crypto.randomUUID(),
+    email,
+    phone,
+    name,
+    company,
+    taxCode,
+    service,
+    message,
+    createdAt: new Date().toISOString(),
+  };
+
+  try {
+    await legalDatabase.query(
+      `INSERT INTO contact_leads
+       (id, name, email, phone, company, tax_code, service, message, created_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)`,
+      [lead.id, name, email, phone, company, taxCode, service, message, lead.createdAt]
+    );
+  } catch (error) {
+    return next(error);
+  }
+
   const transporter = createTransporter();
   const fromAddr = getFromAddress();
 
   if (!transporter || !fromAddr) {
-    console.warn("SMTP chua cau hinh (backend/.env) - lead da luu, chua gui email.");
+    await legalDatabase.query(
+      "UPDATE contact_leads SET customer_mail_status = 'not_configured', admin_mail_status = 'not_configured' WHERE id = $1",
+      [lead.id]
+    );
+    console.warn("SMTP chua cau hinh (backend/.env) - lead da luu PostgreSQL, chua gui email.");
     return res.json({ ok: true, warning: "no_smtp" });
   }
 
@@ -394,6 +391,17 @@ Trân trọng,
         })
       : { ok: true };
 
+    await legalDatabase.query(
+      `UPDATE contact_leads
+       SET customer_mail_status = $1, admin_mail_status = $2
+       WHERE id = $3`,
+      [
+        customerResult.ok ? "sent" : "failed",
+        adminTo ? (adminResult.ok ? "sent" : "failed") : "not_configured",
+        lead.id,
+      ]
+    );
+
     if (!customerResult.ok && !adminResult.ok) {
       throw customerResult.error || adminResult.error;
     }
@@ -445,8 +453,18 @@ app.get("/api/admin/me", requireAdmin, (req, res) => {
   res.json({ ok: true, user: { username: req.admin.username } });
 });
 
-app.get("/api/leads", requireAdmin, (req, res) => {
-  res.json({ ok: true, leads: readLeads() });
+app.get("/api/leads", requireAdmin, async (_req, res, next) => {
+  try {
+    const leads = await queryAll(
+      `SELECT id, name, email, phone, company, tax_code AS "taxCode", service, message,
+              customer_mail_status AS "customerMailStatus", admin_mail_status AS "adminMailStatus",
+              created_at AS "createdAt"
+       FROM contact_leads ORDER BY created_at DESC`
+    );
+    res.json({ ok: true, leads });
+  } catch (error) {
+    next(error);
+  }
 });
 
 app.post("/api/admin/legal-documents/upload-image", requireAdmin, (req, res) => {
@@ -572,7 +590,7 @@ async function start() {
   legalDatabase = await createDatabase();
   app.listen(PORT, () => {
     console.log(`http://localhost:${PORT}`);
-    console.log("Legal documents database: PostgreSQL");
+    console.log("Legal documents and contact leads database: PostgreSQL");
     if (!createTransporter() || !getFromAddress()) {
       console.warn("SMTP not ready yet. Configure backend/.env to enable automatic email sending.");
     }
