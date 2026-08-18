@@ -5,6 +5,7 @@ const express = require("express");
 const nodemailer = require("nodemailer");
 const multer = require("multer");
 const cloudinary = require("cloudinary").v2;
+const ExcelJS = require("exceljs");
 const { createDatabase } = require("./database");
 
 require("dotenv").config({ path: path.join(__dirname, ".env") });
@@ -369,7 +370,7 @@ Trân trọng,
       ? await sendMailSafely(transporter, {
           from: `"Website NHT" <${fromAddr}>`,
           to: adminTo,
-          subject: `[Lead] ${phone} - ${email}`,
+          subject: "Yêu cầu tư vấn từ khách hàng",
           text: JSON.stringify(lead, null, 2),
           replyTo: email,
           attachments: [{ filename: "nht-logo.png", path: EMAIL_LOGO_PATH, cid: "nht-logo" }],
@@ -462,6 +463,84 @@ app.get("/api/leads", requireAdmin, async (_req, res, next) => {
        FROM contact_leads ORDER BY created_at DESC`
     );
     res.json({ ok: true, leads });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.get("/api/leads/export", requireAdmin, async (_req, res, next) => {
+  try {
+    const leads = await queryAll(
+      `SELECT name, email, phone, company, tax_code AS "taxCode", service, message,
+              customer_mail_status AS "customerMailStatus", admin_mail_status AS "adminMailStatus",
+              created_at AS "createdAt"
+       FROM contact_leads ORDER BY created_at DESC`
+    );
+
+    const workbook = new ExcelJS.Workbook();
+    workbook.creator = "NHT Accounting";
+    workbook.created = new Date();
+    const worksheet = workbook.addWorksheet("Yêu cầu tư vấn", {
+      views: [{ state: "frozen", ySplit: 1 }],
+      properties: { defaultRowHeight: 22 },
+    });
+
+    worksheet.columns = [
+      { header: "STT", key: "number", width: 8 },
+      { header: "Thời gian gửi", key: "createdAt", width: 22 },
+      { header: "Họ và tên", key: "name", width: 24 },
+      { header: "Số điện thoại", key: "phone", width: 18 },
+      { header: "Email", key: "email", width: 32 },
+      { header: "Tên công ty", key: "company", width: 28 },
+      { header: "Mã số thuế/CCCD", key: "taxCode", width: 20 },
+      { header: "Dịch vụ quan tâm", key: "service", width: 28 },
+      { header: "Lời nhắn", key: "message", width: 48 },
+      { header: "Email khách hàng", key: "customerMailStatus", width: 20 },
+      { header: "Email quản trị", key: "adminMailStatus", width: 20 },
+    ];
+
+    leads.forEach((lead, index) => {
+      worksheet.addRow({
+        number: index + 1,
+        createdAt: lead.createdAt ? new Date(lead.createdAt) : null,
+        name: lead.name || "Không cung cấp",
+        phone: lead.phone || "Không cung cấp",
+        email: lead.email || "Không cung cấp",
+        company: lead.company || "Không cung cấp",
+        taxCode: lead.taxCode || "Không cung cấp",
+        service: lead.service || "Không cung cấp",
+        message: lead.message || "Không có lời nhắn",
+        customerMailStatus: lead.customerMailStatus || "Không xác định",
+        adminMailStatus: lead.adminMailStatus || "Không xác định",
+      });
+    });
+
+    const header = worksheet.getRow(1);
+    header.height = 30;
+    header.font = { bold: true, color: { argb: "FFFFFFFF" } };
+    header.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFE05915" } };
+    header.alignment = { vertical: "middle", horizontal: "center" };
+
+    worksheet.autoFilter = { from: "A1", to: "K1" };
+    worksheet.getColumn("createdAt").numFmt = "dd/mm/yyyy hh:mm";
+    worksheet.getColumn("number").alignment = { horizontal: "center", vertical: "top" };
+    worksheet.eachRow((row, rowNumber) => {
+      if (rowNumber === 1) return;
+      row.alignment = { vertical: "top", wrapText: true };
+      row.eachCell((cell) => {
+        cell.border = { bottom: { style: "thin", color: { argb: "FFE2E8F0" } } };
+      });
+    });
+
+    const fileDate = new Intl.DateTimeFormat("en-CA", { timeZone: "Asia/Ho_Chi_Minh" }).format(new Date());
+    const filename = `yeu-cau-tu-van-NHT-${fileDate}.xlsx`;
+    const buffer = await workbook.xlsx.writeBuffer();
+    res.set({
+      "Content-Type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "Content-Disposition": `attachment; filename="${filename}"`,
+      "Cache-Control": "no-store",
+    });
+    res.send(Buffer.from(buffer));
   } catch (error) {
     next(error);
   }
