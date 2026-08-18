@@ -37,11 +37,22 @@ const SCHEMA = `
     message TEXT NOT NULL DEFAULT '',
     customer_mail_status VARCHAR(20) NOT NULL DEFAULT 'pending',
     admin_mail_status VARCHAR(20) NOT NULL DEFAULT 'pending',
+    processing_status VARCHAR(20) NOT NULL DEFAULT 'new' CHECK (processing_status IN ('new', 'in_progress', 'completed')),
+    completed_at TIMESTAMPTZ,
     created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
   );
 
+  ALTER TABLE contact_leads
+    ADD COLUMN IF NOT EXISTS processing_status VARCHAR(20) NOT NULL DEFAULT 'new';
+
+  ALTER TABLE contact_leads
+    ADD COLUMN IF NOT EXISTS completed_at TIMESTAMPTZ;
+
   CREATE INDEX IF NOT EXISTS idx_contact_leads_created_at
     ON contact_leads(created_at DESC);
+
+  CREATE INDEX IF NOT EXISTS idx_contact_leads_processing_status
+    ON contact_leads(processing_status, created_at DESC);
 `;
 
 function createPool() {

@@ -17,7 +17,7 @@ const EMAIL_LOGO_PATH = path.join(PICTURE_ROOT, "logo.png");
 const CUSTOMER_EMAIL_TEMPLATE = path.join(__dirname, "uploads", "Customer Email", "code.html");
 const ADMIN_EMAIL_TEMPLATE = path.join(__dirname, "uploads", "Admin email", "code.html");
 const ADMIN_COOKIE_NAME = "nht_admin_session";
-const ADMIN_SESSION_TTL_MS = 1000 * 60 * 60 * 8;
+const ADMIN_SESSION_TTL_MS = 1000 * 60 * 60 * 3;
 
 const app = express();
 let legalDatabase;
@@ -459,10 +459,46 @@ app.get("/api/leads", requireAdmin, async (_req, res, next) => {
     const leads = await queryAll(
       `SELECT id, name, email, phone, company, tax_code AS "taxCode", service, message,
               customer_mail_status AS "customerMailStatus", admin_mail_status AS "adminMailStatus",
+              processing_status AS "processingStatus", completed_at AS "completedAt",
               created_at AS "createdAt"
        FROM contact_leads ORDER BY created_at DESC`
     );
     res.json({ ok: true, leads });
+  } catch (error) {
+    next(error);
+  }
+});
+
+app.patch("/api/leads/:id/status", requireAdmin, async (req, res, next) => {
+  const processingStatus = String(req.body.processingStatus || "").trim();
+  if (!["new", "in_progress", "completed"].includes(processingStatus)) {
+    return res.status(400).json({ ok: false, error: "Trạng thái xử lý không hợp lệ." });
+  }
+
+  try {
+    const existing = await queryOne(
+      `SELECT id, processing_status AS "processingStatus"
+       FROM contact_leads WHERE id = $1`,
+      [req.params.id]
+    );
+    if (!existing) return res.status(404).json({ ok: false, error: "Không tìm thấy yêu cầu tư vấn." });
+    if (processingStatus === "new" && existing.processingStatus !== "new") {
+      return res.status(400).json({ ok: false, error: "Yêu cầu đã xử lý không thể chuyển lại trạng thái Mới." });
+    }
+
+    const lead = await queryOne(
+      `UPDATE contact_leads
+       SET processing_status = $1::VARCHAR,
+           completed_at = CASE
+             WHEN $1::VARCHAR = 'completed' AND processing_status <> 'completed' THEN NOW()
+             WHEN $1::VARCHAR = 'completed' THEN completed_at
+             ELSE NULL
+           END
+       WHERE id = $2
+       RETURNING id, processing_status AS "processingStatus", completed_at AS "completedAt"`,
+      [processingStatus, req.params.id]
+    );
+    return res.json({ ok: true, lead });
   } catch (error) {
     next(error);
   }
@@ -473,6 +509,7 @@ app.get("/api/leads/export", requireAdmin, async (_req, res, next) => {
     const leads = await queryAll(
       `SELECT name, email, phone, company, tax_code AS "taxCode", service, message,
               customer_mail_status AS "customerMailStatus", admin_mail_status AS "adminMailStatus",
+              processing_status AS "processingStatus", completed_at AS "completedAt",
               created_at AS "createdAt"
        FROM contact_leads ORDER BY created_at DESC`
     );
@@ -495,6 +532,10 @@ app.get("/api/leads/export", requireAdmin, async (_req, res, next) => {
       { header: "Mã số thuế/CCCD", key: "taxCode", width: 20 },
       { header: "Dịch vụ quan tâm", key: "service", width: 28 },
       { header: "Lời nhắn", key: "message", width: 48 },
+      { header: "Trạng thái xử lý", key: "processingStatus", width: 20 },
+      { header: "Ngày hoàn thành", key: "completedAt", width: 22 },
+      { header: "Người phụ trách", key: "assignee", width: 24 },
+      { header: "Ghi chú nội bộ", key: "internalNote", width: 40 },
       { header: "Email khách hàng", key: "customerMailStatus", width: 20 },
       { header: "Email quản trị", key: "adminMailStatus", width: 20 },
     ];
@@ -510,6 +551,10 @@ app.get("/api/leads/export", requireAdmin, async (_req, res, next) => {
         taxCode: lead.taxCode || "Không cung cấp",
         service: lead.service || "Không cung cấp",
         message: lead.message || "Không có lời nhắn",
+        processingStatus: lead.processingStatus === "completed" ? "Đã hoàn thành" : lead.processingStatus === "in_progress" ? "Đang xử lý" : "Mới",
+        completedAt: lead.completedAt ? new Date(lead.completedAt) : null,
+        assignee: null,
+        internalNote: null,
         customerMailStatus: lead.customerMailStatus || "Không xác định",
         adminMailStatus: lead.adminMailStatus || "Không xác định",
       });
@@ -521,9 +566,20 @@ app.get("/api/leads/export", requireAdmin, async (_req, res, next) => {
     header.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFE05915" } };
     header.alignment = { vertical: "middle", horizontal: "center" };
 
-    worksheet.autoFilter = { from: "A1", to: "K1" };
+    worksheet.autoFilter = { from: "A1", to: "O1" };
     worksheet.getColumn("createdAt").numFmt = "dd/mm/yyyy hh:mm";
+    worksheet.getColumn("completedAt").numFmt = "dd/mm/yyyy hh:mm";
     worksheet.getColumn("number").alignment = { horizontal: "center", vertical: "top" };
+    if (leads.length) {
+      worksheet.getCell("J2").dataValidation = {
+        type: "list",
+        allowBlank: false,
+        formulae: ['"Mới,Đang xử lý,Đã hoàn thành"'],
+      };
+      for (let rowNumber = 3; rowNumber <= leads.length + 1; rowNumber += 1) {
+        worksheet.getCell(`J${rowNumber}`).dataValidation = worksheet.getCell("J2").dataValidation;
+      }
+    }
     worksheet.eachRow((row, rowNumber) => {
       if (rowNumber === 1) return;
       row.alignment = { vertical: "top", wrapText: true };

@@ -12,6 +12,18 @@ document.addEventListener("DOMContentLoaded", () => {
     el.textContent = text;
     el.className = `${el.dataset.noticeBase || ""} text-sm font-medium ${tone === "error" ? "text-red-600" : tone === "success" ? "text-emerald-600" : "text-slate-500"}`.trim();
   };
+  let adminNoticeTimer;
+  const showAdminNotice = (text, tone = "success") => {
+    const notice = $("adminNotice");
+    if (!notice) return;
+    clearTimeout(adminNoticeTimer);
+    notice.textContent = text;
+    notice.className = `pointer-events-none fixed left-1/2 top-20 z-50 -translate-x-1/2 translate-y-0 rounded-xl border bg-white px-5 py-3 text-sm font-bold opacity-100 shadow-xl transition-all duration-300 ${tone === "error" ? "border-red-200 text-red-600" : "border-emerald-200 text-emerald-600"}`;
+    adminNoticeTimer = setTimeout(() => {
+      notice.classList.remove("translate-y-0", "opacity-100");
+      notice.classList.add("-translate-y-4", "opacity-0");
+    }, tone === "error" ? 5000 : 2800);
+  };
   const api = async (url, options) => {
     const res = await fetch(url, options);
     const data = await res.json().catch(() => ({}));
@@ -63,15 +75,15 @@ document.addEventListener("DOMContentLoaded", () => {
   };
   const loadLegalDocuments = async () => { legalDocuments = (await api("/api/admin/legal-documents")).documents || []; renderLegalDocuments(); };
   const displayValue = (value, fallback = "Không cung cấp") => String(value || "").trim() || fallback;
+  const processingStatusLabel = (status) => status === "completed" ? "Đã hoàn thành" : status === "in_progress" ? "Đang xử lý" : "Mới";
+  const processingStatusClass = (status) => status === "completed" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : status === "in_progress" ? "border-amber-200 bg-amber-50 text-amber-700" : "border-sky-200 bg-sky-50 text-sky-700";
   const renderConsultationRequests = () => {
     const table = $("consultationRequestsTableBody");
-    const count = $("consultationRequestCount");
     const exportButton = $("exportLeadsBtn");
     if (!table) return;
-    if (count) count.textContent = `${consultationRequests.length} yêu cầu`;
     if (exportButton) exportButton.disabled = consultationRequests.length === 0;
     if (!consultationRequests.length) {
-      table.innerHTML = '<tr><td colspan="7" class="px-5 py-10 text-center text-slate-500">Chưa có yêu cầu tư vấn nào.</td></tr>';
+      table.innerHTML = '<tr><td colspan="8" class="px-5 py-10 text-center text-slate-500">Chưa có yêu cầu tư vấn nào.</td></tr>';
       setNotice("consultationRequestsNotice", "");
       return;
     }
@@ -83,6 +95,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <td class="px-5 py-4"><p class="font-semibold text-slate-700">${escapeHtml(displayValue(lead.phone))}</p><p class="mt-1 max-w-[230px] break-all text-xs text-slate-500">${escapeHtml(displayValue(lead.email))}</p></td>
         <td class="px-5 py-4"><p class="font-semibold text-slate-700">${escapeHtml(displayValue(lead.company))}</p><p class="mt-1 text-xs text-slate-500">MST/CCCD: ${escapeHtml(displayValue(lead.taxCode))}</p></td>
         <td class="px-5 py-4 text-slate-600">${escapeHtml(displayValue(lead.service))}</td>
+        <td class="px-5 py-4"><div data-status-control class="relative inline-block"><button type="button" data-status-toggle="${lead.id}" aria-haspopup="menu" aria-expanded="false" class="inline-flex min-w-36 items-center justify-between gap-3 rounded-full border px-3.5 py-2 text-xs font-bold shadow-sm transition hover:brightness-95 focus:outline-none focus:ring-4 focus:ring-brand/10 ${processingStatusClass(lead.processingStatus)}"><span>${escapeHtml(processingStatusLabel(lead.processingStatus))}</span><span aria-hidden="true" class="text-[10px] opacity-70">▼</span></button><div data-status-menu="${lead.id}" class="absolute right-0 z-30 mt-2 hidden min-w-44 overflow-hidden rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl" role="menu">${lead.processingStatus === "new" || !lead.processingStatus ? `<button type="button" data-set-lead-status="new" data-lead-id="${lead.id}" class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-xs font-bold text-sky-700 transition hover:bg-sky-50" role="menuitem"><span class="h-2 w-2 rounded-full bg-sky-500"></span>Mới</button>` : ""}<button type="button" data-set-lead-status="in_progress" data-lead-id="${lead.id}" class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-xs font-bold text-amber-700 transition hover:bg-amber-50" role="menuitem"><span class="h-2 w-2 rounded-full bg-amber-500"></span>Đang xử lý</button><button type="button" data-set-lead-status="completed" data-lead-id="${lead.id}" class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-xs font-bold text-emerald-700 transition hover:bg-emerald-50" role="menuitem"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>Đã hoàn thành</button></div></div><p class="mt-2 text-xs text-slate-500">${lead.completedAt ? `Hoàn thành: ${escapeHtml(formatDate(lead.completedAt))}` : "Chưa hoàn thành"}</p></td>
         <td class="max-w-[280px] px-5 py-4 text-slate-600"><p class="line-clamp-2" title="${escapeHtml(message)}">${escapeHtml(message)}</p></td>
         <td class="whitespace-nowrap px-5 py-4 text-right"><button type="button" data-view-lead="${lead.id}" class="font-bold text-brand hover:underline">Xem đầy đủ</button></td>
       </tr>`;
@@ -105,11 +118,13 @@ document.addEventListener("DOMContentLoaded", () => {
       ["Tên công ty", displayValue(lead.company)],
       ["Mã số thuế/CCCD", displayValue(lead.taxCode)],
       ["Dịch vụ quan tâm", displayValue(lead.service)],
+      ["Trạng thái xử lý", processingStatusLabel(lead.processingStatus)],
+      ["Ngày hoàn thành", lead.completedAt ? formatDate(lead.completedAt) : "Chưa hoàn thành"],
       ["Lời nhắn", displayValue(lead.message, "Không có lời nhắn")],
       ["Email khách hàng", displayValue(lead.customerMailStatus, "Không xác định")],
       ["Email quản trị", displayValue(lead.adminMailStatus, "Không xác định")],
     ];
-    content.innerHTML = fields.map(([label, value], index) => `<div class="${index === 7 ? "sm:col-span-2" : ""}"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(label)}</p><p class="mt-1.5 whitespace-pre-wrap break-words text-sm font-semibold text-slate-700">${escapeHtml(value)}</p></div>`).join("");
+    content.innerHTML = fields.map(([label, value], index) => `<div class="${index === 9 ? "sm:col-span-2" : ""}"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(label)}</p><p class="mt-1.5 whitespace-pre-wrap break-words text-sm font-semibold text-slate-700">${escapeHtml(value)}</p></div>`).join("");
     $("consultationDialogTitle").textContent = displayValue(lead.name, "Chi tiết khách hàng");
     dialog.showModal();
   };
@@ -138,7 +153,8 @@ document.addEventListener("DOMContentLoaded", () => {
       link.click();
       link.remove();
       URL.revokeObjectURL(url);
-      setNotice("consultationRequestsNotice", "Đã tải xuống danh sách yêu cầu tư vấn.", "success");
+      setNotice("consultationRequestsNotice", `Đang hiển thị ${consultationRequests.length} yêu cầu tư vấn.`, "success");
+      showAdminNotice("Đã tải xuống danh sách yêu cầu tư vấn.", "success");
     } catch (error) {
       setNotice("consultationRequestsNotice", error.message, "error");
     } finally {
@@ -153,13 +169,13 @@ document.addEventListener("DOMContentLoaded", () => {
     return user;
   };
   const loadDashboard = async () => {
-    try { const user = await ensureDashboardSession(); if (!user) return; $("adminUser").textContent = user.username; await Promise.all([loadLegalDocuments(), loadConsultationRequests()]); setNotice("adminNotice", "Dữ liệu đã được cập nhật.", "success"); }
-    catch (error) { setNotice("adminNotice", error.message, "error"); }
+    try { const user = await ensureDashboardSession(); if (!user) return; $("adminUser").textContent = user.username; await Promise.all([loadLegalDocuments(), loadConsultationRequests()]); const justLoggedIn = sessionStorage.getItem("nhtAdminLoginSuccess") === "true"; sessionStorage.removeItem("nhtAdminLoginSuccess"); showAdminNotice(justLoggedIn ? "Đăng nhập thành công." : "Dữ liệu đã được cập nhật.", "success"); }
+    catch (error) { showAdminNotice(error.message, "error"); }
   };
 
   if (loginForm) {
     checkSession().then((user) => { if (user) location.href = getAdminRedirect(); });
-    loginForm.addEventListener("submit", async (event) => { event.preventDefault(); const button = loginForm.querySelector("button"); button.disabled = true; try { await api("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: $("adminUsername").value.trim(), password: $("adminPassword").value }) }); location.href = getAdminRedirect(); } catch (error) { setNotice("adminLoginNotice", error.message, "error"); } finally { button.disabled = false; } });
+    loginForm.addEventListener("submit", async (event) => { event.preventDefault(); const button = loginForm.querySelector("button"); button.disabled = true; try { await api("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: $("adminUsername").value.trim(), password: $("adminPassword").value }) }); sessionStorage.setItem("nhtAdminLoginSuccess", "true"); location.href = getAdminRedirect(); } catch (error) { setNotice("adminLoginNotice", error.message, "error"); } finally { button.disabled = false; } });
   }
   if (!isDashboard) return;
   setupDateField("legalIssuedDate");
@@ -170,10 +186,61 @@ document.addEventListener("DOMContentLoaded", () => {
   });
   $("refreshAdminBtn")?.addEventListener("click", loadDashboard);
   $("exportLeadsBtn")?.addEventListener("click", exportConsultationRequests);
-  $("consultationRequestsTableBody")?.addEventListener("click", (event) => {
-    const id = event.target.closest("[data-view-lead]")?.dataset.viewLead;
-    if (id) openConsultationRequest(consultationRequests.find((lead) => lead.id === id));
+  const closeStatusMenus = () => {
+    document.querySelectorAll("[data-status-menu]").forEach((menu) => {
+      menu.classList.add("hidden");
+      menu.removeAttribute("style");
+    });
+    document.querySelectorAll("[data-status-toggle]").forEach((button) => button.setAttribute("aria-expanded", "false"));
+  };
+  $("consultationRequestsTableBody")?.addEventListener("click", async (event) => {
+    const viewId = event.target.closest("[data-view-lead]")?.dataset.viewLead;
+    if (viewId) { openConsultationRequest(consultationRequests.find((lead) => lead.id === viewId)); return; }
+
+    const toggle = event.target.closest("[data-status-toggle]");
+    if (toggle) {
+      const menu = document.querySelector(`[data-status-menu="${toggle.dataset.statusToggle}"]`);
+      const shouldOpen = menu?.classList.contains("hidden");
+      closeStatusMenus();
+      if (menu && shouldOpen) {
+        const rect = toggle.getBoundingClientRect();
+        menu.classList.remove("hidden");
+        menu.style.position = "fixed";
+        menu.style.top = `${rect.bottom + 8}px`;
+        menu.style.left = `${Math.max(12, rect.right - menu.offsetWidth)}px`;
+        menu.style.right = "auto";
+        toggle.setAttribute("aria-expanded", "true");
+      }
+      return;
+    }
+
+    const statusButton = event.target.closest("[data-set-lead-status]");
+    if (!statusButton) return;
+    const lead = consultationRequests.find((item) => item.id === statusButton.dataset.leadId);
+    if (!lead) return;
+    const previousStatus = lead.processingStatus || "new";
+    closeStatusMenus();
+    statusButton.disabled = true;
+    setNotice("consultationRequestsNotice", "Đang cập nhật trạng thái xử lý...");
+    try {
+      const result = await api(`/api/leads/${encodeURIComponent(lead.id)}/status`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ processingStatus: statusButton.dataset.setLeadStatus }),
+      });
+      lead.processingStatus = result.lead.processingStatus;
+      lead.completedAt = result.lead.completedAt;
+      renderConsultationRequests();
+      setNotice("consultationRequestsNotice", `Đã chuyển yêu cầu sang “${processingStatusLabel(lead.processingStatus)}”.`, "success");
+    } catch (error) {
+      lead.processingStatus = previousStatus;
+      renderConsultationRequests();
+      setNotice("consultationRequestsNotice", error.message, "error");
+    }
   });
+  document.addEventListener("click", (event) => { if (!event.target.closest("[data-status-control]")) closeStatusMenus(); });
+  document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeStatusMenus(); });
+  window.addEventListener("scroll", closeStatusMenus, true);
   $("closeConsultationDialogBtn")?.addEventListener("click", () => $("consultationRequestDialog")?.close());
   $("consultationRequestDialog")?.addEventListener("click", (event) => {
     if (event.target === $("consultationRequestDialog")) $("consultationRequestDialog").close();

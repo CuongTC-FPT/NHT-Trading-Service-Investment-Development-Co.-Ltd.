@@ -112,7 +112,6 @@
         <div>
           <div class="flex flex-wrap items-center gap-2.5">
             <h2 id="consultationRequestsTitle" class="font-extrabold text-navy">Yêu cầu tư vấn của khách hàng</h2>
-            <span id="consultationRequestCount" class="rounded-full bg-brand/10 px-2.5 py-1 text-xs font-bold text-brand">0 yêu cầu</span>
           </div>
           <p class="mt-1.5 text-sm text-slate-500">Danh sách được sắp xếp từ yêu cầu mới nhất.</p>
         </div>
@@ -121,7 +120,7 @@
         </button>
       </div>
       <div class="overflow-x-auto">
-        <table class="min-w-[1180px] divide-y divide-slate-200 text-left text-sm">
+        <table class="min-w-[1380px] divide-y divide-slate-200 text-left text-sm">
           <thead class="bg-slate-50 text-xs font-bold uppercase tracking-wider text-slate-500">
             <tr>
               <th class="px-5 py-4">Thời gian</th>
@@ -129,20 +128,22 @@
               <th class="px-5 py-4">Liên hệ</th>
               <th class="px-5 py-4">Công ty / MST</th>
               <th class="px-5 py-4">Dịch vụ</th>
+              <th class="px-5 py-4">Trạng thái xử lý</th>
               <th class="px-5 py-4">Lời nhắn</th>
               <th class="px-5 py-4 text-right">Chi tiết</th>
             </tr>
           </thead>
           <tbody id="consultationRequestsTableBody" class="divide-y divide-slate-100">
-            <tr><td colspan="7" class="px-5 py-10 text-center text-slate-500">Đang tải yêu cầu tư vấn...</td></tr>
+            <tr><td colspan="8" class="px-5 py-10 text-center text-slate-500">Đang tải yêu cầu tư vấn...</td></tr>
           </tbody>
         </table>
       </div>
       <p id="consultationRequestsNotice" data-notice-base="border-t border-slate-100 px-5 py-3" class="border-t border-slate-100 px-5 py-3 text-sm font-medium text-slate-500" role="status"></p>
     </section>
 
-    <p id="adminNotice" class="mt-4 text-sm font-medium text-slate-500" role="status"></p>
   </main>
+
+  <p id="adminNotice" class="pointer-events-none fixed left-1/2 top-20 z-50 -translate-x-1/2 -translate-y-4 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-600 opacity-0 shadow-xl transition-all duration-300" role="status" aria-live="polite"></p>
 
   <dialog id="consultationRequestDialog" class="w-[min(680px,calc(100%-2rem))] rounded-2xl p-0 text-navy shadow-2xl backdrop:bg-slate-950/40">
     <div class="border-b border-slate-200 px-6 py-5">
