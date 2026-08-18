@@ -9,7 +9,7 @@
   <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#e05915',hover:'#bf480d'},navy:{DEFAULT:'#0f172a'}}}}}</script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body class="page-legal-updates min-h-screen bg-slate-50 text-navy selection:bg-brand/10 selection:text-brand">
+<body class="page-legal-updates flex min-h-screen flex-col bg-slate-50 text-navy selection:bg-brand/10 selection:text-brand">
   <header id="main-header" class="sticky top-0 z-40 border-b border-slate-100/80 bg-white/80 backdrop-blur-md transition-all duration-300">
     <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
       <a href="index.html" class="flex items-center"><img src="logo.png" alt="NHT Logo" class="h-10 w-auto max-w-[160px] object-contain" /></a>
@@ -35,13 +35,63 @@
       <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Nhận báo giá</a>
     </div>
   </div>
-  <main class="mx-auto max-w-6xl px-6 py-12">
+  <main class="mx-auto w-full max-w-6xl flex-1 px-6 py-12">
     <div class="flex flex-col gap-5">
       <div class="max-w-3xl"><p class="text-sm font-bold uppercase tracking-wider text-brand">Cập nhật pháp lý</p><h1 class="mt-2 text-4xl font-extrabold tracking-tight">Thông tư pháp luật</h1><p class="mt-4 text-lg leading-relaxed text-slate-600">Tổng hợp các thông tư, quy định và lưu ý pháp lý liên quan đến kế toán - thuế.</p></div>
     </div>
     <p id="legalPublicNotice" class="mt-8 text-sm font-medium text-slate-500">Đang tải văn bản...</p>
     <section id="legalDocumentsList" class="mt-5 grid gap-5 md:grid-cols-2"></section>
   </main>
+
+  <footer class="site-footer relative z-10 border-t border-slate-200 bg-slate-100 py-16">
+    <div class="mx-auto max-w-7xl px-6">
+      <div class="grid gap-12 border-b border-slate-200/60 pb-12 lg:grid-cols-12">
+        <div class="space-y-6 lg:col-span-5">
+          <a href="index.html" class="inline-block">
+            <img src="logo.png" alt="NHT Logo" class="h-10 w-auto object-contain" />
+          </a>
+          <p class="text-sm font-bold uppercase tracking-wider text-brand">Công ty TNHH Thương Mại Dịch Vụ Đầu Tư Phát Triển NHT</p>
+          <p class="max-w-md text-sm font-medium leading-relaxed text-slate-500">Giải pháp kế toán, thuế và tư vấn quản trị tài chính chuyên nghiệp cho doanh nghiệp Việt Nam. Hướng đến sự chính xác, an toàn và phát triển bền vững.</p>
+        </div>
+
+        <div class="grid gap-8 sm:grid-cols-3 lg:col-span-7">
+          <div>
+            <h4 class="mb-4 text-xs font-extrabold uppercase tracking-widest text-navy">Về chúng tôi</h4>
+            <nav class="flex flex-col gap-3 text-sm">
+              <a href="ve-chung-toi.html" class="font-semibold text-slate-500 transition-colors duration-200 hover:text-brand">Về NHT</a>
+              <a href="dieu-khoan.html" class="font-semibold text-slate-500 transition-colors duration-200 hover:text-brand">Điều khoản dịch vụ</a>
+            </nav>
+          </div>
+          <div>
+            <h4 class="mb-4 text-xs font-extrabold uppercase tracking-widest text-navy">Dịch vụ chính</h4>
+            <nav class="flex flex-col gap-3 text-sm">
+              <a href="dich-vu.html" class="font-semibold text-slate-500 transition-colors duration-200 hover:text-brand">Kế toán thuế</a>
+              <a href="bang-gia.html" class="font-semibold text-slate-500 transition-colors duration-200 hover:text-brand">Bảng giá gói</a>
+            </nav>
+          </div>
+          <div>
+            <h4 class="mb-4 text-xs font-extrabold uppercase tracking-widest text-navy">Liên hệ hỗ trợ</h4>
+            <p class="mb-2 text-sm font-semibold text-slate-500">Hotline: 0788 788 919</p>
+            <p class="mb-4 text-sm font-semibold text-slate-500">Email: ketoannht.hcm@gmail.com</p>
+            <div class="flex gap-3">
+              <a href="https://www.facebook.com/ketoannht.hcm/" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-200/60 text-slate-600 transition-all duration-300 hover:bg-[#1877F2] hover:text-white" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                <svg class="h-4 w-4 fill-current" viewBox="0 0 24 24"><path d="M22 12.07C22 6.5 17.52 2 12 2S2 6.5 2 12.07c0 5 3.66 9.13 8.44 9.93v-7.03H8.9v-2.9h1.54V9.41c0-1.52.9-2.36 2.28-2.36.66 0 1.34.12 1.34.12v1.48h-.76c-.75 0-.98.46-.98.93v1.12h1.67l-.27 2.9h-1.4v7.03C18.34 21.2 22 17.08 22 12.07z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 flex flex-col items-center justify-between gap-4 text-xs font-semibold text-slate-400 sm:flex-row">
+        <p><a href="admin-login.html" class="transition-colors hover:text-slate-500" tabindex="-1">© <span id="currentYear">2026</span> NHT Co., Ltd.</a> All rights reserved.</p>
+        <p class="flex gap-4">
+          <a href="dieu-khoan.html" class="transition-colors hover:text-brand">Điều khoản sử dụng</a>
+          <span class="text-slate-200">|</span>
+          <a href="lien-he.html" class="transition-colors hover:text-brand">Liên hệ tư vấn</a>
+        </p>
+      </div>
+    </div>
+  </footer>
   <script src="js/legal-documents.js"></script>
   <script src="js/main.js"></script>
 </body>

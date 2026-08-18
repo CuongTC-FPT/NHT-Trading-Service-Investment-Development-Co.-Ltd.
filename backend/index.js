@@ -105,6 +105,30 @@ function isTruthyEnv(value) {
   return String(value || "").trim().toLowerCase() === "true";
 }
 
+function toVietnamExcelDate(value) {
+  if (!value) return null;
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat("en-CA", {
+      timeZone: "Asia/Ho_Chi_Minh",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hourCycle: "h23",
+    }).formatToParts(new Date(value)).map((part) => [part.type, part.value])
+  );
+  return new Date(Date.UTC(
+    Number(parts.year),
+    Number(parts.month) - 1,
+    Number(parts.day),
+    Number(parts.hour),
+    Number(parts.minute),
+    Number(parts.second)
+  ));
+}
+
 function parseCookies(req) {
   const header = String(req.headers.cookie || "");
   return header.split(";").reduce((cookies, pair) => {
@@ -543,7 +567,7 @@ app.get("/api/leads/export", requireAdmin, async (_req, res, next) => {
     leads.forEach((lead, index) => {
       worksheet.addRow({
         number: index + 1,
-        createdAt: lead.createdAt ? new Date(lead.createdAt) : null,
+        createdAt: toVietnamExcelDate(lead.createdAt),
         name: lead.name || "Không cung cấp",
         phone: lead.phone || "Không cung cấp",
         email: lead.email || "Không cung cấp",
@@ -552,7 +576,7 @@ app.get("/api/leads/export", requireAdmin, async (_req, res, next) => {
         service: lead.service || "Không cung cấp",
         message: lead.message || "Không có lời nhắn",
         processingStatus: lead.processingStatus === "completed" ? "Đã hoàn thành" : lead.processingStatus === "in_progress" ? "Đang xử lý" : "Mới",
-        completedAt: lead.completedAt ? new Date(lead.completedAt) : null,
+        completedAt: toVietnamExcelDate(lead.completedAt),
         assignee: null,
         internalNote: null,
         customerMailStatus: lead.customerMailStatus || "Không xác định",
@@ -567,8 +591,8 @@ app.get("/api/leads/export", requireAdmin, async (_req, res, next) => {
     header.alignment = { vertical: "middle", horizontal: "center" };
 
     worksheet.autoFilter = { from: "A1", to: "O1" };
-    worksheet.getColumn("createdAt").numFmt = "dd/mm/yyyy hh:mm";
-    worksheet.getColumn("completedAt").numFmt = "dd/mm/yyyy hh:mm";
+    worksheet.getColumn("createdAt").numFmt = "dd-mm-yyyy hh:mm";
+    worksheet.getColumn("completedAt").numFmt = "dd-mm-yyyy hh:mm";
     worksheet.getColumn("number").alignment = { horizontal: "center", vertical: "top" };
     if (leads.length) {
       worksheet.getCell("J2").dataValidation = {

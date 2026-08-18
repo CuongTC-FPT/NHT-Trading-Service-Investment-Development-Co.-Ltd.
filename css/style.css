@@ -72,6 +72,23 @@ li {
   text-wrap: pretty;
 }
 
+.site-footer {
+  padding-block: 2.5rem !important;
+}
+
+.site-footer > .mx-auto > .grid {
+  gap: 2rem !important;
+  padding-bottom: 2rem !important;
+}
+
+.site-footer .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  margin-top: 1rem !important;
+}
+
+.site-footer > .mx-auto > .mt-8 {
+  margin-top: 1.5rem !important;
+}
+
 h1,
 h2,
 h3 {
