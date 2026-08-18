@@ -168,23 +168,30 @@ document.addEventListener("DOMContentLoaded", () => {
     if (!user) redirectToLogin();
     return user;
   };
-  const loadDashboard = async () => {
-    try { const user = await ensureDashboardSession(); if (!user) return; $("adminUser").textContent = user.username; await Promise.all([loadLegalDocuments(), loadConsultationRequests()]); const justLoggedIn = sessionStorage.getItem("nhtAdminLoginSuccess") === "true"; sessionStorage.removeItem("nhtAdminLoginSuccess"); showAdminNotice(justLoggedIn ? "Đăng nhập thành công." : "Dữ liệu đã được cập nhật.", "success"); }
+  const loadDashboard = async ({ showRefreshNotice = false } = {}) => {
+    try { const user = await ensureDashboardSession(); if (!user) return; $("adminUser").textContent = user.username; await Promise.all([loadLegalDocuments(), loadConsultationRequests()]); const justLoggedIn = sessionStorage.getItem("nhtAdminLoginSuccess") === "true"; sessionStorage.removeItem("nhtAdminLoginSuccess"); if (justLoggedIn) showAdminNotice("Đăng nhập thành công.", "success"); else if (showRefreshNotice) showAdminNotice("Dữ liệu đã được cập nhật.", "success"); }
     catch (error) { showAdminNotice(error.message, "error"); }
   };
 
   if (loginForm) {
-    checkSession().then((user) => { if (user) location.href = getAdminRedirect(); });
+    checkSession().then((user) => {
+      if (user) {
+        location.replace(getAdminRedirect());
+        return;
+      }
+      $("adminLoginPage")?.classList.remove("invisible");
+    });
     loginForm.addEventListener("submit", async (event) => { event.preventDefault(); const button = loginForm.querySelector("button"); button.disabled = true; try { await api("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: $("adminUsername").value.trim(), password: $("adminPassword").value }) }); sessionStorage.setItem("nhtAdminLoginSuccess", "true"); location.href = getAdminRedirect(); } catch (error) { setNotice("adminLoginNotice", error.message, "error"); } finally { button.disabled = false; } });
   }
   if (!isDashboard) return;
   setupDateField("legalIssuedDate");
   setupDateField("legalEffectiveDate");
-  loadDashboard();
+  const navigationType = performance.getEntriesByType("navigation")[0]?.type;
+  loadDashboard({ showRefreshNotice: navigationType === "reload" });
   window.addEventListener("pageshow", (event) => {
     if (event.persisted) ensureDashboardSession();
   });
-  $("refreshAdminBtn")?.addEventListener("click", loadDashboard);
+  $("refreshAdminBtn")?.addEventListener("click", () => loadDashboard({ showRefreshNotice: true }));
   $("exportLeadsBtn")?.addEventListener("click", exportConsultationRequests);
   const closeStatusMenus = () => {
     document.querySelectorAll("[data-status-menu]").forEach((menu) => {

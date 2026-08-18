@@ -589,6 +589,14 @@ app.get("/api/leads/export", requireAdmin, async (_req, res, next) => {
     header.font = { bold: true, color: { argb: "FFFFFFFF" } };
     header.fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFE05915" } };
     header.alignment = { vertical: "middle", horizontal: "center" };
+    header.eachCell((cell) => {
+      cell.border = {
+        top: { style: "thin", color: { argb: "FFBF480D" } },
+        left: { style: "thin", color: { argb: "FFBF480D" } },
+        bottom: { style: "thin", color: { argb: "FFBF480D" } },
+        right: { style: "thin", color: { argb: "FFBF480D" } },
+      };
+    });
 
     worksheet.autoFilter = { from: "A1", to: "O1" };
     worksheet.getColumn("createdAt").numFmt = "dd-mm-yyyy hh:mm";
@@ -608,7 +616,12 @@ app.get("/api/leads/export", requireAdmin, async (_req, res, next) => {
       if (rowNumber === 1) return;
       row.alignment = { vertical: "top", wrapText: true };
       row.eachCell((cell) => {
-        cell.border = { bottom: { style: "thin", color: { argb: "FFE2E8F0" } } };
+        cell.border = {
+          top: { style: "thin", color: { argb: "FFE2E8F0" } },
+          left: { style: "thin", color: { argb: "FFE2E8F0" } },
+          bottom: { style: "thin", color: { argb: "FFE2E8F0" } },
+          right: { style: "thin", color: { argb: "FFE2E8F0" } },
+        };
       });
     });
 
