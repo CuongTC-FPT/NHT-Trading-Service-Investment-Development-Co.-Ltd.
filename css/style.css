@@ -13,6 +13,7 @@
 }
 
 html {
+  font-family: var(--font-body);
   scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
@@ -55,10 +56,14 @@ h4.tracking-tight {
 }
 
 .nav-link-accent,
+a,
 button,
 input,
 select,
-textarea {
+textarea,
+option,
+table,
+dialog {
   font-family: var(--font-body);
 }
 
