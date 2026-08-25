@@ -9,10 +9,10 @@
   <script>tailwind.config={theme:{extend:{colors:{brand:{DEFAULT:'#e05915',hover:'#bf480d'},navy:{DEFAULT:'#0f172a'}}}}}</script>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-<body class="page-legal-updates flex min-h-screen flex-col bg-slate-50 text-navy selection:bg-brand/10 selection:text-brand">
+<body class="public-layout page-legal-updates flex min-h-screen flex-col bg-slate-50 text-navy selection:bg-brand/10 selection:text-brand">
   <header id="main-header" class="sticky top-0 z-40 border-b border-slate-100/80 bg-white/80 backdrop-blur-md transition-all duration-300">
     <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
-      <a href="index.html" class="flex items-center"><img src="logo.png" alt="NHT Logo" class="h-10 w-auto max-w-[160px] object-contain" /></a>
+      <a href="index.html" class="flex items-center"><img src="../picture/logo-transparent.png" alt="NHT Logo" class="site-logo h-10 w-auto max-w-[160px] object-contain" /></a>
       <div class="hidden items-center gap-8 md:flex">
         <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
           <a href="index.html" class="nav-link-accent transition hover:text-navy">Trang chủ</a>
@@ -28,19 +28,62 @@
   <div id="mobile-menu-drawer" class="fixed inset-0 z-50 translate-x-full bg-navy/40 backdrop-blur-sm transition-transform duration-300 ease-in-out md:hidden" aria-hidden="true">
     <div id="drawer-backdrop" class="absolute inset-0"></div>
     <div class="absolute bottom-0 right-0 top-0 z-10 flex w-64 flex-col gap-6 bg-white p-6 shadow-2xl">
-      <div class="flex items-center justify-between border-b border-slate-100 pb-4"><img src="logo.png" alt="NHT Logo" class="h-8 w-auto object-contain" /><button id="close-menu-btn" class="text-navy" aria-label="Đóng menu"><svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div>
+      <div class="flex items-center justify-between border-b border-slate-100 pb-4"><img src="../picture/logo-transparent.png" alt="NHT Logo" class="site-logo h-8 w-auto object-contain" /><button id="close-menu-btn" class="text-navy" aria-label="Đóng menu"><svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg></button></div>
       <nav class="flex flex-col gap-4 text-base font-semibold text-slate-600">
         <a href="index.html" class="border-b border-slate-50 py-2 transition hover:text-brand">Trang chủ</a><a href="dich-vu.html" class="border-b border-slate-50 py-2 transition hover:text-brand">Dịch vụ</a><a href="bang-gia.html" class="border-b border-slate-50 py-2 transition hover:text-brand">Bảng giá</a><a href="thong-tu-phap-luat.html" class="border-b border-slate-50 py-2 text-brand">Thông tư pháp luật</a><a href="lien-he.html" class="border-b border-slate-50 py-2 transition hover:text-brand">Liên hệ</a>
       </nav>
       <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Nhận báo giá</a>
     </div>
   </div>
-  <main class="mx-auto w-full max-w-6xl flex-1 px-6 py-12">
-    <div class="flex flex-col gap-5">
-      <div class="max-w-3xl"><p class="text-sm font-bold uppercase tracking-wider text-brand">Cập nhật pháp lý</p><h1 class="mt-2 text-4xl font-extrabold tracking-tight">Thông tư pháp luật</h1><p class="mt-4 text-lg leading-relaxed text-slate-600">Tổng hợp các thông tư, quy định và lưu ý pháp lý liên quan đến kế toán - thuế.</p></div>
+  <main class="legal-library flex-1">
+    <section class="legal-library__hero">
+      <div class="legal-library__hero-mark" aria-hidden="true"></div>
+      <div class="legal-library__container legal-library__hero-content">
+        <p class="legal-library__eyebrow">Nguồn tài liệu pháp lý</p>
+        <h1>Thông tư <span>&amp;</span> Văn bản<br />Pháp luật</h1>
+        <p class="legal-library__intro">Kho văn bản quy phạm pháp luật Việt Nam về tài chính, thuế và chuẩn mực kế toán, được tuyển chọn nhằm hỗ trợ doanh nghiệp tra cứu chính xác và tuân thủ hiệu quả.</p>
+      </div>
+    </section>
+
+    <div id="legalFilters" class="legal-library__container legal-filter-panel">
+      <label class="legal-filter legal-filter--search">
+        <span>Tìm kiếm văn bản</span>
+        <input id="legalSearch" type="search" placeholder="Ví dụ: Thông tư 80/2021" autocomplete="off" />
+      </label>
+      <div class="legal-filter">
+        <span id="legalCategoryLabel">Cơ quan ban hành</span>
+        <div class="legal-select" data-legal-select>
+          <select id="legalCategory" class="legal-native-select" tabindex="-1" aria-hidden="true"><option value="">Tất cả cơ quan</option></select>
+          <button id="legalCategoryToggle" class="legal-select__toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="legalCategoryMenu" aria-labelledby="legalCategoryLabel legalCategoryValue">
+            <span id="legalCategoryValue">Tất cả cơ quan</span>
+          </button>
+          <div id="legalCategoryMenu" class="legal-select__menu" role="listbox" aria-labelledby="legalCategoryLabel" hidden></div>
+        </div>
+        <label id="legalOtherAgencyField" class="legal-other-agency" for="legalOtherAgency" hidden>
+          <span>Tên cơ quan khác</span>
+          <input id="legalOtherAgency" type="text" placeholder="Nhập tên cơ quan ban hành" autocomplete="organization" />
+        </label>
+      </div>
+      <div class="legal-filter">
+        <span id="legalYearLabel">Năm hiệu lực</span>
+        <div class="legal-select" data-legal-select>
+          <select id="legalYear" class="legal-native-select" tabindex="-1" aria-hidden="true"><option value="">Tất cả các năm</option></select>
+          <button id="legalYearToggle" class="legal-select__toggle" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="legalYearMenu" aria-labelledby="legalYearLabel legalYearValue">
+            <span id="legalYearValue">Tất cả các năm</span>
+          </button>
+          <div id="legalYearMenu" class="legal-select__menu" role="listbox" aria-labelledby="legalYearLabel" hidden></div>
+        </div>
+      </div>
     </div>
-    <p id="legalPublicNotice" class="mt-8 text-sm font-medium text-slate-500">Đang tải văn bản...</p>
-    <section id="legalDocumentsList" class="mt-5 grid gap-5 md:grid-cols-2"></section>
+
+    <section class="legal-library__container legal-results" aria-labelledby="legal-results-title">
+      <div class="legal-results__heading">
+        <h2 id="legal-results-title">Văn bản mới nhất</h2>
+        <p id="legalPublicNotice" role="status" aria-live="polite">Đang tải văn bản...</p>
+      </div>
+      <div id="legalDocumentsList" class="legal-document-grid"></div>
+      <button id="legalLoadMore" class="legal-load-more" type="button" hidden>Xem thêm văn bản</button>
+    </section>
   </main>
 
   <footer class="site-footer relative z-10 border-t border-slate-200 bg-slate-100 py-16">
@@ -48,7 +91,7 @@
       <div class="grid gap-12 border-b border-slate-200/60 pb-12 lg:grid-cols-12">
         <div class="space-y-6 lg:col-span-5">
           <a href="index.html" class="inline-block">
-            <img src="logo.png" alt="NHT Logo" class="h-10 w-auto object-contain" />
+            <img src="../picture/logo-transparent.png" alt="NHT Logo" class="site-logo h-10 w-auto object-contain" />
           </a>
           <p class="text-sm font-bold uppercase tracking-wider text-brand">Công ty TNHH Thương Mại Dịch Vụ Đầu Tư Phát Triển NHT</p>
           <p class="max-w-md text-sm font-medium leading-relaxed text-slate-500">Giải pháp kế toán, thuế và tư vấn quản trị tài chính chuyên nghiệp cho doanh nghiệp Việt Nam. Hướng đến sự chính xác, an toàn và phát triển bền vững.</p>

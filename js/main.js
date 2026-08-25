@@ -154,6 +154,75 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!form || !notice) return;
 
+  const serviceSelect = document.getElementById("service");
+  const serviceToggle = document.getElementById("serviceToggle");
+  const serviceMenu = document.getElementById("serviceMenu");
+  const serviceValue = document.getElementById("serviceValue");
+  const serviceOptions = serviceMenu ? Array.from(serviceMenu.querySelectorAll("[data-service-value]")) : [];
+
+  const syncServiceControl = () => {
+    if (!serviceSelect || !serviceValue) return;
+    const selectedOption = serviceSelect.options[serviceSelect.selectedIndex];
+    const hasValue = Boolean(serviceSelect.value);
+    serviceValue.textContent = selectedOption?.textContent || "Chọn dịch vụ";
+    serviceValue.classList.toggle("text-slate-400", !hasValue);
+    serviceValue.classList.toggle("font-semibold", hasValue);
+    serviceValue.classList.toggle("text-navy", hasValue);
+    serviceOptions.forEach((option) => {
+      const selected = option.dataset.serviceValue === serviceSelect.value;
+      option.setAttribute("aria-selected", String(selected));
+      option.classList.toggle("bg-brand/5", selected);
+      option.classList.toggle("text-brand", selected);
+      option.classList.toggle("text-slate-700", !selected);
+      option.querySelector("[data-service-check]")?.classList.toggle("invisible", !selected);
+    });
+  };
+  const closeServiceMenu = ({ restoreFocus = false } = {}) => {
+    if (!serviceMenu || !serviceToggle) return;
+    serviceMenu.classList.add("hidden");
+    serviceToggle.setAttribute("aria-expanded", "false");
+    serviceToggle.querySelector("[aria-hidden]")?.classList.remove("rotate-180");
+    if (restoreFocus) serviceToggle.focus();
+  };
+  const openServiceMenu = () => {
+    if (!serviceMenu || !serviceToggle) return;
+    serviceMenu.classList.remove("hidden");
+    serviceToggle.setAttribute("aria-expanded", "true");
+    serviceToggle.querySelector("[aria-hidden]")?.classList.add("rotate-180");
+    (serviceMenu.querySelector('[aria-selected="true"]') || serviceOptions[0])?.focus();
+  };
+  const chooseService = (value) => {
+    if (!serviceSelect) return;
+    serviceSelect.value = value;
+    serviceSelect.dispatchEvent(new Event("change", { bubbles: true }));
+    syncServiceControl();
+    closeServiceMenu({ restoreFocus: true });
+  };
+
+  syncServiceControl();
+  serviceToggle?.addEventListener("click", () => serviceMenu?.classList.contains("hidden") ? openServiceMenu() : closeServiceMenu());
+  serviceToggle?.addEventListener("keydown", (event) => {
+    if (!["ArrowDown", "ArrowUp", "Enter", " "].includes(event.key)) return;
+    event.preventDefault();
+    openServiceMenu();
+  });
+  serviceMenu?.addEventListener("click", (event) => {
+    const option = event.target.closest("[data-service-value]");
+    if (option) chooseService(option.dataset.serviceValue);
+  });
+  serviceMenu?.addEventListener("keydown", (event) => {
+    const index = serviceOptions.indexOf(document.activeElement);
+    if (event.key === "Escape") { event.preventDefault(); closeServiceMenu({ restoreFocus: true }); return; }
+    if (["Enter", " "].includes(event.key)) { event.preventDefault(); document.activeElement?.click(); return; }
+    if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? serviceOptions.length - 1 : event.key === "ArrowDown" ? (index + 1) % serviceOptions.length : (index - 1 + serviceOptions.length) % serviceOptions.length;
+    serviceOptions[nextIndex]?.focus();
+  });
+  document.addEventListener("click", (event) => { if (!event.target.closest("#serviceControl")) closeServiceMenu(); });
+  document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeServiceMenu(); });
+  form.addEventListener("reset", () => window.requestAnimationFrame(syncServiceControl));
+
   const closeTermsModal = () => {
     if (!termsModal) return;
     termsModal.classList.remove("is-open");
@@ -289,7 +358,7 @@ document.addEventListener("DOMContentLoaded", () => {
           "warning"
         );
       } else {
-        setNotice("Gửi thành công. NHT đã nhận được yêu cầu của bạn.", "success");
+        setNotice("Cảm ơn bạn đã tin tưởng NHT", "success");
       }
 
       form.reset();

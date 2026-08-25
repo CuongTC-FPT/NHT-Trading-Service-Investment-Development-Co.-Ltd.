@@ -1,55 +1,231 @@
 document.addEventListener("DOMContentLoaded", async () => {
   const list = document.getElementById("legalDocumentsList");
   const notice = document.getElementById("legalPublicNotice");
+  const filters = document.getElementById("legalFilters");
+  const searchInput = document.getElementById("legalSearch");
+  const categorySelect = document.getElementById("legalCategory");
+  const yearSelect = document.getElementById("legalYear");
+  const categoryToggle = document.getElementById("legalCategoryToggle");
+  const categoryMenu = document.getElementById("legalCategoryMenu");
+  const categoryValue = document.getElementById("legalCategoryValue");
+  const otherAgencyField = document.getElementById("legalOtherAgencyField");
+  const otherAgencyInput = document.getElementById("legalOtherAgency");
+  const yearToggle = document.getElementById("legalYearToggle");
+  const yearMenu = document.getElementById("legalYearMenu");
+  const yearValue = document.getElementById("legalYearValue");
+  const loadMoreButton = document.getElementById("legalLoadMore");
   if (!list || !notice) return;
 
-  notice.setAttribute("role", "status");
-  notice.setAttribute("aria-live", "polite");
+  const pageSize = 6;
+  const defaultIssuingBodies = [
+    "Bộ Tài chính",
+    "Cục Thuế",
+    "Chính phủ",
+    "Quốc hội",
+    "Ngân hàng Nhà nước Việt Nam",
+    "Bảo hiểm xã hội Việt Nam",
+    "Bộ Nội vụ",
+    "Khác",
+  ];
+  let visibleCount = pageSize;
+  let documents = [];
 
   const escapeHtml = (value) => String(value || "")
     .replace(/&/g, "&amp;")
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;")
     .replace(/\"/g, "&quot;");
-  const date = (value) => value
-    ? new Intl.DateTimeFormat("vi-VN", { dateStyle: "medium" }).format(new Date(value))
-    : "";
+  const formatDate = (value) => value
+    ? new Intl.DateTimeFormat("vi-VN", { day: "2-digit", month: "2-digit", year: "numeric" }).format(new Date(value))
+    : "Chưa cập nhật";
+  const getYear = (doc) => {
+    const value = doc.effectiveDate || doc.issuedDate;
+    return value ? String(new Date(value).getFullYear()) : "";
+  };
+  const normalize = (value) => String(value || "")
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase();
 
-  const showLoading = () => {
-    notice.textContent = "Đang tải văn bản...";
-    list.innerHTML = Array.from({ length: 4 }, () => `
-      <div class="overflow-hidden rounded-2xl border border-slate-200 bg-white" aria-hidden="true">
-        <div class="h-40 animate-pulse bg-slate-100"></div>
-        <div class="space-y-3 p-6">
-          <div class="h-3 w-1/3 animate-pulse rounded bg-slate-100"></div>
-          <div class="h-6 w-4/5 animate-pulse rounded bg-slate-100"></div>
-          <div class="h-4 w-full animate-pulse rounded bg-slate-100"></div>
-        </div>
-      </div>`).join("");
+  let dropdowns = [];
+  const createDropdown = ({ select, toggle, menu, value }) => {
+    const sync = () => {
+      const selected = select.options[select.selectedIndex];
+      value.textContent = selected?.textContent || "Tất cả";
+      menu.querySelectorAll("[data-option-value]").forEach((option) => {
+        const isSelected = option.dataset.optionValue === select.value;
+        option.setAttribute("aria-selected", String(isSelected));
+      });
+    };
+    const close = ({ restoreFocus = false } = {}) => {
+      menu.hidden = true;
+      toggle.setAttribute("aria-expanded", "false");
+      toggle.closest("[data-legal-select]")?.classList.remove("is-open");
+      if (restoreFocus) toggle.focus();
+    };
+    const open = () => {
+      dropdowns.forEach((dropdown) => dropdown.close());
+      menu.hidden = false;
+      toggle.setAttribute("aria-expanded", "true");
+      toggle.closest("[data-legal-select]")?.classList.add("is-open");
+      (menu.querySelector('[aria-selected="true"]') || menu.querySelector("[data-option-value]"))?.focus();
+    };
+    const choose = (nextValue) => {
+      select.value = nextValue;
+      select.dispatchEvent(new Event("change", { bubbles: true }));
+      sync();
+      close({ restoreFocus: true });
+    };
+    const refresh = () => {
+      menu.innerHTML = Array.from(select.options).map((option) => `
+        <button type="button" class="legal-select__option" role="option" data-option-value="${escapeHtml(option.value)}" aria-selected="${option.selected}" tabindex="-1">
+          <span>${escapeHtml(option.textContent)}</span><span class="legal-select__check" aria-hidden="true">✓</span>
+        </button>`).join("");
+      sync();
+    };
+
+    toggle.addEventListener("click", () => menu.hidden ? open() : close());
+    toggle.addEventListener("keydown", (event) => {
+      if (!["ArrowDown", "ArrowUp", "Enter", " "].includes(event.key)) return;
+      event.preventDefault();
+      open();
+    });
+    menu.addEventListener("click", (event) => {
+      const option = event.target.closest("[data-option-value]");
+      if (option) choose(option.dataset.optionValue);
+    });
+    menu.addEventListener("keydown", (event) => {
+      const options = Array.from(menu.querySelectorAll("[data-option-value]"));
+      const index = options.indexOf(document.activeElement);
+      if (event.key === "Escape") { event.preventDefault(); close({ restoreFocus: true }); return; }
+      if (["Enter", " "].includes(event.key)) { event.preventDefault(); document.activeElement?.click(); return; }
+      if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+      event.preventDefault();
+      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? options.length - 1 : event.key === "ArrowDown" ? (index + 1) % options.length : (index - 1 + options.length) % options.length;
+      options[nextIndex]?.focus();
+    });
+    select.addEventListener("change", sync);
+    return { close, refresh };
   };
 
-  showLoading();
+  dropdowns = [
+    createDropdown({ select: categorySelect, toggle: categoryToggle, menu: categoryMenu, value: categoryValue }),
+    createDropdown({ select: yearSelect, toggle: yearToggle, menu: yearMenu, value: yearValue }),
+  ];
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest("[data-legal-select]")) dropdowns.forEach((dropdown) => dropdown.close());
+  });
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") dropdowns.forEach((dropdown) => dropdown.close());
+  });
 
+  const cloudinaryImageUrl = (url, width, aspectRatio) => {
+    const source = String(url || "");
+    if (!/^https:\/\/res\.cloudinary\.com\/[a-z0-9_-]+\/image\/upload\//i.test(source)) return source;
+    const transformation = ["f_auto", "q_auto:eco", "c_fill", "g_auto", `w_${width}`, `ar_${aspectRatio}`].join(",");
+    return source.replace("/image/upload/", `/image/upload/${transformation}/`);
+  };
+  const responsiveCloudinaryImage = (url, alt, options = {}) => {
+    const { widths = [640, 960, 1280], aspectRatio = "3:1", sizes = "100vw", eager = false } = options;
+    const optimizedUrls = widths.map((width) => ({ width, url: cloudinaryImageUrl(url, width, aspectRatio) }));
+    const srcset = optimizedUrls.map(({ width, url: imageUrl }) => `${escapeHtml(imageUrl)} ${width}w`).join(", ");
+    const fallback = optimizedUrls[Math.min(1, optimizedUrls.length - 1)]?.url || url;
+    return `<img src="${escapeHtml(fallback)}" srcset="${srcset}" sizes="${escapeHtml(sizes)}" alt="${escapeHtml(alt)}" ${eager ? 'loading="eager" fetchpriority="high"' : 'loading="lazy"'} decoding="async"`;
+  };
+
+  const renderLoading = () => {
+    list.innerHTML = Array.from({ length: 6 }, () => `
+      <div class="legal-document-card legal-document-card--loading" aria-hidden="true">
+        <div></div><div></div><div></div><div></div>
+      </div>`).join("");
+  };
+  const populateFilters = () => {
+    const issuingBodyMap = new Map(
+      [...documents.map((doc) => doc.issuingBody).filter(Boolean), ...defaultIssuingBodies]
+        .map((value) => [normalize(value), value]),
+    );
+    const categories = [...issuingBodyMap.values()].sort((a, b) => {
+      if (normalize(a) === "khac") return 1;
+      if (normalize(b) === "khac") return -1;
+      return a.localeCompare(b, "vi");
+    });
+    const currentYear = new Date().getFullYear();
+    const standardYears = Array.from({ length: currentYear - 1989 }, (_, index) => String(currentYear - index));
+    const years = [...new Set([...standardYears, ...documents.map(getYear).filter(Boolean)])]
+      .sort((a, b) => Number(b) - Number(a));
+    categorySelect.innerHTML = `<option value="">Tất cả cơ quan</option>${categories.map((value) => `<option value="${escapeHtml(value)}">${escapeHtml(value)}</option>`).join("")}`;
+    yearSelect.innerHTML = `<option value="">Tất cả các năm</option>${years.map((value) => `<option value="${value}">${value}</option>`).join("")}`;
+    yearSelect.value = "";
+    dropdowns.forEach((dropdown) => dropdown.refresh());
+  };
+  const syncOtherAgencyField = ({ focus = false } = {}) => {
+    const isOther = normalize(categorySelect.value) === "khac";
+    otherAgencyField.hidden = !isOther;
+    if (!isOther) otherAgencyInput.value = "";
+    if (isOther && focus) window.requestAnimationFrame(() => otherAgencyInput.focus());
+  };
+  const filteredDocuments = () => {
+    const term = normalize(searchInput.value.trim());
+    const selectedBody = normalize(categorySelect.value);
+    const enteredBody = normalize(otherAgencyInput.value.trim());
+    const standardBodies = new Set(defaultIssuingBodies.filter((value) => normalize(value) !== "khac").map(normalize));
+    return documents.filter((doc) => {
+      const haystack = normalize([doc.title, doc.documentNumber, doc.issuingBody, doc.summary].join(" "));
+      const documentBody = normalize(doc.issuingBody);
+      const matchesIssuingBody = selectedBody === "khac"
+        ? (enteredBody ? documentBody.includes(enteredBody) : !standardBodies.has(documentBody))
+        : (!selectedBody || documentBody === selectedBody);
+      return (!term || haystack.includes(term))
+        && matchesIssuingBody
+        && (!yearSelect.value || getYear(doc) === yearSelect.value);
+    });
+  };
+  const renderDocuments = () => {
+    const matches = filteredDocuments();
+    const visible = matches.slice(0, visibleCount);
+    notice.textContent = matches.length
+      ? `Hiển thị ${Math.min(visible.length, matches.length)} trong ${matches.length} văn bản`
+      : "Không tìm thấy văn bản phù hợp";
+    list.innerHTML = visible.map((doc) => `
+      <article class="legal-document-card">
+        <div class="legal-document-card__meta">
+          <span>${escapeHtml(doc.issuingBody || "Pháp luật")}</span>
+          <time datetime="${escapeHtml(doc.effectiveDate || doc.issuedDate || "")}">${escapeHtml(formatDate(doc.effectiveDate || doc.issuedDate))}</time>
+        </div>
+        <p class="legal-document-card__number">${escapeHtml(doc.documentNumber || "Văn bản pháp luật")}</p>
+        <h3>${escapeHtml(doc.title)}</h3>
+        <p class="legal-document-card__summary">${escapeHtml(doc.summary || "Nội dung văn bản đang được cập nhật.")}</p>
+        <a href="thong-tu-phap-luat.html?id=${encodeURIComponent(doc.id)}">Xem chi tiết <span aria-hidden="true">→</span></a>
+      </article>`).join("");
+    if (!visible.length) {
+      list.innerHTML = `<div class="legal-empty"><h3>Chưa có kết quả phù hợp</h3><p>Hãy thử từ khóa khác hoặc đặt lại bộ lọc.</p></div>`;
+    }
+    loadMoreButton.hidden = visible.length >= matches.length;
+  };
+
+  renderLoading();
   try {
     const documentId = new URLSearchParams(window.location.search).get("id");
     if (documentId) {
       const response = await fetch(`/api/legal-documents/${encodeURIComponent(documentId)}`);
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Không tải được văn bản.");
-
       const doc = data.document;
       document.title = `${doc.title} | NHT`;
-      notice.innerHTML = `<a href="thong-tu-phap-luat.html" class="font-bold text-brand hover:underline">← Tất cả thông tư</a>`;
-      list.className = "mt-5";
+      filters.hidden = true;
+      document.querySelector(".legal-library__hero")?.setAttribute("hidden", "");
+      document.querySelector(".legal-results__heading")?.classList.add("legal-results__heading--detail");
+      notice.innerHTML = `<a href="thong-tu-phap-luat.html">← Tất cả thông tư</a>`;
+      list.className = "legal-document-detail";
+      loadMoreButton.hidden = true;
       list.innerHTML = `
-        <article class="rounded-2xl border border-slate-200 bg-white p-6 shadow-premium md:p-10">
-          ${doc.imageUrl ? `<img src="${escapeHtml(doc.imageUrl)}" alt="${escapeHtml(doc.title)}" class="mb-7 h-72 w-full rounded-xl object-cover" decoding="async" />` : ""}
-          <p class="text-xs font-bold uppercase tracking-wider text-brand">${escapeHtml([doc.documentNumber, doc.issuingBody].filter(Boolean).join(" - ") || "Thông tin pháp lý")}</p>
-          <h2 class="mt-3 text-3xl font-extrabold leading-tight text-navy">${escapeHtml(doc.title)}</h2>
-          <p class="mt-4 whitespace-pre-line text-lg leading-relaxed text-slate-600">${escapeHtml(doc.summary)}</p>
-          <div class="my-7 border-t border-slate-200"></div>
-          <div class="whitespace-pre-line leading-8 text-slate-700">${escapeHtml(doc.content)}</div>
-          ${doc.sourceUrl ? `<a class="mt-8 inline-flex font-bold text-brand hover:underline" href="${escapeHtml(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer">Xem văn bản gốc →</a>` : ""}
+        <article>
+          ${doc.imageUrl ? `${responsiveCloudinaryImage(doc.imageUrl, doc.title, { eager: true })} class="legal-document-detail__image" />` : ""}
+          <p class="legal-document-card__number">${escapeHtml([doc.documentNumber, doc.issuingBody].filter(Boolean).join(" · ") || "Thông tin pháp lý")}</p>
+          <h1>${escapeHtml(doc.title)}</h1>
+          <p class="legal-document-detail__summary">${escapeHtml(doc.summary)}</p>
+          <div class="legal-document-detail__content">${escapeHtml(doc.content)}</div>
+          ${doc.sourceUrl ? `<a class="legal-document-detail__source" href="${escapeHtml(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer">Xem văn bản gốc <span aria-hidden="true">→</span></a>` : ""}
         </article>`;
       return;
     }
@@ -57,39 +233,34 @@ document.addEventListener("DOMContentLoaded", async () => {
     const response = await fetch("/api/legal-documents");
     const data = await response.json();
     if (!response.ok) throw new Error(data.error || "Không tải được văn bản.");
-
-    const documents = data.documents || [];
-    if (!documents.length) {
-      notice.textContent = "Chưa có thông tư nào được công khai.";
-      list.innerHTML = `
-        <div class="rounded-2xl border border-slate-200 bg-white p-8 text-center md:col-span-2">
-          <h2 class="text-xl font-bold text-navy">Nội dung đang được cập nhật</h2>
-          <p class="mx-auto mt-2 max-w-xl text-slate-600">Các thông tư mới sẽ được NHT đăng tại đây sau khi kiểm tra nội dung.</p>
-        </div>`;
-      return;
-    }
-
-    notice.textContent = `${documents.length} văn bản đã được cập nhật.`;
-    list.innerHTML = documents.map((doc) => `
-      <article class="overflow-hidden rounded-2xl border border-slate-200 bg-white transition hover:-translate-y-0.5 hover:shadow-premium">
-        ${doc.imageUrl ? `<img src="${escapeHtml(doc.imageUrl)}" alt="${escapeHtml(doc.title)}" class="h-48 w-full object-cover" loading="lazy" decoding="async" />` : ""}
-        <div class="p-6">
-          <p class="text-xs font-bold uppercase tracking-wider text-brand">${escapeHtml([doc.documentNumber, doc.issuingBody].filter(Boolean).join(" - ") || "Thông tin pháp lý")}</p>
-          <h2 class="mt-3 text-xl font-extrabold leading-snug text-navy">${escapeHtml(doc.title)}</h2>
-          <p class="mt-3 whitespace-pre-line leading-relaxed text-slate-600">${escapeHtml(doc.summary)}</p>
-          <div class="mt-5 flex items-center justify-between gap-3 border-t border-slate-100 pt-4 text-sm text-slate-500">
-            <span>${doc.effectiveDate ? `Hiệu lực: ${escapeHtml(date(doc.effectiveDate))}` : ""}</span>
-            <a class="font-bold text-brand hover:underline" href="thong-tu-phap-luat.html?id=${encodeURIComponent(doc.id)}">Đọc chi tiết →</a>
-          </div>
-        </div>
-      </article>`).join("");
+    documents = data.documents || [];
+    populateFilters();
+    syncOtherAgencyField();
+    renderDocuments();
+    searchInput.addEventListener("input", () => {
+      visibleCount = pageSize;
+      renderDocuments();
+    });
+    categorySelect.addEventListener("change", () => {
+      visibleCount = pageSize;
+      syncOtherAgencyField({ focus: true });
+      renderDocuments();
+    });
+    yearSelect.addEventListener("change", () => {
+      visibleCount = pageSize;
+      renderDocuments();
+    });
+    otherAgencyInput.addEventListener("input", () => {
+      visibleCount = pageSize;
+      renderDocuments();
+    });
+    loadMoreButton.addEventListener("click", () => {
+      visibleCount += pageSize;
+      renderDocuments();
+    });
   } catch (error) {
-    notice.textContent = "Không thể tải văn bản lúc này.";
-    notice.className = "mt-8 text-sm font-medium text-red-700";
-    list.innerHTML = `
-      <div class="rounded-2xl border border-red-200 bg-red-50 p-8 md:col-span-2">
-        <h2 class="text-xl font-bold text-red-900">Đã xảy ra lỗi kết nối</h2>
-        <p class="mt-2 text-red-800">Vui lòng tải lại trang hoặc quay lại sau.</p>
-      </div>`;
+    notice.textContent = "Không thể tải văn bản lúc này";
+    list.innerHTML = `<div class="legal-empty legal-empty--error"><h3>Đã xảy ra lỗi kết nối</h3><p>Vui lòng tải lại trang hoặc quay lại sau.</p></div>`;
+    loadMoreButton.hidden = true;
   }
 });

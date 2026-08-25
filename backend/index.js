@@ -13,7 +13,7 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const FRONTEND_ROOT = path.join(__dirname, "..");
 const HTML_ROOT = path.join(FRONTEND_ROOT, "HTML");
 const PICTURE_ROOT = path.join(FRONTEND_ROOT, "picture");
-const EMAIL_LOGO_PATH = path.join(PICTURE_ROOT, "logo.png");
+const EMAIL_LOGO_PATH = path.join(PICTURE_ROOT, "logo-transparent.png");
 const CUSTOMER_EMAIL_TEMPLATE = path.join(__dirname, "uploads", "Customer Email", "code.html");
 const ADMIN_EMAIL_TEMPLATE = path.join(__dirname, "uploads", "Admin email", "code.html");
 const ADMIN_COOKIE_NAME = "nht_admin_session";

@@ -10,6 +10,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const setNotice = (id, text, tone = "muted") => {
     const el = $(id); if (!el) return;
     el.textContent = text;
+    el.classList.toggle("hidden", !text);
+    if (!text) return;
     el.className = `${el.dataset.noticeBase || ""} text-sm font-medium ${tone === "error" ? "text-red-600" : tone === "success" ? "text-emerald-600" : "text-slate-500"}`.trim();
   };
   let adminNoticeTimer;
@@ -56,6 +58,47 @@ document.addEventListener("DOMContentLoaded", () => {
     picker?.addEventListener("click", () => { if (typeof hidden.showPicker === "function") hidden.showPicker(); else hidden.focus(); });
   };
 
+  const legalStatusLabels = { draft: "Bản nháp", published: "Công khai" };
+  const closeLegalStatusMenu = ({ restoreFocus = false } = {}) => {
+    const menu = $("legalStatusMenu");
+    const toggle = $("legalStatusToggle");
+    if (!menu || !toggle) return;
+    menu.classList.add("hidden");
+    toggle.setAttribute("aria-expanded", "false");
+    toggle.querySelector("[aria-hidden]")?.classList.remove("rotate-180");
+    if (restoreFocus) toggle.focus();
+  };
+  const syncLegalStatusControl = () => {
+    const select = $("legalStatus");
+    const value = $("legalStatusValue");
+    if (!select || !value) return;
+    value.textContent = legalStatusLabels[select.value] || legalStatusLabels.draft;
+    document.querySelectorAll("[data-legal-status]").forEach((option) => {
+      const selected = option.dataset.legalStatus === select.value;
+      option.setAttribute("aria-selected", String(selected));
+      option.classList.toggle("bg-brand/5", selected);
+      option.classList.toggle("text-brand", selected);
+      option.classList.toggle("text-slate-700", !selected);
+      option.querySelector("[data-status-check]")?.classList.toggle("invisible", !selected);
+    });
+  };
+  const openLegalStatusMenu = () => {
+    const menu = $("legalStatusMenu");
+    const toggle = $("legalStatusToggle");
+    if (!menu || !toggle) return;
+    menu.classList.remove("hidden");
+    toggle.setAttribute("aria-expanded", "true");
+    toggle.querySelector("[aria-hidden]")?.classList.add("rotate-180");
+    menu.querySelector('[aria-selected="true"]')?.focus();
+  };
+  const selectLegalStatus = (status) => {
+    const select = $("legalStatus");
+    if (!select || !legalStatusLabels[status]) return;
+    select.value = status;
+    syncLegalStatusControl();
+    closeLegalStatusMenu({ restoreFocus: true });
+  };
+
   const resetForm = () => {
     const form = $("legalDocumentForm");
     if (form) form.reset();
@@ -66,6 +109,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if ($("legalImagePublicId")) $("legalImagePublicId").value = "";
     if ($("legalImagePreview")) { $("legalImagePreview").src = ""; $("legalImagePreview").classList.add("hidden"); }
     if ($("saveLegalDocumentBtn")) $("saveLegalDocumentBtn").textContent = "Lưu văn bản";
+    syncLegalStatusControl();
     setNotice("legalNotice", "");
   };
   const renderLegalDocuments = () => {
@@ -76,6 +120,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadLegalDocuments = async () => { legalDocuments = (await api("/api/admin/legal-documents")).documents || []; renderLegalDocuments(); };
   const displayValue = (value, fallback = "Không cung cấp") => String(value || "").trim() || fallback;
   const processingStatusLabel = (status) => status === "completed" ? "Đã hoàn thành" : status === "in_progress" ? "Đang xử lý" : "Mới";
+  const mailStatusLabel = (status) => status === "sent" ? "Sent" : displayValue(status, "Không xác định");
   const processingStatusClass = (status) => status === "completed" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : status === "in_progress" ? "border-amber-200 bg-amber-50 text-amber-700" : "border-sky-200 bg-sky-50 text-sky-700";
   const renderConsultationRequests = () => {
     const table = $("consultationRequestsTableBody");
@@ -121,8 +166,8 @@ document.addEventListener("DOMContentLoaded", () => {
       ["Trạng thái xử lý", processingStatusLabel(lead.processingStatus)],
       ["Ngày hoàn thành", lead.completedAt ? formatDate(lead.completedAt) : "Chưa hoàn thành"],
       ["Lời nhắn", displayValue(lead.message, "Không có lời nhắn")],
-      ["Email khách hàng", displayValue(lead.customerMailStatus, "Không xác định")],
-      ["Email quản trị", displayValue(lead.adminMailStatus, "Không xác định")],
+      ["Email khách hàng", mailStatusLabel(lead.customerMailStatus)],
+      ["Email quản trị", mailStatusLabel(lead.adminMailStatus)],
     ];
     content.innerHTML = fields.map(([label, value], index) => `<div class="${index === 9 ? "sm:col-span-2" : ""}"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(label)}</p><p class="mt-1.5 whitespace-pre-wrap break-words text-sm font-semibold text-slate-700">${escapeHtml(value)}</p></div>`).join("");
     $("consultationDialogTitle").textContent = displayValue(lead.name, "Chi tiết khách hàng");
@@ -186,6 +231,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!isDashboard) return;
   setupDateField("legalIssuedDate");
   setupDateField("legalEffectiveDate");
+  syncLegalStatusControl();
   const navigationType = performance.getEntriesByType("navigation")[0]?.type;
   loadDashboard({ showRefreshNotice: navigationType === "reload" });
   window.addEventListener("pageshow", (event) => {
@@ -238,7 +284,7 @@ document.addEventListener("DOMContentLoaded", () => {
       lead.processingStatus = result.lead.processingStatus;
       lead.completedAt = result.lead.completedAt;
       renderConsultationRequests();
-      setNotice("consultationRequestsNotice", `Đã chuyển yêu cầu sang “${processingStatusLabel(lead.processingStatus)}”.`, "success");
+      setNotice("consultationRequestsNotice", "");
     } catch (error) {
       lead.processingStatus = previousStatus;
       renderConsultationRequests();
@@ -253,8 +299,33 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target === $("consultationRequestDialog")) $("consultationRequestDialog").close();
   });
   $("resetLegalFormBtn")?.addEventListener("click", resetForm);
+  $("legalStatusToggle")?.addEventListener("click", () => {
+    $("legalStatusMenu")?.classList.contains("hidden") ? openLegalStatusMenu() : closeLegalStatusMenu();
+  });
+  $("legalStatusToggle")?.addEventListener("keydown", (event) => {
+    if (["ArrowDown", "ArrowUp", "Enter", " "].includes(event.key)) {
+      event.preventDefault();
+      openLegalStatusMenu();
+    }
+  });
+  $("legalStatusMenu")?.addEventListener("click", (event) => {
+    const option = event.target.closest("[data-legal-status]");
+    if (option) selectLegalStatus(option.dataset.legalStatus);
+  });
+  $("legalStatusMenu")?.addEventListener("keydown", (event) => {
+    const options = [...event.currentTarget.querySelectorAll("[data-legal-status]")];
+    const index = options.indexOf(document.activeElement);
+    if (event.key === "Escape") { event.preventDefault(); closeLegalStatusMenu({ restoreFocus: true }); return; }
+    if (event.key === "Enter" || event.key === " ") { event.preventDefault(); document.activeElement?.click(); return; }
+    if (!["ArrowDown", "ArrowUp", "Home", "End"].includes(event.key)) return;
+    event.preventDefault();
+    const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? options.length - 1 : event.key === "ArrowDown" ? (index + 1) % options.length : (index - 1 + options.length) % options.length;
+    options[nextIndex]?.focus();
+  });
+  document.addEventListener("click", (event) => { if (!event.target.closest("#legalStatusControl")) closeLegalStatusMenu(); });
+  document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeLegalStatusMenu(); });
   $("legalImage")?.addEventListener("change", () => { const file = $("legalImage").files[0]; if (!file) return; $("legalImagePreview").src = URL.createObjectURL(file); $("legalImagePreview").classList.remove("hidden"); });
   $("legalDocumentForm")?.addEventListener("submit", async (event) => { event.preventDefault(); const id = $("legalDocumentId").value; try { const imageFile = $("legalImage")?.files[0]; if (imageFile) { setNotice("legalNotice", "Dang tai anh len Cloudinary..."); const formData = new FormData(); formData.append("image", imageFile); const imageResult = await api("/api/admin/legal-documents/upload-image", { method: "POST", body: formData }); $("legalImageUrl").value = imageResult.imageUrl; $("legalImagePublicId").value = imageResult.imagePublicId; } const payload = { title: $("legalTitle").value, documentNumber: $("legalDocumentNumber").value, issuingBody: $("legalIssuingBody").value, issuedDate: $("legalIssuedDate").value, effectiveDate: $("legalEffectiveDate").value, summary: $("legalSummary").value, content: $("legalContent").value, sourceUrl: $("legalSourceUrl").value, imageUrl: $("legalImageUrl").value, imagePublicId: $("legalImagePublicId").value, status: $("legalStatus").value }; await api(id ? `/api/admin/legal-documents/${id}` : "/api/admin/legal-documents", { method: id ? "PUT" : "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(payload) }); setNotice("legalNotice", "Da luu van ban.", "success"); resetForm(); await loadLegalDocuments(); } catch (error) { setNotice("legalNotice", error.message, "error"); } });
-  $("legalDocumentsTableBody")?.addEventListener("click", async (event) => { const id = event.target.dataset.edit || event.target.dataset.delete; if (!id) return; const doc = legalDocuments.find((item) => item.id === id); if (event.target.dataset.edit && doc) { $("legalDocumentId").value = doc.id; $("legalTitle").value = doc.title || ""; $("legalDocumentNumber").value = doc.documentNumber || ""; $("legalIssuingBody").value = doc.issuingBody || ""; $("legalIssuedDate").value = doc.issuedDate || ""; $("legalEffectiveDate").value = doc.effectiveDate || ""; $("legalIssuedDateDisplay").value = formatVietnameseDate(doc.issuedDate); $("legalEffectiveDateDisplay").value = formatVietnameseDate(doc.effectiveDate); $("legalSummary").value = doc.summary || ""; $("legalContent").value = doc.content || ""; $("legalSourceUrl").value = doc.sourceUrl || ""; $("legalImageUrl").value = doc.imageUrl || ""; $("legalImagePublicId").value = doc.imagePublicId || ""; if (doc.imageUrl) { $("legalImagePreview").src = doc.imageUrl; $("legalImagePreview").classList.remove("hidden"); } else { $("legalImagePreview").classList.add("hidden"); } $("legalStatus").value = doc.status; $("saveLegalDocumentBtn").textContent = "Cap nhat van ban"; window.scrollTo({ top: 0, behavior: "smooth" }); } if (event.target.dataset.delete && confirm(`Xoa van ban "${doc?.title || ""}"?`)) { try { await api(`/api/admin/legal-documents/${id}`, { method: "DELETE" }); await loadLegalDocuments(); } catch (error) { setNotice("legalNotice", error.message, "error"); } } });
+  $("legalDocumentsTableBody")?.addEventListener("click", async (event) => { const id = event.target.dataset.edit || event.target.dataset.delete; if (!id) return; const doc = legalDocuments.find((item) => item.id === id); if (event.target.dataset.edit && doc) { $("legalDocumentId").value = doc.id; $("legalTitle").value = doc.title || ""; $("legalDocumentNumber").value = doc.documentNumber || ""; $("legalIssuingBody").value = doc.issuingBody || ""; $("legalIssuedDate").value = doc.issuedDate || ""; $("legalEffectiveDate").value = doc.effectiveDate || ""; $("legalIssuedDateDisplay").value = formatVietnameseDate(doc.issuedDate); $("legalEffectiveDateDisplay").value = formatVietnameseDate(doc.effectiveDate); $("legalSummary").value = doc.summary || ""; $("legalContent").value = doc.content || ""; $("legalSourceUrl").value = doc.sourceUrl || ""; $("legalImageUrl").value = doc.imageUrl || ""; $("legalImagePublicId").value = doc.imagePublicId || ""; if (doc.imageUrl) { $("legalImagePreview").src = doc.imageUrl; $("legalImagePreview").classList.remove("hidden"); } else { $("legalImagePreview").classList.add("hidden"); } $("legalStatus").value = doc.status; syncLegalStatusControl(); $("saveLegalDocumentBtn").textContent = "Cap nhat van ban"; window.scrollTo({ top: 0, behavior: "smooth" }); } if (event.target.dataset.delete && confirm(`Xoa van ban "${doc?.title || ""}"?`)) { try { await api(`/api/admin/legal-documents/${id}`, { method: "DELETE" }); await loadLegalDocuments(); } catch (error) { setNotice("legalNotice", error.message, "error"); } } });
   $("logoutBtn")?.addEventListener("click", async () => { await fetch("/api/admin/logout", { method: "POST" }); redirectToLogin(); });
 });

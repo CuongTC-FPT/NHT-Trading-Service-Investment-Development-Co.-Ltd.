@@ -97,7 +97,20 @@
         <label class="block text-sm font-semibold text-slate-700 md:col-span-2">Nội dung<textarea id="legalContent" rows="6" maxlength="30000" class="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-brand"></textarea></label>
         <label class="block text-sm font-semibold text-slate-700">Liên kết văn bản gốc<input id="legalSourceUrl" type="url" maxlength="2000" placeholder="https://..." class="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-brand" /></label>
         <div class="block text-sm font-semibold text-slate-700"><label for="legalImage">Ảnh đại diện</label><input id="legalImage" type="file" accept="image/jpeg,image/png,image/webp" class="mt-1.5 block w-full text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-brand/10 file:px-3 file:py-2 file:font-bold file:text-brand hover:file:bg-brand/20" /><input id="legalImageUrl" type="hidden" /><input id="legalImagePublicId" type="hidden" /><img id="legalImagePreview" class="mt-3 hidden h-24 w-36 rounded-lg border border-slate-200 object-cover" alt="Xem trước ảnh đại diện" /></div>
-        <label class="block text-sm font-semibold text-slate-700">Trạng thái<select id="legalStatus" class="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-brand"><option value="draft">Bản nháp</option><option value="published">Công khai</option></select></label>
+        <div class="block text-sm font-semibold text-slate-700">
+          <span id="legalStatusLabel">Trạng thái</span>
+          <div id="legalStatusControl" class="relative mt-1.5">
+            <select id="legalStatus" class="sr-only" tabindex="-1" aria-hidden="true"><option value="draft">Bản nháp</option><option value="published">Công khai</option></select>
+            <button id="legalStatusToggle" type="button" aria-labelledby="legalStatusLabel legalStatusValue" aria-haspopup="listbox" aria-expanded="false" class="flex w-full items-center justify-between rounded-xl border border-slate-200 bg-white px-4 py-3 text-left text-base font-semibold text-navy shadow-sm transition hover:border-slate-300 focus:border-brand focus:outline-none focus:ring-4 focus:ring-brand/10">
+              <span id="legalStatusValue">Bản nháp</span>
+              <span aria-hidden="true" class="ml-4 text-xs text-slate-400 transition-transform">▼</span>
+            </button>
+            <div id="legalStatusMenu" class="absolute left-0 right-0 z-30 mt-2 hidden overflow-hidden rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl" role="listbox" aria-labelledby="legalStatusLabel">
+              <button type="button" data-legal-status="draft" role="option" class="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-sm font-semibold transition hover:bg-slate-50 focus:bg-slate-50 focus:outline-none"><span>Bản nháp</span><span data-status-check aria-hidden="true" class="text-brand">✓</span></button>
+              <button type="button" data-legal-status="published" role="option" class="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-sm font-semibold transition hover:bg-slate-50 focus:bg-slate-50 focus:outline-none"><span>Công khai</span><span data-status-check aria-hidden="true" class="text-brand">✓</span></button>
+            </div>
+          </div>
+        </div>
         <div class="flex items-center gap-3 md:col-span-2"><button id="saveLegalDocumentBtn" type="submit" class="rounded-xl bg-brand px-5 py-3 text-sm font-bold text-white hover:bg-brand-hover">Lưu văn bản</button><p id="legalNotice" class="text-sm font-medium text-slate-500" role="status"></p></div>
       </form>
     </section>
@@ -138,7 +151,7 @@
           </tbody>
         </table>
       </div>
-      <p id="consultationRequestsNotice" data-notice-base="border-t border-slate-100 px-5 py-3" class="border-t border-slate-100 px-5 py-3 text-sm font-medium text-slate-500" role="status"></p>
+      <p id="consultationRequestsNotice" data-notice-base="border-t border-slate-100 px-5 py-3" class="hidden border-t border-slate-100 px-5 py-3 text-sm font-medium text-slate-500" role="status"></p>
     </section>
 
   </main>
