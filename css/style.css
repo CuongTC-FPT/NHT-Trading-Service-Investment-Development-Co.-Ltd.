@@ -836,6 +836,12 @@ img {
   mix-blend-mode: multiply;
 }
 
+.admin-logo {
+  border-radius: 0;
+  background: transparent;
+  mix-blend-mode: multiply;
+}
+
 .public-layout .site-footer .site-logo {
   filter: saturate(0.82) contrast(1.02);
   opacity: 0.94;
