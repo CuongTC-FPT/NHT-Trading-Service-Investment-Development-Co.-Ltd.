@@ -74,20 +74,32 @@ li {
 }
 
 .site-footer {
-  padding-block: 2.5rem !important;
+  padding-block: 2rem !important;
 }
 
 .site-footer > .mx-auto > .grid {
-  gap: 2rem !important;
-  padding-bottom: 2rem !important;
+  gap: 1.5rem !important;
+  padding-bottom: 1.5rem !important;
 }
 
 .site-footer .space-y-6 > :not([hidden]) ~ :not([hidden]) {
-  margin-top: 1rem !important;
+  margin-top: 0.75rem !important;
 }
 
 .site-footer > .mx-auto > .mt-8 {
-  margin-top: 1.5rem !important;
+  margin-top: 1rem !important;
+}
+
+.site-footer h4 {
+  margin-bottom: 0.625rem !important;
+}
+
+.site-footer nav {
+  gap: 0.5rem !important;
+}
+
+.site-footer > .mx-auto > .grid > .grid {
+  gap: 1.25rem !important;
 }
 
 h1,
@@ -625,9 +637,13 @@ img {
     margin-top: 5rem !important;
   }
 
-  footer {
-    padding-top: 3rem !important;
-    padding-bottom: 3rem !important;
+  .site-footer {
+    padding-block: 1.75rem !important;
+  }
+
+  .site-footer > .mx-auto > .grid {
+    gap: 1.25rem !important;
+    padding-bottom: 1.25rem !important;
   }
 }
 
@@ -860,7 +876,7 @@ img {
 }
 
 .public-layout .site-footer {
-  padding-block: 4.5rem !important;
+  padding-block: 2rem !important;
 }
 
 .public-layout .site-footer h4 {
@@ -1531,6 +1547,7 @@ img {
   font-size: 0.86rem;
   line-height: 1.6;
   -webkit-box-orient: vertical;
+  line-clamp: 3;
   -webkit-line-clamp: 3;
 }
 
