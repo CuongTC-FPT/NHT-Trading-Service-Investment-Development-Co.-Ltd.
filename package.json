@@ -1,0 +1,20 @@
+{
+  "name": "ke-toan-landing-frontend",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "build:fonts": "node scripts/copy-fonts.js",
+    "build:css": "tailwindcss -i ./css/tailwind-input.css -o ./css/tailwind.min.css --minify",
+    "build": "npm run build:fonts && npm run build:css",
+    "check": "node scripts/check-assets.js && npm --prefix backend run check",
+    "smoke": "node scripts/smoke-test.js"
+  },
+  "devDependencies": {
+    "sharp": "^0.35.4",
+    "tailwindcss": "^3.4.17"
+  },
+  "dependencies": {
+    "@fontsource/lora": "^5.3.0",
+    "@fontsource/montserrat": "^5.3.0"
+  }
+}

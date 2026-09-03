@@ -5,27 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Kế toán NHT | Dịch Vụ Kế Toán Thuế & Báo Cáo Tài Chính Trọn Gói</title>
   <meta name="description" content="NHT cung cấp dịch vụ kế toán trọn gói chuyên nghiệp: kế toán thuế, kiểm tra BCTC, BHXH và tiền lương cho doanh nghiệp Việt Nam. Uy tín, chính xác." />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              DEFAULT: "#e05915",
-              hover: "#bf480d",
-              light: "#fff7ed"
-            },
-            navy: {
-              DEFAULT: "#0f172a",
-              light: "#1e293b",
-              muted: "#475569"
-            }
-          }
-        }
-      }
+  <meta name="theme-color" content="#ffffff" />
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:site_name" content="Kế toán NHT" />
+  <meta property="og:title" content="Kế toán NHT | Dịch vụ kế toán thuế và báo cáo tài chính trọn gói" />
+  <meta property="og:description" content="Dịch vụ kế toán, thuế, báo cáo tài chính, BHXH và tiền lương cho doanh nghiệp Việt Nam." />
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "Công ty TNHH Dịch vụ Tư vấn NHT",
+      "telephone": "+84 788 788 919",
+      "email": "ketoannht.hcm@gmail.com",
+      "sameAs": ["https://www.facebook.com/ketoannht.hcm/"]
     }
   </script>
+  <link rel="stylesheet" href="../css/tailwind.min.css" />
+  <link rel="stylesheet" href="../css/fonts.css" />
   <link rel="stylesheet" href="../css/style.css" />
 </head>
 <body class="public-layout page-home bg-white text-navy selection:bg-brand/10 selection:text-brand">
@@ -34,7 +31,7 @@
     <header id="main-header" class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100/80 transition-all duration-300">
       <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
         <a href="index.html" class="flex items-center text-lg font-semibold text-navy">
-          <img src="../picture/logo-transparent.png" alt="NHT Logo" class="site-logo h-10 w-auto max-w-[160px] object-contain" />
+          <img src="../picture/logo-transparent.webp" alt="NHT Logo" class="site-logo h-10 w-auto max-w-[160px] object-contain" />
         </a>
         
         <!-- Desktop Navigation -->
@@ -62,7 +59,7 @@
       <div id="drawer-backdrop" class="absolute inset-0"></div>
       <div class="absolute right-0 top-0 bottom-0 w-64 bg-white p-6 shadow-2xl flex flex-col gap-6 z-10">
         <div class="flex items-center justify-between border-b border-slate-100 pb-4">
-          <img src="../picture/logo-transparent.png" alt="NHT Logo" class="site-logo h-8 w-auto object-contain" />
+          <img src="../picture/logo-transparent.webp" alt="NHT Logo" class="site-logo h-8 w-auto object-contain" />
           <button id="close-menu-btn" class="text-navy focus:outline-none" aria-label="Close Menu">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
               <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -114,7 +111,7 @@
           <div class="absolute -left-6 -top-6 w-72 h-72 bg-brand/10 rounded-full blur-3xl opacity-60"></div>
           <div class="absolute -right-6 -bottom-6 w-72 h-72 bg-slate-200/40 rounded-full blur-3xl opacity-40"></div>
           <div class="relative overflow-hidden rounded-[2rem] border border-slate-100 bg-white p-3 shadow-premium animate-float">
-            <img src="../picture/NHT_TC.jpg" alt="NHT tư vấn tài chính" class="w-full h-auto object-cover rounded-[1.7rem] shadow-sm" />
+            <img src="../picture/NHT_TC.webp" alt="NHT tư vấn tài chính" class="w-full h-auto object-cover rounded-[1.7rem] shadow-sm" />
           </div>
           
           <!-- Floating Stat Card 1 -->
@@ -320,9 +317,9 @@
         <div class="grid gap-12 lg:grid-cols-12 pb-12 border-b border-slate-200/60">
           <div class="lg:col-span-5 space-y-6">
             <a href="index.html" class="inline-block">
-              <img src="../picture/logo-transparent.png" alt="NHT Logo" class="site-logo h-10 w-auto object-contain" />
+              <img src="../picture/logo-transparent.webp" alt="NHT Logo" class="site-logo h-10 w-auto object-contain" />
             </a>
-            <p class="text-sm font-bold text-brand uppercase tracking-wider">Công ty TNHH Thương Mại Dịch Vụ Đầu Tư Phát Triển NHT</p>
+            <p class="text-sm font-bold text-brand uppercase tracking-wider">Công ty TNHH Dịch vụ Tư vấn NHT</p>
             <p class="max-w-md text-sm leading-relaxed text-slate-500 font-medium">
               Giải pháp kế toán, thuế và tư vấn quản trị tài chính chuyên nghiệp cho doanh nghiệp Việt Nam. Hướng đến sự chính xác, an toàn và phát triển bền vững.
             </p>
@@ -357,7 +354,7 @@
         </div>
         
         <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-semibold">
-          <p><a href="admin-login.html" class="hover:text-slate-500 transition-colors" tabindex="-1">© <span id="currentYear">2026</span> NHT Co., Ltd.</a> All rights reserved.</p>
+          <p><a href="admin-login.html" class="hover:text-slate-500 transition-colors" tabindex="-1">© <span id="currentYear">2026</span> Công ty TNHH Dịch vụ Tư vấn NHT.</a> All rights reserved.</p>
           <p class="flex gap-4">
             <a href="dieu-khoan.html" class="hover:text-brand transition-colors">Điều khoản sử dụng</a>
             <span class="text-slate-200">|</span>

@@ -17,7 +17,7 @@ function toVietnamExcelDate(value) {
 
 async function createLeadsWorkbook(leads) {
   const workbook = new ExcelJS.Workbook();
-  workbook.creator = "NHT Accounting";
+  workbook.creator = "Công ty TNHH Dịch vụ Tư vấn NHT";
   workbook.created = new Date();
   const worksheet = workbook.addWorksheet("Yêu cầu tư vấn", {
     views: [{ state: "frozen", ySplit: 1 }],

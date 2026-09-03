@@ -5,18 +5,25 @@
   "description": "API lien he + phuc vu static site (thu muc cha)",
   "scripts": {
     "start": "node index.js",
-    "dev": "node index.js"
+    "dev": "node index.js",
+    "check": "node --check index.js"
   },
   "engines": {
     "node": ">=18"
   },
   "dependencies": {
     "cloudinary": "^2.10.0",
+    "compression": "^1.8.1",
     "dotenv": "^16.4.5",
     "exceljs": "^4.4.0",
-    "express": "^4.21.2",
+    "express": "^5.1.0",
+    "express-rate-limit": "^8.1.0",
+    "helmet": "^8.1.0",
     "multer": "^2.2.0",
     "nodemailer": "^9.0.1",
     "pg": "^8.22.0"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
   }
 }

@@ -57,14 +57,22 @@ const SCHEMA = `
 
 function createPool() {
   const connectionString = String(process.env.DATABASE_URL || "").trim();
+  const sharedOptions = {
+    max: Number(process.env.DB_POOL_MAX || 10),
+    idleTimeoutMillis: 30000,
+    connectionTimeoutMillis: 10000,
+    keepAlive: true,
+  };
   if (connectionString) {
     return new Pool({
+      ...sharedOptions,
       connectionString,
-      ssl: process.env.DB_SSL === "true" ? { rejectUnauthorized: false } : undefined,
+      ssl: process.env.DB_SSL === "false" ? undefined : { rejectUnauthorized: false },
     });
   }
 
   return new Pool({
+    ...sharedOptions,
     host: process.env.DB_HOST || "localhost",
     port: Number(process.env.DB_PORT || 5432),
     database: process.env.DB_NAME || "ke_toan_db",
@@ -75,6 +83,7 @@ function createPool() {
 
 async function createDatabase() {
   const pool = createPool();
+  pool.on("error", (error) => console.error("Unexpected PostgreSQL pool error:", error));
   await pool.query(SCHEMA);
   return pool;
 }

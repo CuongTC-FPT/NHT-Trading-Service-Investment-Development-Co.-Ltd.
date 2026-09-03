@@ -73,8 +73,9 @@ function cookieOptions() {
   return {
     httpOnly: true,
     sameSite: "strict",
-    secure: isTruthyEnv(process.env.COOKIE_SECURE),
+    secure: process.env.NODE_ENV === "production" || isTruthyEnv(process.env.COOKIE_SECURE),
     path: "/",
+    maxAge: ADMIN_SESSION_TTL_MS,
   };
 }
 

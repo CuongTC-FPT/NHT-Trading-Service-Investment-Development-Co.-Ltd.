@@ -1,4 +1,5 @@
 const express = require("express");
+const { rateLimit } = require("express-rate-limit");
 const {
   clearAdminCookie,
   createAdminSession,
@@ -11,8 +12,15 @@ const {
 } = require("../middleware/admin-auth");
 
 const router = express.Router();
+const loginLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  limit: 10,
+  standardHeaders: "draft-8",
+  legacyHeaders: false,
+  message: { ok: false, error: "Quá nhiều lần đăng nhập. Vui lòng thử lại sau 15 phút." },
+});
 
-router.post("/login", (req, res) => {
+router.post("/login", loginLimiter, (req, res) => {
   const configuredPassword = getAdminPassword();
   if (!configuredPassword || !getSessionSecret()) {
     return res.status(500).json({
