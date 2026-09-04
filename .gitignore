@@ -12,3 +12,6 @@ backend/uploads/**
 !backend/uploads/Customer Email/code.html
 !backend/uploads/Admin email/
 !backend/uploads/Admin email/code.html
+
+# Local PDF documents (not used by the website)
+pdf/*.pdf
