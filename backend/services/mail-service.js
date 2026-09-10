@@ -3,7 +3,7 @@ const path = require("path");
 const nodemailer = require("nodemailer");
 const { label: serviceLabel } = require("../../js/service-catalog");
 
-const EMAIL_LOGO_PATH = path.join(__dirname, "..", "..", "picture", "logo-transparent.webp");
+const EMAIL_LOGO_PATH = path.join(__dirname, "..", "..", "picture", "logo-email.png");
 const CUSTOMER_TEMPLATE = path.join(__dirname, "..", "uploads", "Customer Email", "code.html");
 const ADMIN_TEMPLATE = path.join(__dirname, "..", "uploads", "Admin email", "code.html");
 
@@ -68,7 +68,13 @@ async function sendLeadEmails(lead, { customer = true, admin = true } = {}) {
 
   const displayName = lead.name || "Quý khách";
   const now = new Date();
-  const attachment = { filename: "nht-logo.webp", path: EMAIL_LOGO_PATH, cid: "nht-logo" };
+  const attachment = {
+    filename: "nht-logo.png",
+    path: EMAIL_LOGO_PATH,
+    cid: "nht-logo",
+    contentType: "image/png",
+    contentDisposition: "inline",
+  };
   const customerResult = customer ? await sendSafely(transporter, {
     from: `"NHT" <${fromAddr}>`,
     to: lead.email,
