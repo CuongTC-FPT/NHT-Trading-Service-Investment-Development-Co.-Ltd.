@@ -1,3 +1,4 @@
+const { label: serviceLabel } = require("../../js/service-catalog");
 const ExcelJS = require("exceljs");
 
 function toVietnamExcelDate(value) {
@@ -50,7 +51,7 @@ async function createLeadsWorkbook(leads) {
     email: lead.email || "Không cung cấp",
     company: lead.company || "Không cung cấp",
     taxCode: lead.taxCode || "Không cung cấp",
-    service: lead.service || "Không cung cấp",
+    service: serviceLabel(lead.service),
     message: lead.message || "Không có lời nhắn",
     processingStatus: lead.processingStatus === "completed" ? "Đã hoàn thành" : lead.processingStatus === "in_progress" ? "Đang xử lý" : "Mới",
     completedAt: toVietnamExcelDate(lead.completedAt),

@@ -53,6 +53,11 @@ const SCHEMA = `
 
   CREATE INDEX IF NOT EXISTS idx_contact_leads_processing_status
     ON contact_leads(processing_status, created_at DESC);
+
+  ALTER TABLE contact_leads ADD COLUMN IF NOT EXISTS request_key UUID;
+  ALTER TABLE contact_leads ADD COLUMN IF NOT EXISTS request_hash VARCHAR(64);
+  ALTER TABLE contact_leads ADD COLUMN IF NOT EXISTS mail_attempt_started_at TIMESTAMPTZ;
+  CREATE UNIQUE INDEX IF NOT EXISTS idx_contact_leads_request_key ON contact_leads(request_key);
 `;
 
 function createPool() {
@@ -88,4 +93,4 @@ async function createDatabase() {
   return pool;
 }
 
-module.exports = { createDatabase };
+module.exports = { createDatabase, createPool };

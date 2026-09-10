@@ -1,13 +1,14 @@
-<!doctype html>
+﻿<!doctype html>
 <html lang="vi">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dịch Vụ Kế Toán Thuế & Tài Chính Trọn Gói | NHT</title>
-  <meta name="description" content="Khám phá các dịch vụ kế toán trọn gói, soát xét báo cáo tài chính, BHXH, tiền lương, và thành lập doanh nghiệp từ các chuyên gia tại NHT." />
+  <title>Dịch Vụ Kế Toán, Soát Xét BCTC & Pháp Lý | NHT</title>
+  <meta name="description" content="NHT cung cấp kế toán trọn gói, soát xét báo cáo tài chính, cố vấn nhân sự và bảo hiểm, kế toán nội bộ, thủ tục pháp lý và dịch vụ số cho doanh nghiệp, hộ kinh doanh." />
   <link rel="stylesheet" href="../css/tailwind.min.css" />
   <link rel="stylesheet" href="../css/fonts.css" />
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css?v=81b762d428c0" />
+  <link rel="stylesheet" href="../css/service-detail.css?v=fd6307c35755" />
 </head>
 <body class="public-layout page-services bg-white text-navy selection:bg-brand/10 selection:text-brand">
   <div class="relative min-h-screen flex flex-col overflow-x-clip">
@@ -22,11 +23,22 @@
         <div class="hidden items-center gap-8 md:flex">
           <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
             <a href="index.html" class="nav-link-accent transition hover:text-navy">Trang chủ</a>
-            <a href="dich-vu.html" class="nav-link-accent nav-link-active text-brand">Dịch vụ</a>
+          <a href="ve-chung-toi.html" class="nav-link-accent transition hover:text-navy">Giới Thiệu</a>
+            <div class="services-nav-item">
+              <a href="dich-vu.html" class="nav-link-accent nav-link-active text-brand">Dịch vụ</a>
+              <div class="services-nav-dropdown" role="menu">
+                <a href="ke-toan-tron-goi.html" role="menuitem">Kế toán trọn gói</a>
+                <a href="soat-xet-bao-cao-tai-chinh.html" role="menuitem">Soát xét báo cáo tài chính</a>
+                <a href="co-van-nhan-su-bao-hiem.html" role="menuitem">Cố vấn nhân sự &amp; bảo hiểm</a>
+                <a href="hanh-chinh-phap-ly.html" role="menuitem">Hành chính &amp; pháp lý</a>
+                <a href="ke-toan-noi-bo-tai-chinh.html" role="menuitem">Kế toán nội bộ &amp; tài chính</a>
+                <a href="dich-vu-so-ho-tro-khac.html" role="menuitem">Dịch vụ số &amp; hỗ trợ khác</a>
+              </div>
+            </div>
             <a href="bang-gia.html" class="nav-link-accent transition hover:text-navy">Bảng giá</a>
             <a href="thong-tu-phap-luat.html" class="nav-link-accent transition hover:text-navy">Thông tư pháp luật</a>
           </nav>
-          <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand/10 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand/20">Nhận báo giá</a>
+          <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand/10 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand/20">Liên hệ</a>
         </div>
 
         <!-- Mobile Hamburger Button -->
@@ -52,12 +64,13 @@
         </div>
         <nav class="flex flex-col gap-4 text-base font-semibold text-slate-600">
           <a href="index.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Trang chủ</a>
+          <a href="ve-chung-toi.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Giới Thiệu</a>
           <a href="dich-vu.html" class="py-2 border-b border-slate-50 transition hover:text-brand text-brand">Dịch vụ</a>
           <a href="bang-gia.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Bảng giá</a>
           <a href="thong-tu-phap-luat.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Thông tư pháp luật</a>
           <a href="lien-he.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Liên hệ</a>
         </nav>
-        <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Nhận báo giá</a>
+        <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Liên hệ</a>
       </div>
     </div>
 
@@ -79,11 +92,11 @@
               <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand to-brand-hover">toàn diện</span> và tối ưu.
             </h1>
             <p class="max-w-xl text-lg leading-relaxed text-slate-600 sm:text-xl font-medium">
-              NHT hỗ trợ từ kế toán thuế, soát xét báo cáo tài chính đến BHXH và pháp lý thành lập doanh nghiệp, giúp bạn yên tâm mở rộng quy mô.
+              Từ kế toán trọn gói, soát xét báo cáo tài chính đến thủ tục pháp lý và dịch vụ số, NHT đồng hành cùng doanh nghiệp và hộ kinh doanh trong từng giai đoạn hoạt động.
             </p>
           </div>
           <div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-            <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-brand/15 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand/20">Tư vấn miễn phí</a>
+            <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-brand/15 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-xl hover:shadow-brand/20">Nhận tư vấn dịch vụ</a>
             <a href="bang-gia.html" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-7 py-3.5 text-sm font-bold text-navy shadow-sm transition-all duration-300 hover:border-brand hover:text-brand hover:-translate-y-0.5 hover:shadow-md">Xem bảng giá</a>
           </div>
         </div>
@@ -100,8 +113,8 @@
       <section class="mt-28 relative z-10 fade-up">
         <div class="max-w-3xl mb-16">
           <span class="inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-slate-600">Danh mục giải pháp</span>
-          <h2 class="mt-4 text-3xl font-extrabold text-navy sm:text-4xl">Giải pháp hỗ trợ tài chính & pháp lý</h2>
-          <p class="mt-4 text-lg leading-relaxed text-slate-600">Chúng tôi đồng hành giải quyết mọi nghiệp vụ kế toán, thuế và thủ tục hành chính nhanh chóng, đúng tiến độ và cam kết chính xác tuyệt đối.</p>
+          <h2 class="mt-4 text-3xl font-extrabold text-navy sm:text-4xl">Dịch vụ theo nhu cầu doanh nghiệp</h2>
+          <p class="mt-4 text-lg leading-relaxed text-slate-600">Lựa chọn dịch vụ riêng lẻ hoặc gói tư vấn theo doanh thu, quy mô nhân sự và nhu cầu vận hành. NHT hỗ trợ báo cáo, sổ sách, hồ sơ và các công việc trong phạm vi dịch vụ đã thống nhất.</p>
         </div>
 
         <div class="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
@@ -109,13 +122,13 @@
           <article class="group rounded-3xl border border-slate-100 bg-white shadow-premium shadow-premium-hover overflow-hidden flex flex-col justify-between">
             <div>
               <div class="overflow-hidden aspect-[16/10] bg-slate-50 relative">
-                <img src="../picture/KETOANTHUE.webp" alt="Kế toán thuế" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="../picture/tax-accounting.webp" alt="Kế toán trọn gói" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-brand font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-slate-100/50">Thuế</span>
               </div>
               <div class="p-8">
-                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200">Kế toán thuế</h3>
+                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200"><a href="ke-toan-tron-goi.html">Kế toán trọn gói</a></h3>
                 <p class="mt-3 text-sm text-slate-500 leading-relaxed font-medium">
-                  Quản lý thuế GTGT, TNDN, TNCN, lập tờ khai định kỳ và quyết toán thuế chính xác, tối ưu đúng pháp luật.
+                  Lập báo cáo thuế, báo cáo tài chính năm, quyết toán TNDN và TNCN; hạch toán, sắp xếp chứng từ và in sổ sách. Hỗ trợ xuất hóa đơn bán ra dưới 20 tờ/tháng và báo cáo rủi ro hóa đơn.
                 </p>
               </div>
             </div>
@@ -125,13 +138,13 @@
           <article class="group rounded-3xl border border-slate-100 bg-white shadow-premium shadow-premium-hover overflow-hidden flex flex-col justify-between">
             <div>
               <div class="overflow-hidden aspect-[16/10] bg-slate-50 relative">
-                <img src="../picture/BCTC.webp" alt="Báo cáo tài chính" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="../picture/financial-report.webp" alt="Soát xét báo cáo tài chính" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-brand font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-slate-100/50">Tài chính</span>
               </div>
               <div class="p-8">
-                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200">Báo cáo tài chính</h3>
+                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200"><a href="soat-xet-bao-cao-tai-chinh.html">Soát xét báo cáo tài chính</a></h3>
                 <p class="mt-3 text-sm text-slate-500 leading-relaxed font-medium">
-                  Soát xét tính chính xác hệ thống sổ sách kế toán, lập báo cáo tài chính năm và hỗ trợ giải trình số liệu kế toán.
+                  Rà soát chứng từ, phát hiện sai sót kế toán và thuế; phân tích hiệu quả kinh doanh, sử dụng vốn và tính pháp lý tài chính. Hỗ trợ hoàn thiện sổ sách theo nhu cầu.
                 </p>
               </div>
             </div>
@@ -141,13 +154,13 @@
           <article class="group rounded-3xl border border-slate-100 bg-white shadow-premium shadow-premium-hover overflow-hidden flex flex-col justify-between">
             <div>
               <div class="overflow-hidden aspect-[16/10] bg-slate-50 relative">
-                <img src="../picture/BHXH&SALARY.webp" alt="BHXH và tiền lương" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="../picture/benefits.webp" alt="Cố vấn nhân sự &amp; bảo hiểm" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-brand font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-slate-100/50">Nhân sự</span>
               </div>
               <div class="p-8">
-                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200">BHXH và tiền lương</h3>
+                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200"><a href="co-van-nhan-su-bao-hiem.html">Cố vấn nhân sự & bảo hiểm</a></h3>
                 <p class="mt-3 text-sm text-slate-500 leading-relaxed font-medium">
-                  Xây dựng hệ thống bảng lương chuẩn chỉnh, quản lý hồ sơ BHXH, chế độ lao động và thủ tục nhân sự trọn gói.
+                  Tư vấn, soạn hợp đồng lao động; đăng ký bảo hiểm bắt buộc ban đầu, cấp mã đơn vị và khai báo tăng, giảm. Hỗ trợ hồ sơ chế độ bảo hiểm như thất nghiệp, thai sản và tai nạn.
                 </p>
               </div>
             </div>
@@ -157,13 +170,13 @@
           <article class="group rounded-3xl border border-slate-100 bg-white shadow-premium shadow-premium-hover overflow-hidden flex flex-col justify-between">
             <div>
               <div class="overflow-hidden aspect-[16/10] bg-slate-50 relative">
-                <img src="../picture/TLDN.webp" alt="Thành lập doanh nghiệp" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <img src="../picture/hanh-chinh-phap-ly.webp" alt="Hành chính &amp; pháp lý" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                 <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-brand font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-slate-100/50">Pháp lý</span>
               </div>
               <div class="p-8">
-                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200">Thành lập doanh nghiệp</h3>
+                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200"><a href="hanh-chinh-phap-ly.html">Hành chính & pháp lý</a></h3>
                 <p class="mt-3 text-sm text-slate-500 leading-relaxed font-medium">
-                  Tư vấn mô hình kinh doanh, hoàn thành thủ tục đăng ký thành lập doanh nghiệp, thay đổi giấy phép nhanh chóng.
+                  Thành lập doanh nghiệp, chi nhánh và hộ kinh doanh; thay đổi giấy phép, khôi phục mã số thuế, tạm ngưng, giải thể và giải trình thuế. Hỗ trợ kê khai, sổ sách cho hộ và cá nhân kinh doanh, kể cả thương mại điện tử.
                 </p>
               </div>
             </div>
@@ -177,25 +190,25 @@
                 <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-brand font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-slate-100/50">Chiến lược</span>
               </div>
               <div class="p-8">
-                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200">Tư vấn tài chính</h3>
+                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200"><a href="ke-toan-noi-bo-tai-chinh.html">Kế toán nội bộ & tài chính</a></h3>
                 <p class="mt-3 text-sm text-slate-500 leading-relaxed font-medium">
-                  Tư vấn tối ưu hóa dòng tiền, lập ngân sách hoạt động và hoạch định chiến lược thuế dài hạn cho doanh nghiệp.
+                  Thực hiện, tuyển dụng và đào tạo kế toán nội bộ; phân tích doanh thu, tối ưu chi phí, cân đối tồn kho và dòng tiền. Chuẩn bị hồ sơ tín dụng, hỗ trợ xác lập hoặc tăng hạn mức ngân hàng.
                 </p>
               </div>
             </div>
           </article>
 
-          <!-- Card 6: QTT -->
+          <!-- Card 6: Dich vu so & ho tro khac -->
           <article class="group rounded-3xl border border-slate-100 bg-white shadow-premium shadow-premium-hover overflow-hidden flex flex-col justify-between">
             <div>
               <div class="overflow-hidden aspect-[16/10] bg-slate-50 relative">
-                <img src="../picture/QTT.webp" alt="Quyết toán thuế" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-brand font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-slate-100/50">Quyết toán</span>
+                <img src="../picture/invoice.webp?v=english-20260907" alt="Dịch vụ số &amp; hỗ trợ khác" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                <span class="absolute top-4 left-4 bg-white/95 backdrop-blur-sm text-brand font-bold text-[10px] uppercase tracking-widest px-3 py-1 rounded-full border border-slate-100/50">Dịch vụ số</span>
               </div>
               <div class="p-8">
-                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200">Quyết toán thuế</h3>
+                <h3 class="text-xl font-extrabold text-navy group-hover:text-brand transition-colors duration-200"><a href="dich-vu-so-ho-tro-khac.html">Dịch vụ số & hỗ trợ khác</a></h3>
                 <p class="mt-3 text-sm text-slate-500 leading-relaxed font-medium">
-                  Hoàn thiện và chuẩn bị hồ sơ kiểm tra quyết toán thuế năm, trực tiếp giải trình số liệu chứng từ kế toán.
+                  Cung cấp hóa đơn điện tử, chữ ký số và phần mềm quản lý bán hàng tích hợp hóa đơn từ máy tính tiền; phí phần mềm chưa gồm thiết bị. Hỗ trợ văn phòng chia sẻ, bảng hiệu và khắc dấu công ty.
                 </p>
               </div>
             </div>
@@ -211,20 +224,20 @@
             <p class="text-xs uppercase tracking-widest text-brand font-extrabold">Vì sao chọn NHT</p>
             <h3 class="text-3xl font-extrabold leading-tight">Lợi thế cạnh tranh</h3>
           </div>
-          <div class="rounded-2xl bg-brand/5 p-6 border border-brand/10 hover:bg-brand/10 transition-colors duration-300">
-            <p class="text-xs uppercase tracking-wider text-brand font-bold">Chuyên gia hàng đầu</p>
-            <p class="mt-2 text-4xl font-extrabold text-brand">10+</p>
-            <p class="mt-2 text-sm text-slate-300">năm kinh nghiệm thực tế về thuế.</p>
+          <div class="rounded-2xl bg-white/5 p-6 border border-white/10 backdrop-blur-sm">
+            <p class="text-xs uppercase tracking-wider text-brand font-bold">Kinh nghiệm thực tế</p>
+            <p class="mt-2 text-4xl font-extrabold text-brand">05</p>
+            <p class="mt-2 text-sm text-slate-300">năm kinh nghiệm.</p>
           </div>
-          <div class="rounded-2xl bg-brand/5 p-6 border border-brand/10 hover:bg-brand/10 transition-colors duration-300">
-            <p class="text-xs uppercase tracking-wider text-brand font-bold">Xử lý nhanh chóng</p>
-            <p class="mt-2 text-4xl font-extrabold text-brand">24h</p>
-            <p class="mt-2 text-sm text-slate-300">tiếp nhận và phản hồi thông tin.</p>
+          <div class="rounded-2xl bg-white/5 p-6 border border-white/10 backdrop-blur-sm">
+            <p class="text-xs uppercase tracking-wider text-brand font-bold">Đội ngũ NHT</p>
+            <p class="mt-2 text-4xl font-extrabold text-brand">40</p>
+            <p class="mt-2 text-sm text-slate-300">nhân sự đồng hành cùng khách hàng.</p>
           </div>
-          <div class="rounded-2xl bg-brand/5 p-6 border border-brand/10 hover:bg-brand/10 transition-colors duration-300">
+          <div class="rounded-2xl bg-white/5 p-6 border border-white/10 backdrop-blur-sm">
             <p class="text-xs uppercase tracking-wider text-brand font-bold">Đối tác tin cậy</p>
-            <p class="mt-2 text-4xl font-extrabold text-brand">200+</p>
-            <p class="mt-2 text-sm text-slate-300">doanh nghiệp đồng hành thành công.</p>
+            <p class="mt-2 text-4xl font-extrabold text-brand">200</p>
+            <p class="mt-2 text-sm text-slate-300">khách hàng sử dụng dịch vụ.</p>
           </div>
         </div>
       </section>
@@ -232,18 +245,18 @@
       <!-- Grid process & Client Logo -->
       <section class="mt-28 grid gap-12 lg:grid-cols-2 relative z-10 fade-up">
         <div class="space-y-8">
-          <span class="inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-slate-600">Định hướng hoạt động</span>
-          <h2 class="text-3xl font-extrabold text-navy sm:text-4xl">Hệ thống kế toán an toàn, vận hành ổn định</h2>
-          <p class="text-lg leading-relaxed text-slate-600 font-medium">Quy trình nghiệm thu chứng từ, lưu trữ thông tin điện tử và kiểm soát chéo dữ liệu của NHT giảm thiểu tối đa các sai sót hành chính.</p>
+          <span class="inline-flex rounded-full border border-slate-200 bg-slate-50 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-slate-600">Đồng hành cùng khách hàng</span>
+          <h2 class="text-3xl font-extrabold text-navy sm:text-4xl">Rõ phạm vi công việc, sát nhu cầu thực tế</h2>
+          <p class="text-lg leading-relaxed text-slate-600 font-medium">NHT có 6 gói tư vấn: từ không phát sinh doanh thu đến doanh thu dưới 40 tỷ đồng/năm. Gói không phát sinh doanh thu có phí 700.000 đồng/tháng, gồm báo cáo thuế và sổ sách kế toán.</p>
           
           <div class="grid gap-6 sm:grid-cols-2">
             <div class="rounded-2xl border border-slate-100 bg-white p-6 shadow-premium hover:shadow-md transition-shadow">
-              <h3 class="text-base font-bold text-navy mb-2">Quy trình chuẩn hóa</h3>
-              <p class="text-sm text-slate-500 leading-relaxed font-medium">Các bước hạch toán được kiểm soát chặt chẽ, tối ưu tính đồng bộ từ số liệu thực tế đến tờ khai thuế.</p>
+              <h3 class="text-base font-bold text-navy mb-2">Soát xét có quy trình</h3>
+              <p class="text-sm text-slate-500 leading-relaxed font-medium">Thống nhất mục đích, thời hạn; lập kế hoạch, rà soát và trao đổi sai sót. Xác nhận báo cáo cuối cùng với khách hàng trước khi bàn giao.</p>
             </div>
             <div class="rounded-2xl border border-slate-100 bg-white p-6 shadow-premium hover:shadow-md transition-shadow">
-              <h3 class="text-base font-bold text-navy mb-2">Bảo mật tuyệt đối</h3>
-              <p class="text-sm text-slate-500 leading-relaxed font-medium">Dữ liệu kế toán được lưu trữ an toàn trên máy chủ đám mây riêng biệt, cam kết bảo mật theo hợp đồng.</p>
+              <h3 class="text-base font-bold text-navy mb-2">Hỗ trợ làm việc với thuế</h3>
+              <p class="text-sm text-slate-500 leading-relaxed font-medium">Đại diện theo ủy quyền, hỗ trợ chứng từ và quyết toán với đội thanh tra thuế. Hồ sơ giải trình theo thông báo có mức phí riêng trong báo giá.</p>
             </div>
           </div>
         </div>
@@ -268,8 +281,8 @@
         <div class="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_0.8fr] items-center">
           <div class="space-y-4">
             <span class="inline-flex rounded-full bg-brand/10 px-3 py-1 text-xs font-bold uppercase tracking-wider text-brand">Sẵn sàng khởi động</span>
-            <h2 class="text-3xl font-extrabold text-navy sm:text-4xl leading-tight">Nâng cấp hệ thống kế toán thành trợ lực tài chính thông minh</h2>
-            <p class="text-base text-slate-600 font-medium">Liên hệ ngay với chuyên gia NHT để nhận khảo sát tình hình thuế hiện tại miễn phí.</p>
+            <h2 class="text-3xl font-extrabold text-navy sm:text-4xl leading-tight">Chọn dịch vụ phù hợp với quy mô kinh doanh</h2>
+            <p class="text-base text-slate-600 font-medium">Chia sẻ doanh thu, số lượng nhân sự và nhu cầu hỗ trợ để NHT tư vấn phạm vi công việc, gói dịch vụ và mức phí phù hợp theo báo giá.</p>
           </div>
           <div class="flex flex-col gap-4 sm:flex-row sm:justify-end">
             <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-navy px-6 py-3.5 text-sm font-bold text-white shadow-md transition-all duration-300 hover:bg-navy-light hover:-translate-y-0.5">Nhận tư vấn ngay</a>
@@ -297,7 +310,7 @@
             <div>
               <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Về chúng tôi</h4>
               <nav class="flex flex-col gap-3 text-sm">
-                <a href="ve-chung-toi.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Về NHT</a>
+                <a href="ve-chung-toi.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Giới Thiệu</a>
                 <a href="dieu-khoan.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Điều khoản dịch vụ</a>
               </nav>
             </div>
@@ -333,7 +346,7 @@
     </footer>
   </div>
 
-  <script src="../js/main.js"></script>
+  <script src="../js/main.js?v=31737b63c873"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const observer = new IntersectionObserver((entries) => {

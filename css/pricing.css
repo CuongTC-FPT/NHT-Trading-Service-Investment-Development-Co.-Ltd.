@@ -1,0 +1,27 @@
+/* Service cards follow the existing pricing card design. */
+.page-pricing main > section:nth-of-type(2) .text-4xl,
+.page-pricing .service-offers .text-4xl {
+  font-size: clamp(1.6rem, 2.8vw, 2.5rem);
+  white-space: nowrap;
+}
+.page-pricing .service-offers > article {
+  padding: clamp(1.7rem, 3vw, 2.5rem);
+  box-shadow: none;
+}
+.page-pricing .service-offers > article:nth-child(2) {
+  background: #292524;
+  border-color: #292524;
+  color: #f8f8f7;
+}
+.page-pricing .service-offers > article:nth-child(2) :is(h3, p, li, span) {
+  color: #f8f8f7;
+}
+.page-pricing .service-offers > article:nth-child(2) .border-y {
+  border-color: rgb(255 255 255 / .14);
+}
+.page-pricing .service-offers > article:nth-child(2) a {
+  background: #e05915;
+}
+.page-pricing .service-offers > article:nth-child(2) a:hover {
+  background: #c84f12;
+}

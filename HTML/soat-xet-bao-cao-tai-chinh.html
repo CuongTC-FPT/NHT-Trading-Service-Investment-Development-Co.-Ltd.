@@ -1,0 +1,152 @@
+﻿<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Soát xét báo cáo tài chính | Dịch vụ NHT</title>
+  <meta name="description" content="Rà soát lại chứng từ và số liệu để nhận diện điểm chưa nhất quán, làm rõ những vấn đề cần xử lý và hỗ trợ doanh nghiệp hoàn thiện hệ thống báo cáo." />
+  <link rel="stylesheet" href="../css/tailwind.min.css" />
+  <link rel="stylesheet" href="../css/fonts.css" />
+  <link rel="stylesheet" href="../css/style.css?v=81b762d428c0" />
+  <link rel="stylesheet" href="../css/service-detail.css?v=fd6307c35755" />
+</head>
+<body class="public-layout page-service-detail bg-white text-navy selection:bg-brand/10 selection:text-brand">
+  <div class="relative min-h-screen flex flex-col overflow-x-clip">
+    <!-- Header -->
+    <header id="main-header" class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-slate-100/80 transition-all duration-300">
+      <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-4">
+        <a href="index.html" class="flex items-center text-lg font-semibold text-navy">
+          <img src="../picture/logo-transparent.webp" alt="NHT Logo" class="site-logo h-10 w-auto max-w-[160px] object-contain" />
+        </a>
+        
+        <!-- Desktop Navigation -->
+        <div class="hidden items-center gap-8 md:flex">
+          <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
+            <a href="index.html" class="nav-link-accent transition hover:text-navy">Trang chủ</a>
+          <a href="ve-chung-toi.html" class="nav-link-accent transition hover:text-navy">Giới Thiệu</a>
+            <div class="services-nav-item">
+              <a href="dich-vu.html" class="nav-link-accent nav-link-active text-brand">Dịch vụ</a>
+              <div class="services-nav-dropdown" role="menu">
+                <a href="ke-toan-tron-goi.html" role="menuitem">Kế toán trọn gói</a>
+                <a href="soat-xet-bao-cao-tai-chinh.html" role="menuitem">Soát xét báo cáo tài chính</a>
+                <a href="co-van-nhan-su-bao-hiem.html" role="menuitem">Cố vấn nhân sự &amp; bảo hiểm</a>
+                <a href="hanh-chinh-phap-ly.html" role="menuitem">Hành chính &amp; pháp lý</a>
+                <a href="ke-toan-noi-bo-tai-chinh.html" role="menuitem">Kế toán nội bộ &amp; tài chính</a>
+                <a href="dich-vu-so-ho-tro-khac.html" role="menuitem">Dịch vụ số &amp; hỗ trợ khác</a>
+              </div>
+            </div>
+            <a href="bang-gia.html" class="nav-link-accent transition hover:text-navy">Bảng giá</a>
+            <a href="thong-tu-phap-luat.html" class="nav-link-accent transition hover:text-navy">Thông tư pháp luật</a>
+          </nav>
+          <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand/10 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand/20">Liên hệ</a>
+        </div>
+
+        <!-- Mobile Hamburger Button -->
+        <button id="mobile-menu-btn" class="md:hidden p-2 text-navy focus:outline-none" aria-label="Toggle Menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- Mobile Drawer Menu -->
+    <div id="mobile-menu-drawer" class="fixed inset-0 z-50 bg-navy/40 backdrop-blur-sm transform translate-x-full transition-transform duration-300 ease-in-out md:hidden" aria-hidden="true">
+      <div id="drawer-backdrop" class="absolute inset-0"></div>
+      <div class="absolute right-0 top-0 bottom-0 w-64 bg-white p-6 shadow-2xl flex flex-col gap-6 z-10">
+        <div class="flex items-center justify-between border-b border-slate-100 pb-4">
+          <img src="../picture/logo-transparent.webp" alt="NHT Logo" class="site-logo h-8 w-auto object-contain" />
+          <button id="close-menu-btn" class="text-navy focus:outline-none" aria-label="Close Menu">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+            </svg>
+          </button>
+        </div>
+        <nav class="flex flex-col gap-4 text-base font-semibold text-slate-600">
+          <a href="index.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Trang chủ</a>
+          <a href="ve-chung-toi.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Giới Thiệu</a>
+          <a href="dich-vu.html" class="py-2 border-b border-slate-50 transition hover:text-brand text-brand">Dịch vụ</a>
+          <a href="bang-gia.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Bảng giá</a>
+          <a href="thong-tu-phap-luat.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Thông tư pháp luật</a>
+          <a href="lien-he.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Liên hệ</a>
+        </nav>
+        <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Liên hệ</a>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="service-detail">
+      <nav class="service-breadcrumb" aria-label="Đường dẫn"><a href="index.html">Trang chủ</a><span aria-hidden="true">/</span><a href="dich-vu.html">Dịch vụ</a><span aria-hidden="true">/</span><span aria-current="page">Soát xét báo cáo tài chính</span></nav>
+      <section class="service-hero" aria-labelledby="service-title">
+        <div><p class="service-eyebrow">Dịch vụ NHT</p><h1 id="service-title">Soát xét báo cáo tài chính</h1><p class="service-intro">Rà soát lại chứng từ và số liệu để nhận diện điểm chưa nhất quán, làm rõ những vấn đề cần xử lý và hỗ trợ doanh nghiệp hoàn thiện hệ thống báo cáo.</p><div class="service-actions"><a class="service-button" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn dịch vụ</a><a class="service-button service-button-secondary" href="bang-gia.html">Xem bảng giá</a></div></div>
+        <img src="../picture/financial-report.webp" alt="Minh họa dịch vụ Soát xét báo cáo tài chính" width="720" height="540" fetchpriority="high" />
+      </section>
+      <div class="service-content-layout"><div>
+        <section class="service-section"><h2>Dịch vụ phù hợp với ai?</h2><p>Doanh nghiệp cần kiểm tra sổ sách trước khi bàn giao kế toán, hoàn thiện báo cáo năm hoặc đánh giá lại chất lượng dữ liệu tài chính.</p></section>
+        <section class="service-section"><h2>NHT hỗ trợ những gì?</h2><div class="service-scope"><div class="service-scope-item"><h3>Rà soát chứng từ và sổ sách</h3><p>Đối chiếu chứng từ với dữ liệu kế toán, kiểm tra sự nhất quán giữa các sổ và báo cáo trong kỳ được lựa chọn.</p></div><div class="service-scope-item"><h3>Nhận diện sai sót</h3><p>Tổng hợp các vấn đề kế toán, thuế và hồ sơ tài chính cần làm rõ; trao đổi nguyên nhân và hướng xử lý với doanh nghiệp.</p></div><div class="service-scope-item"><h3>Phân tích tài chính</h3><p>Phân tích hiệu quả kinh doanh, tình hình sử dụng vốn và các biến động đáng chú ý trên dữ liệu được cung cấp.</p></div><div class="service-scope-item"><h3>Hỗ trợ hoàn thiện</h3><p>Đề xuất điều chỉnh và hỗ trợ hoàn thiện sổ sách theo nhu cầu, phạm vi và dữ liệu thực tế của doanh nghiệp.</p></div></div></section>
+        <section class="service-section"><h2>Kết quả bàn giao</h2><p>Báo cáo tổng hợp vấn đề phát hiện, nội dung trao đổi và kiến nghị xử lý; bộ sổ sách hoàn thiện nếu hạng mục này được thống nhất trong dịch vụ.</p></section>
+        <section class="service-section"><h2>Quy trình phối hợp</h2><ol class="service-steps"><li><h3>Tiếp nhận nhu cầu</h3><p>Xác định mục đích, kỳ số liệu, phạm vi và thời hạn rà soát.</p></li><li><h3>Thống nhất phương án</h3><p>Lập kế hoạch, tiếp nhận hồ sơ và đối chiếu số liệu.</p></li><li><h3>Triển khai công việc</h3><p>Trao đổi sai sót, xác nhận thông tin bổ sung và hướng xử lý.</p></li><li><h3>Bàn giao & đồng hành</h3><p>Thống nhất báo cáo cuối cùng trước khi bàn giao cho doanh nghiệp.</p></li></ol></section>
+      </div><aside class="service-preparation"><h2>Thông tin cần chuẩn bị</h2><p>Chuẩn bị các thông tin đang có để NHT đánh giá nhu cầu và tư vấn phạm vi phù hợp.</p><ul><li>Báo cáo tài chính và tờ khai của kỳ cần rà soát.</li><li>Sổ tổng hợp, sổ chi tiết và bảng cân đối phát sinh.</li><li>Hóa đơn, hợp đồng, chứng từ ngân hàng và hồ sơ liên quan.</li><li>Danh sách vấn đề doanh nghiệp muốn kiểm tra, kỳ rà soát và thời hạn mong muốn.</li></ul><p class="service-preparation-note">Danh mục hồ sơ cụ thể được xác nhận sau khi trao đổi về trường hợp của bạn.</p></aside></div>
+      <section class="service-section service-faq"><h2>Câu hỏi thường gặp</h2><details><summary>Có thể chỉ rà soát một kỳ hoặc một nhóm số liệu không?</summary><p>Phạm vi có thể trao đổi theo nhu cầu, như một năm tài chính hoặc nhóm nghiệp vụ cần kiểm tra. NHT xác nhận khả năng thực hiện sau khi xem hồ sơ.</p></details><details><summary>Có hỗ trợ sửa lại sổ sách không?</summary><p>Có. Nếu cần làm lại sổ sách kế toán trong quá trình soát xét, phí dịch vụ cộng thêm 30% trên phí hồ sơ soát xét. Phạm vi được xác nhận sau khi đánh giá dữ liệu.</p></details><details><summary>Cần bao lâu để hoàn thành?</summary><p>Tiến độ phụ thuộc số kỳ, khối lượng chứng từ và mức độ đầy đủ của hồ sơ. Thời hạn được xác nhận khi thống nhất phạm vi công việc.</p></details></section>
+      <section class="service-contact"><div><p class="service-eyebrow">Cùng NHT bắt đầu</p><h2>Trao đổi nhu cầu, rõ phạm vi công việc</h2><p>Chia sẻ tình trạng hiện tại để nhận tư vấn hạng mục, tiến độ và báo giá phù hợp.</p></div><div class="service-actions"><a class="service-button" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a><a class="service-text-link" href="tel:0788788919">Gọi 0788 788 919</a></div></section>
+      <section class="service-section service-related"><h2>Khám phá dịch vụ khác</h2><nav aria-label="Dịch vụ liên quan"><a href="ke-toan-tron-goi.html">Kế toán trọn gói</a><a href="co-van-nhan-su-bao-hiem.html">Cố vấn nhân sự &amp; bảo hiểm</a><a href="hanh-chinh-phap-ly.html">Hành chính &amp; pháp lý</a><a href="ke-toan-noi-bo-tai-chinh.html">Kế toán nội bộ &amp; tài chính</a><a href="dich-vu-so-ho-tro-khac.html">Dịch vụ số &amp; hỗ trợ khác</a></nav></section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer border-t border-slate-200 bg-slate-100 py-16 relative z-10">
+      <div class="mx-auto max-w-7xl px-6">
+        <div class="grid gap-12 lg:grid-cols-12 pb-12 border-b border-slate-200/60">
+          <div class="lg:col-span-5 space-y-6">
+            <a href="index.html" class="inline-block">
+              <img src="../picture/logo-transparent.webp" alt="NHT Logo" class="site-logo h-10 w-auto object-contain" />
+            </a>
+            <p class="text-sm font-bold text-brand uppercase tracking-wider">Công ty TNHH Dịch vụ Tư vấn NHT</p>
+            <p class="max-w-md text-sm leading-relaxed text-slate-500 font-medium">
+              Giải pháp kế toán, thuế và tư vấn quản trị tài chính chuyên nghiệp cho doanh nghiệp Việt Nam. Hướng đến sự chính xác, an toàn và phát triển bền vững.
+            </p>
+          </div>
+          
+          <div class="lg:col-span-7 grid gap-8 sm:grid-cols-3">
+            <div>
+              <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Về chúng tôi</h4>
+              <nav class="flex flex-col gap-3 text-sm">
+                <a href="ve-chung-toi.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Giới Thiệu</a>
+                <a href="dieu-khoan.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Điều khoản dịch vụ</a>
+              </nav>
+            </div>
+            <div>
+              <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Dịch vụ chính</h4>
+              <nav class="flex flex-col gap-3 text-sm">
+                <a href="dich-vu.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Kế toán thuế</a>
+                <a href="bang-gia.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Bảng giá gói</a>
+              </nav>
+            </div>
+            <div>
+              <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Liên hệ hỗ trợ</h4>
+              <p class="text-sm text-slate-500 font-semibold mb-2">Hotline: 0788 788 919</p>
+              <p class="text-sm text-slate-500 font-semibold mb-4">Email: ketoannht.hcm@gmail.com</p>
+              <div class="flex gap-3">
+                <a href="https://www.facebook.com/ketoannht.hcm/" class="inline-flex h-9 w-9 items-center justify-center rounded-full bg-slate-200/60 text-slate-600 hover:bg-[#1877F2] hover:text-white transition-all duration-300" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+                  <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M22 12.07C22 6.5 17.52 2 12 2S2 6.5 2 12.07c0 5 3.66 9.13 8.44 9.93v-7.03H8.9v-2.9h1.54V9.41c0-1.52.9-2.36 2.28-2.36.66 0 1.34.12 1.34.12v1.48h-.76c-.75 0-.98.46-.98.93v1.12h1.67l-.27 2.9h-1.4v7.03C18.34 21.2 22 17.08 22 12.07z"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-semibold">
+          <p><a href="admin-login.html" class="hover:text-slate-500 transition-colors" tabindex="-1">© <span id="currentYear">2026</span> Công ty TNHH Dịch vụ Tư vấn NHT.</a> All rights reserved.</p>
+          <p class="flex gap-4">
+            <a href="dieu-khoan.html" class="hover:text-brand transition-colors">Điều khoản sử dụng</a>
+            <span class="text-slate-200">|</span>
+            <a href="lien-he.html" class="hover:text-brand transition-colors">Liên hệ tư vấn</a>
+          </p>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script src="../js/main.js?v=31737b63c873"></script>
+
+</body>
+</html>

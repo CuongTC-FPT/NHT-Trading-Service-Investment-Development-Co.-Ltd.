@@ -23,7 +23,7 @@
   </script>
   <link rel="stylesheet" href="../css/tailwind.min.css" />
   <link rel="stylesheet" href="../css/fonts.css" />
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css?v=81b762d428c0" />
 </head>
 <body class="public-layout page-home bg-white text-navy selection:bg-brand/10 selection:text-brand">
   <div class="relative min-h-screen flex flex-col overflow-x-clip">
@@ -38,11 +38,22 @@
         <div class="hidden items-center gap-8 md:flex">
           <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
             <a href="index.html" class="nav-link-accent nav-link-active text-brand">Trang chủ</a>
-            <a href="dich-vu.html" class="nav-link-accent transition hover:text-navy">Dịch vụ</a>
+          <a href="ve-chung-toi.html" class="nav-link-accent transition hover:text-navy">Giới Thiệu</a>
+            <div class="services-nav-item">
+              <a href="dich-vu.html" class="nav-link-accent transition hover:text-navy">Dịch vụ</a>
+              <div class="services-nav-dropdown" role="menu">
+                <a href="ke-toan-tron-goi.html" role="menuitem">Kế toán trọn gói</a>
+                <a href="soat-xet-bao-cao-tai-chinh.html" role="menuitem">Soát xét báo cáo tài chính</a>
+                <a href="co-van-nhan-su-bao-hiem.html" role="menuitem">Cố vấn nhân sự &amp; bảo hiểm</a>
+                <a href="hanh-chinh-phap-ly.html" role="menuitem">Hành chính &amp; pháp lý</a>
+                <a href="ke-toan-noi-bo-tai-chinh.html" role="menuitem">Kế toán nội bộ &amp; tài chính</a>
+                <a href="dich-vu-so-ho-tro-khac.html" role="menuitem">Dịch vụ số &amp; hỗ trợ khác</a>
+              </div>
+            </div>
             <a href="bang-gia.html" class="nav-link-accent transition hover:text-navy">Bảng giá</a>
             <a href="thong-tu-phap-luat.html" class="nav-link-accent transition hover:text-navy">Thông tư pháp luật</a>
           </nav>
-          <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand/10 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand/20">Nhận báo giá</a>
+          <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand/10 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand/20">Liên hệ</a>
         </div>
 
         <!-- Mobile Hamburger Button -->
@@ -68,12 +79,13 @@
         </div>
         <nav class="flex flex-col gap-4 text-base font-semibold text-slate-600">
           <a href="index.html" class="py-2 border-b border-slate-50 transition hover:text-brand text-brand">Trang chủ</a>
+          <a href="ve-chung-toi.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Giới Thiệu</a>
           <a href="dich-vu.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Dịch vụ</a>
           <a href="bang-gia.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Bảng giá</a>
           <a href="thong-tu-phap-luat.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Thông tư pháp luật</a>
           <a href="lien-he.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Liên hệ</a>
         </nav>
-        <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Nhận báo giá</a>
+        <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Liên hệ</a>
       </div>
     </div>
 
@@ -282,8 +294,8 @@
             <div class="mt-8 rounded-2xl bg-slate-50/70 p-6 border border-slate-100/30">
               <div class="flex flex-col items-center">
                 <!-- Avatar block -->
-                <div class="relative h-28 w-28 overflow-hidden rounded-full border-4 border-white bg-gradient-to-br from-navy-light to-navy shadow-md flex items-center justify-center">
-                  <span class="text-3xl font-extrabold tracking-wider text-white">TTL</span>
+                <div class="relative h-32 w-32 overflow-hidden rounded-full border-4 border-white bg-gradient-to-br from-navy-light to-navy shadow-md flex items-center justify-center">
+                  <span class="text-4xl font-extrabold tracking-wider text-white">TTL</span>
                 </div>
                 
                 <div class="mt-4 text-center">
@@ -329,7 +341,7 @@
             <div>
               <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Về chúng tôi</h4>
               <nav class="flex flex-col gap-3 text-sm">
-                <a href="ve-chung-toi.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Về NHT</a>
+                <a href="ve-chung-toi.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Giới Thiệu</a>
                 <a href="dieu-khoan.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Điều khoản dịch vụ</a>
               </nav>
             </div>
@@ -365,7 +377,7 @@
     </footer>
   </div>
 
-  <script src="../js/main.js"></script>
+  <script src="../js/main.js?v=31737b63c873"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const observer = new IntersectionObserver((entries) => {

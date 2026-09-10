@@ -1,6 +1,8 @@
 const express = require("express");
 const { requireAdmin } = require("../middleware/admin-auth");
 const { createLeadsWorkbook } = require("../services/excel-service");
+const { notifyLead } = require("../services/lead-notification-service");
+const { rateLimit } = require("express-rate-limit");
 
 module.exports = function createLeadsRoutes(database) {
   const router = express.Router();
@@ -8,6 +10,21 @@ module.exports = function createLeadsRoutes(database) {
   const queryOne = async (sql, params = []) => (await queryAll(sql, params))[0] || null;
 
   router.use(requireAdmin);
+
+  router.post("/:id/retry-email", rateLimit({ windowMs: 60000, limit: 5 }), async (req, res, next) => {
+    if (!/^[0-9a-f-]{36}$/i.test(req.params.id)) return res.status(400).json({ ok: false, error: "Mã yêu cầu không hợp lệ." });
+    try {
+      const lead = await queryOne(
+        `SELECT id, name, email, phone, company, tax_code AS "taxCode", service, message,
+          customer_mail_status AS "customerMailStatus", admin_mail_status AS "adminMailStatus",
+          created_at AS "createdAt" FROM contact_leads WHERE id = $1`, [req.params.id]
+      );
+      if (!lead) return res.status(404).json({ ok: false, error: "Không tìm thấy yêu cầu tư vấn." });
+      if (lead.customerMailStatus === "sent" && lead.adminMailStatus === "sent") return res.json({ ok: true });
+      const result = await notifyLead(database, lead);
+      return res.json({ ok: true, ...result });
+    } catch (error) { return next(error); }
+  });
 
   router.get("/", async (_req, res, next) => {
     try {

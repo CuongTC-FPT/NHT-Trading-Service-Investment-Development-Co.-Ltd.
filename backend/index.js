@@ -18,12 +18,18 @@ const HTML_ROOT = path.join(FRONTEND_ROOT, "HTML");
 const PICTURE_ROOT = path.join(FRONTEND_ROOT, "picture");
 const CSS_ROOT = path.join(FRONTEND_ROOT, "css");
 const JS_ROOT = path.join(FRONTEND_ROOT, "js");
-const PDF_ROOT = path.join(FRONTEND_ROOT, "pdf");
 const FONTS_ROOT = path.join(FRONTEND_ROOT, "fonts");
 const PORT = Number(process.env.PORT || 3000);
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const PUBLIC_PAGES = [
   ["/", "weekly", "1.0"],
   ["/dich-vu.html", "monthly", "0.9"],
+  ["/ke-toan-tron-goi.html", "monthly", "0.8"],
+  ["/soat-xet-bao-cao-tai-chinh.html", "monthly", "0.8"],
+  ["/co-van-nhan-su-bao-hiem.html", "monthly", "0.8"],
+  ["/hanh-chinh-phap-ly.html", "monthly", "0.8"],
+  ["/ke-toan-noi-bo-tai-chinh.html", "monthly", "0.8"],
+  ["/dich-vu-so-ho-tro-khac.html", "monthly", "0.8"],
   ["/bang-gia.html", "monthly", "0.9"],
   ["/thong-tu-phap-luat.html", "weekly", "0.8"],
   ["/ve-chung-toi.html", "monthly", "0.7"],
@@ -62,6 +68,7 @@ async function start() {
   app.disable("x-powered-by");
   app.use(helmet({
     crossOriginResourcePolicy: false,
+    strictTransportSecurity: IS_PRODUCTION ? undefined : false,
     contentSecurityPolicy: {
       directives: {
         defaultSrc: ["'self'"],
@@ -74,6 +81,8 @@ async function start() {
         frameAncestors: ["'none'"],
         baseUri: ["'self'"],
         formAction: ["'self'"],
+        // Local HTTP previews (including Safari over LAN) have no TLS server.
+        upgradeInsecureRequests: IS_PRODUCTION ? [] : null,
       },
     },
   }));
@@ -126,7 +135,6 @@ async function start() {
   app.use("/css", express.static(CSS_ROOT, staticOptions));
   app.use("/js", express.static(JS_ROOT, staticOptions));
   app.use("/picture", express.static(PICTURE_ROOT, staticOptions));
-  app.use("/pdf", express.static(PDF_ROOT, staticOptions));
   app.use("/fonts", express.static(FONTS_ROOT, { ...staticOptions, maxAge: "30d", immutable: true }));
   app.use(express.static(HTML_ROOT, { ...staticOptions, maxAge: 0, index: "index.html" }));
 

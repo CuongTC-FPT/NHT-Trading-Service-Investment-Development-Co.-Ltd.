@@ -52,3 +52,10 @@ Render tự cung cấp `RENDER_EXTERNAL_URL` cho URL `onrender.com`. Khi gắn c
 ## 5. Rollback
 
 Nếu bản mới có lỗi, dùng **Rollback** trong Render để quay lại deploy thành công gần nhất. Neon không bị xóa dữ liệu khi rollback ứng dụng.
+# Cập nhật luồng yêu cầu tư vấn
+
+Backend tự bổ sung `request_key`, `request_hash`, `mail_attempt_started_at` và unique index khi khởi động. Các cột mới cho phép NULL nên dữ liệu khách hàng cũ được giữ nguyên. Cần khởi động lại backend để áp dụng mã mới.
+
+`npm run test:contact` kiểm tra luồng gửi yêu cầu bằng PostgreSQL TEMP table trên kết nối riêng, dùng cấu hình database trong `backend/.env`. SMTP được mô phỏng; không gửi email thật hoặc ghi yêu cầu vào bảng khách hàng thật.
+
+Trong quản trị, mở chi tiết yêu cầu để xem trạng thái email và bấm “Gửi lại email chưa gửi thành công”. Email đã được ghi nhận gửi thành công sẽ được bỏ qua. Nếu máy chủ dừng giữa lần gửi, có thể thử lại sau 10 phút. SMTP không đảm bảo gửi đúng một lần khi thư đã được nhận nhưng máy chủ dừng trước khi lưu trạng thái; mã chống trùng bảo vệ bản ghi yêu cầu tư vấn.

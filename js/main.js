@@ -154,6 +154,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
   if (!form || !notice) return;
 
+  let isSubmitting = false;
+  let pendingSubmission = null;
+  try { pendingSubmission = JSON.parse(sessionStorage.getItem("nht-contact-pending") || "null"); } catch { /* Storage may be disabled. */ }
+  const savePending = (value) => {
+    pendingSubmission = value;
+    try {
+      if (value) sessionStorage.setItem("nht-contact-pending", JSON.stringify(value));
+      else sessionStorage.removeItem("nht-contact-pending");
+    } catch { /* In-memory retries still work. */ }
+  };
+  const createRequestId = () => {
+    const bytes = crypto.getRandomValues(new Uint8Array(16));
+    bytes[6] = (bytes[6] & 15) | 64;
+    bytes[8] = (bytes[8] & 63) | 128;
+    const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
+  };
+
   const serviceSelect = document.getElementById("service");
   const serviceToggle = document.getElementById("serviceToggle");
   const serviceMenu = document.getElementById("serviceMenu");
@@ -199,6 +217,10 @@ document.addEventListener("DOMContentLoaded", () => {
     closeServiceMenu({ restoreFocus: true });
   };
 
+  const requestedService = new URLSearchParams(window.location.search).get("service");
+  if (requestedService && Array.from(serviceSelect?.options || []).some((option) => option.value === requestedService)) {
+    serviceSelect.value = requestedService;
+  }
   syncServiceControl();
   serviceToggle?.addEventListener("click", () => serviceMenu?.classList.contains("hidden") ? openServiceMenu() : closeServiceMenu());
   serviceToggle?.addEventListener("keydown", (event) => {
@@ -295,6 +317,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
+    if (isSubmitting || !form.reportValidity()) return;
 
     const requiredFields = form.querySelectorAll("[required]");
     const isInvalid = Array.from(requiredFields).some((field) => !field.value.trim());
@@ -308,6 +331,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
     termsConfirmed = false;
+    isSubmitting = true;
 
     const submitBtn = form.querySelector('button[type="submit"]');
     if (submitBtn) {
@@ -330,6 +354,15 @@ document.addEventListener("DOMContentLoaded", () => {
     };
 
     try {
+      // Store only a digest and random key, never the customer's form data.
+      const signature = crypto.subtle
+        ? Array.from(new Uint8Array(await crypto.subtle.digest("SHA-256", new TextEncoder().encode(JSON.stringify(payload)))))
+          .map((b) => b.toString(16).padStart(2, "0")).join("")
+        : null;
+      if (!pendingSubmission || (signature && pendingSubmission.signature !== signature)) {
+        savePending({ requestId: createRequestId(), signature });
+      }
+      payload.requestId = pendingSubmission.requestId;
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -338,29 +371,13 @@ document.addEventListener("DOMContentLoaded", () => {
       const data = await res.json().catch(() => ({}));
 
       if (!res.ok) {
+        if (res.status === 409) savePending(null);
         setNotice(data.error || "Có lỗi xảy ra. Vui lòng thử lại.", "error");
         return;
       }
-
-      if (data.warning === "no_smtp") {
-        setNotice(
-          "Đã lưu thông tin. Hệ thống email tự động hiện chưa được cấu hình.",
-          "warning"
-        );
-      } else if (data.warning === "customer_mail_failed") {
-        setNotice(
-          "Đã lưu yêu cầu, nhưng chưa gửi được email xác nhận. NHT sẽ liên hệ trực tiếp với bạn.",
-          "warning"
-        );
-      } else if (data.warning === "admin_mail_failed") {
-        setNotice(
-          "Đã gửi email xác nhận. Thông báo nội bộ đang được xử lý.",
-          "warning"
-        );
-      } else {
-        setNotice("Cảm ơn bạn đã tin tưởng NHT", "success");
-      }
-
+      if (!data.ok) throw new Error("Invalid server response");
+      setNotice("NHT đã nhận yêu cầu tư vấn. Cảm ơn bạn, NHT sẽ liên hệ với bạn qua thông tin đã cung cấp.", "success");
+      savePending(null);
       form.reset();
     } catch {
       setNotice(
@@ -368,6 +385,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "error"
       );
     } finally {
+      isSubmitting = false;
       if (submitBtn) {
         submitBtn.disabled = false;
         submitBtn.innerHTML = `<span>Gửi yêu cầu</span>`;

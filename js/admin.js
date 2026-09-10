@@ -120,7 +120,9 @@ document.addEventListener("DOMContentLoaded", () => {
   const loadLegalDocuments = async () => { legalDocuments = (await api("/api/admin/legal-documents")).documents || []; renderLegalDocuments(); };
   const displayValue = (value, fallback = "Không cung cấp") => String(value || "").trim() || fallback;
   const processingStatusLabel = (status) => status === "completed" ? "Đã hoàn thành" : status === "in_progress" ? "Đang xử lý" : "Mới";
-  const mailStatusLabel = (status) => status === "sent" ? "Sent" : displayValue(status, "Không xác định");
+  const mailStatusLabel = (status) => ({ sent: "Đã gửi", failed: "Gửi thất bại", pending: "Chờ gửi", not_configured: "Chưa cấu hình" })[status] || "Không xác định";
+  const serviceLabel = (value) => window.NHTServices.label(value);
+  let viewedLeadId = null;
   const processingStatusClass = (status) => status === "completed" ? "border-emerald-200 bg-emerald-50 text-emerald-700" : status === "in_progress" ? "border-amber-200 bg-amber-50 text-amber-700" : "border-sky-200 bg-sky-50 text-sky-700";
   const renderConsultationRequests = () => {
     const table = $("consultationRequestsTableBody");
@@ -139,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
         <td class="px-5 py-4"><p class="font-bold text-navy">${escapeHtml(displayValue(lead.name))}</p></td>
         <td class="px-5 py-4"><p class="font-semibold text-slate-700">${escapeHtml(displayValue(lead.phone))}</p><p class="mt-1 max-w-[230px] break-all text-xs text-slate-500">${escapeHtml(displayValue(lead.email))}</p></td>
         <td class="px-5 py-4"><p class="font-semibold text-slate-700">${escapeHtml(displayValue(lead.company))}</p><p class="mt-1 text-xs text-slate-500">MST/CCCD: ${escapeHtml(displayValue(lead.taxCode))}</p></td>
-        <td class="px-5 py-4 text-slate-600">${escapeHtml(displayValue(lead.service))}</td>
+        <td class="px-5 py-4 text-slate-600">${escapeHtml(serviceLabel(lead.service))}</td>
         <td class="px-5 py-4"><div data-status-control class="relative inline-block"><button type="button" data-status-toggle="${lead.id}" aria-haspopup="menu" aria-expanded="false" class="inline-flex min-w-36 items-center justify-between gap-3 rounded-full border px-3.5 py-2 text-xs font-bold shadow-sm transition hover:brightness-95 focus:outline-none focus:ring-4 focus:ring-brand/10 ${processingStatusClass(lead.processingStatus)}"><span>${escapeHtml(processingStatusLabel(lead.processingStatus))}</span><span aria-hidden="true" class="text-[10px] opacity-70">▼</span></button><div data-status-menu="${lead.id}" class="absolute right-0 z-30 mt-2 hidden min-w-44 overflow-hidden rounded-xl border border-slate-200 bg-white p-1.5 shadow-xl" role="menu">${lead.processingStatus === "new" || !lead.processingStatus ? `<button type="button" data-set-lead-status="new" data-lead-id="${lead.id}" class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-xs font-bold text-sky-700 transition hover:bg-sky-50" role="menuitem"><span class="h-2 w-2 rounded-full bg-sky-500"></span>Mới</button>` : ""}<button type="button" data-set-lead-status="in_progress" data-lead-id="${lead.id}" class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-xs font-bold text-amber-700 transition hover:bg-amber-50" role="menuitem"><span class="h-2 w-2 rounded-full bg-amber-500"></span>Đang xử lý</button><button type="button" data-set-lead-status="completed" data-lead-id="${lead.id}" class="flex w-full items-center gap-2.5 rounded-lg px-3 py-2.5 text-left text-xs font-bold text-emerald-700 transition hover:bg-emerald-50" role="menuitem"><span class="h-2 w-2 rounded-full bg-emerald-500"></span>Đã hoàn thành</button></div></div><p class="mt-2 text-xs text-slate-500">${lead.completedAt ? `Hoàn thành: ${escapeHtml(formatDate(lead.completedAt))}` : "Chưa hoàn thành"}</p></td>
         <td class="max-w-[280px] px-5 py-4 text-slate-600"><p class="line-clamp-2" title="${escapeHtml(message)}">${escapeHtml(message)}</p></td>
         <td class="whitespace-nowrap px-5 py-4 text-right"><button type="button" data-view-lead="${lead.id}" class="font-bold text-brand hover:underline">Xem đầy đủ</button></td>
@@ -162,7 +164,7 @@ document.addEventListener("DOMContentLoaded", () => {
       ["Email", displayValue(lead.email)],
       ["Tên công ty", displayValue(lead.company)],
       ["Mã số thuế/CCCD", displayValue(lead.taxCode)],
-      ["Dịch vụ quan tâm", displayValue(lead.service)],
+      ["Dịch vụ quan tâm", serviceLabel(lead.service)],
       ["Trạng thái xử lý", processingStatusLabel(lead.processingStatus)],
       ["Ngày hoàn thành", lead.completedAt ? formatDate(lead.completedAt) : "Chưa hoàn thành"],
       ["Lời nhắn", displayValue(lead.message, "Không có lời nhắn")],
@@ -171,8 +173,32 @@ document.addEventListener("DOMContentLoaded", () => {
     ];
     content.innerHTML = fields.map(([label, value], index) => `<div class="${index === 9 ? "sm:col-span-2" : ""}"><p class="text-xs font-bold uppercase tracking-wider text-slate-400">${escapeHtml(label)}</p><p class="mt-1.5 whitespace-pre-wrap break-words text-sm font-semibold text-slate-700">${escapeHtml(value)}</p></div>`).join("");
     $("consultationDialogTitle").textContent = displayValue(lead.name, "Chi tiết khách hàng");
-    dialog.showModal();
+    viewedLeadId = lead.id;
+    $("retryLeadEmailBtn").disabled = lead.customerMailStatus === "sent" && lead.adminMailStatus === "sent";
+    $("retryLeadEmailNotice").textContent = "";
+    if (!dialog.open) dialog.showModal();
   };
+  $("retryLeadEmailBtn")?.addEventListener("click", async () => {
+    const button = $("retryLeadEmailBtn");
+    if (!viewedLeadId || button.disabled) return;
+    const id = viewedLeadId;
+    button.disabled = true;
+    $("retryLeadEmailNotice").textContent = "Đang gửi email...";
+    try {
+      const result = await api(`/api/leads/${id}/retry-email`, { method: "POST" });
+      await loadConsultationRequests();
+      if (viewedLeadId !== id) return;
+      openConsultationRequest(consultationRequests.find((lead) => lead.id === id));
+      $("retryLeadEmailNotice").textContent = result.warning
+        ? "Email chưa hoàn tất. Kiểm tra trạng thái và cấu hình gửi email; nếu đang xử lý, vui lòng chờ."
+        : "Email đã gửi thành công.";
+    } catch (error) {
+      if (viewedLeadId === id) {
+        $("retryLeadEmailNotice").textContent = error.message;
+        button.disabled = false;
+      }
+    }
+  });
   const exportConsultationRequests = async () => {
     const button = $("exportLeadsBtn");
     if (!button || button.disabled) return;

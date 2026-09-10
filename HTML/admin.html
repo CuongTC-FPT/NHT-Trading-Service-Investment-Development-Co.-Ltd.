@@ -7,7 +7,7 @@
   <title>Quản trị nội dung | NHT</title>
   <link rel="stylesheet" href="../css/tailwind.min.css" />
   <link rel="stylesheet" href="../css/fonts.css" />
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css?v=81b762d428c0" />
 </head>
 <body class="min-h-screen bg-slate-50 text-navy selection:bg-brand/10 selection:text-brand">
   <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -151,8 +151,13 @@
       </div>
     </div>
     <div id="consultationDialogContent" class="grid gap-x-6 gap-y-5 px-6 py-6 sm:grid-cols-2"></div>
+    <div class="border-t border-slate-200 px-6 py-5">
+      <button id="retryLeadEmailBtn" type="button" class="rounded-lg border border-slate-200 px-4 py-2 text-sm font-bold text-brand">Gửi lại email chưa gửi thành công</button>
+      <p id="retryLeadEmailNotice" role="status" aria-live="polite" class="mt-3 text-sm text-slate-600"></p>
+    </div>
   </dialog>
 
-  <script src="../js/admin.js"></script>
+  <script src="../js/service-catalog.js?v=06ea03439aed"></script>
+  <script src="../js/admin.js?v=a8c474066909"></script>
 </body>
 </html>

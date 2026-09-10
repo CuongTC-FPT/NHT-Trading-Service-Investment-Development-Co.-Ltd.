@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 const nodemailer = require("nodemailer");
+const { label: serviceLabel } = require("../../js/service-catalog");
 
 const EMAIL_LOGO_PATH = path.join(__dirname, "..", "..", "picture", "logo-transparent.webp");
 const CUSTOMER_TEMPLATE = path.join(__dirname, "..", "uploads", "Customer Email", "code.html");
@@ -33,6 +34,9 @@ function createTransporter() {
   const options = {
     host,
     port,
+    connectionTimeout: 15000,
+    greetingTimeout: 15000,
+    socketTimeout: 30000,
     secure: isTruthyEnv(process.env.SMTP_SECURE) || port === 465,
   };
   const user = String(process.env.SMTP_USER || "").trim();
@@ -57,7 +61,7 @@ async function sendSafely(transporter, options) {
   }
 }
 
-async function sendLeadEmails(lead) {
+async function sendLeadEmails(lead, { customer = true, admin = true } = {}) {
   const transporter = createTransporter();
   const fromAddr = getFromAddress();
   if (!transporter || !fromAddr) return { configured: false };
@@ -65,7 +69,7 @@ async function sendLeadEmails(lead) {
   const displayName = lead.name || "Quý khách";
   const now = new Date();
   const attachment = { filename: "nht-logo.webp", path: EMAIL_LOGO_PATH, cid: "nht-logo" };
-  const customerResult = await sendSafely(transporter, {
+  const customerResult = customer ? await sendSafely(transporter, {
     from: `"NHT" <${fromAddr}>`,
     to: lead.email,
     subject: process.env.MAIL_CUSTOMER_SUBJECT || "Đã nhận thông tin liên hệ - NHT",
@@ -77,15 +81,15 @@ async function sendLeadEmails(lead) {
       year: now.getFullYear(),
     }),
     attachments: [attachment],
-  });
+  }) : { ok: true };
 
   const adminTo = String(process.env.ADMIN_EMAIL || "").trim();
-  const adminResult = adminTo
+  const adminResult = adminTo && admin
     ? await sendSafely(transporter, {
         from: `"Website NHT" <${fromAddr}>`,
         to: adminTo,
         subject: "Yêu cầu tư vấn từ khách hàng",
-        text: JSON.stringify(lead, null, 2),
+        text: JSON.stringify({ ...lead, service: serviceLabel(lead.service) }, null, 2),
         replyTo: lead.email,
         attachments: [attachment],
         html: renderTemplate(ADMIN_TEMPLATE, {
@@ -93,8 +97,8 @@ async function sendLeadEmails(lead) {
           email: lead.email,
           phone: lead.phone,
           company: lead.company || "Không cung cấp",
-          taxCode: lead.taxCode,
-          service: lead.service || "Không cung cấp",
+          taxCode: lead.taxCode || "Không cung cấp",
+          service: serviceLabel(lead.service),
           message: lead.message || "Không có lời nhắn",
           submittedAt: new Intl.DateTimeFormat("vi-VN", {
             dateStyle: "medium",

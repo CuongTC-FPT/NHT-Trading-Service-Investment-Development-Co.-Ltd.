@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Giới Thiệu Về NHT | Trách Nhiệm & Tận Tâm</title>
+  <title>Giới Thiệu | NHT - Trách Nhiệm & Tận Tâm</title>
   <meta name="description" content="Tìm hiểu về NHT: Đơn vị tư vấn kế toán thuế trọn gói, thủ tục pháp lý doanh nghiệp chuyên nghiệp và hiệu suất cao. Thành lập từ 2018." />
   <link rel="stylesheet" href="../css/tailwind.min.css" />
   <link rel="stylesheet" href="../css/fonts.css" />
-  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/style.css?v=81b762d428c0" />
 </head>
 <body class="public-layout page-about bg-slate-50 text-navy selection:bg-brand/10 selection:text-brand">
   <div class="relative min-h-screen flex flex-col overflow-x-clip">
@@ -22,11 +22,22 @@
         <div class="hidden items-center gap-8 md:flex">
           <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
             <a href="index.html" class="nav-link-accent transition hover:text-navy">Trang chủ</a>
-            <a href="dich-vu.html" class="nav-link-accent transition hover:text-navy">Dịch vụ</a>
+          <a href="ve-chung-toi.html" class="nav-link-accent nav-link-active text-brand" aria-current="page">Giới Thiệu</a>
+            <div class="services-nav-item">
+              <a href="dich-vu.html" class="nav-link-accent transition hover:text-navy">Dịch vụ</a>
+              <div class="services-nav-dropdown" role="menu">
+                <a href="ke-toan-tron-goi.html" role="menuitem">Kế toán trọn gói</a>
+                <a href="soat-xet-bao-cao-tai-chinh.html" role="menuitem">Soát xét báo cáo tài chính</a>
+                <a href="co-van-nhan-su-bao-hiem.html" role="menuitem">Cố vấn nhân sự &amp; bảo hiểm</a>
+                <a href="hanh-chinh-phap-ly.html" role="menuitem">Hành chính &amp; pháp lý</a>
+                <a href="ke-toan-noi-bo-tai-chinh.html" role="menuitem">Kế toán nội bộ &amp; tài chính</a>
+                <a href="dich-vu-so-ho-tro-khac.html" role="menuitem">Dịch vụ số &amp; hỗ trợ khác</a>
+              </div>
+            </div>
             <a href="bang-gia.html" class="nav-link-accent transition hover:text-navy">Bảng giá</a>
             <a href="thong-tu-phap-luat.html" class="nav-link-accent transition hover:text-navy">Thông tư pháp luật</a>
           </nav>
-          <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand/10 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand/20">Nhận báo giá</a>
+          <a href="lien-he.html" class="inline-flex items-center justify-center rounded-full bg-brand px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-brand/10 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand/20">Liên hệ</a>
         </div>
 
         <!-- Mobile Hamburger Button -->
@@ -52,12 +63,13 @@
         </div>
         <nav class="flex flex-col gap-4 text-base font-semibold text-slate-600">
           <a href="index.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Trang chủ</a>
+          <a href="ve-chung-toi.html" class="py-2 border-b border-slate-50 text-brand" aria-current="page">Giới Thiệu</a>
           <a href="dich-vu.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Dịch vụ</a>
           <a href="bang-gia.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Bảng giá</a>
           <a href="thong-tu-phap-luat.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Thông tư pháp luật</a>
           <a href="lien-he.html" class="py-2 border-b border-slate-50 transition hover:text-brand">Liên hệ</a>
         </nav>
-        <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Nhận báo giá</a>
+        <a href="lien-he.html" class="mt-auto inline-flex items-center justify-center rounded-full bg-brand px-5 py-3 text-sm font-semibold text-white shadow-md shadow-brand/10 transition-all hover:bg-brand-hover">Liên hệ</a>
       </div>
     </div>
 
@@ -183,8 +195,7 @@
       </section>
 
       <!-- CTA Section -->
-      <section class="mt-28 rounded-3xl bg-navy p-8 md:p-16 text-white shadow-xl relative overflow-hidden fade-up">
-        <div class="absolute right-0 top-0 w-96 h-96 bg-brand/10 rounded-full translate-x-12 -translate-y-12 blur-3xl"></div>
+      <section id="about-cta" class="mt-28 rounded-3xl bg-navy p-8 md:p-16 text-white shadow-xl relative overflow-hidden fade-up">
         <div class="relative z-10 grid gap-8 lg:grid-cols-[1.2fr_0.8fr] lg:items-center">
           <div class="space-y-4">
             <h2 class="text-3xl font-extrabold sm:text-4xl">Cùng NHT xây dựng nền tảng kế toán vững chắc</h2>
@@ -216,7 +227,7 @@
             <div>
               <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Về chúng tôi</h4>
               <nav class="flex flex-col gap-3 text-sm">
-                <a href="ve-chung-toi.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Về NHT</a>
+                <a href="ve-chung-toi.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Giới Thiệu</a>
                 <a href="dieu-khoan.html" class="text-slate-500 font-semibold hover:text-brand transition-colors duration-200">Điều khoản dịch vụ</a>
               </nav>
             </div>
@@ -252,7 +263,7 @@
     </footer>
   </div>
 
-  <script src="../js/main.js"></script>
+  <script src="../js/main.js?v=31737b63c873"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const observer = new IntersectionObserver((entries) => {
