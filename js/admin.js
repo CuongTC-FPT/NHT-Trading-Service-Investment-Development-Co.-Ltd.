@@ -29,6 +29,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const api = async (url, options) => {
     const res = await fetch(url, options);
     const data = await res.json().catch(() => ({}));
+    if (res.status === 401 && isDashboard) {
+      redirectToLogin("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+      throw new Error("Phiên đăng nhập đã hết hạn.");
+    }
     if (!res.ok) throw new Error(data.error || "Không thể xử lý yêu cầu.");
     return data;
   };
@@ -208,7 +212,10 @@ document.addEventListener("DOMContentLoaded", () => {
     setNotice("consultationRequestsNotice", "Đang chuẩn bị file Excel...");
     try {
       const response = await fetch("/api/leads/export");
-      if (response.status === 401) { redirectToLogin(); return; }
+      if (response.status === 401) {
+        redirectToLogin("Phiên đăng nhập đã hết hạn. Vui lòng đăng nhập lại.");
+        return;
+      }
       if (!response.ok) {
         const data = await response.json().catch(() => ({}));
         throw new Error(data.error || "Không thể tạo file Excel.");
@@ -233,7 +240,10 @@ document.addEventListener("DOMContentLoaded", () => {
       button.textContent = originalText;
     }
   };
-  const redirectToLogin = () => { location.replace("admin-login.html"); };
+  const redirectToLogin = (notice = "") => {
+    if (notice) sessionStorage.setItem("nhtAdminSessionNotice", notice);
+    location.replace("admin-login.html");
+  };
   const ensureDashboardSession = async () => {
     const user = await checkSession();
     if (!user) redirectToLogin();
@@ -251,6 +261,9 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
       }
       $("adminLoginPage")?.classList.remove("invisible");
+      const sessionNotice = sessionStorage.getItem("nhtAdminSessionNotice");
+      sessionStorage.removeItem("nhtAdminSessionNotice");
+      if (sessionNotice) setNotice("adminLoginNotice", sessionNotice, "error");
     });
     loginForm.addEventListener("submit", async (event) => { event.preventDefault(); const button = loginForm.querySelector("button"); button.disabled = true; try { await api("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: $("adminUsername").value.trim(), password: $("adminPassword").value }) }); sessionStorage.setItem("nhtAdminLoginSuccess", "true"); location.href = getAdminRedirect(); } catch (error) { setNotice("adminLoginNotice", error.message, "error"); } finally { button.disabled = false; } });
   }

@@ -89,7 +89,10 @@ function clearAdminCookie(res) {
 
 function requireAdmin(req, res, next) {
   const session = getAdminSession(req);
-  if (!session) return res.status(401).json({ ok: false, error: "Chưa đăng nhập." });
+  if (!session) {
+    clearAdminCookie(res);
+    return res.status(401).json({ ok: false, error: "Chưa đăng nhập." });
+  }
   req.admin = session;
   next();
 }
