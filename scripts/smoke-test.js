@@ -31,8 +31,17 @@ async function main() {
   assert.equal((await request("/robots.txt")).status, 200);
   assert.equal((await request("/sitemap.xml")).status, 200);
   assert.equal((await request("/api/legal-documents")).status, 200);
+  assert.equal((await request("/api/legal-documents/not-a-uuid")).status, 400);
   assert.equal((await request("/api/admin/me")).status, 401);
   assert.equal((await request("/api/leads")).status, 401);
+
+  const malformedJson = await request("/api/contact", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: "{",
+  });
+  assert.equal(malformedJson.status, 400);
+  assert.deepEqual(await malformedJson.json(), { ok: false, error: "Dữ liệu JSON không hợp lệ." });
 
   const invalidContact = await request("/api/contact", {
     method: "POST",

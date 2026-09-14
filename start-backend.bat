@@ -17,9 +17,10 @@ if not errorlevel 1 (
 echo Dang chay backend NHT tai:
 echo %LOCAL_URL%
 echo.
-echo Dang mo website tren trinh duyet...
+echo Dang khoi dong backend...
+echo Trinh duyet se tu mo khi backend san sang.
 echo Nhan Ctrl+C de dung server.
 echo.
-start "" "%LOCAL_URL%"
+start "" /b powershell.exe -NoProfile -WindowStyle Hidden -Command "$url='%LOCAL_URL%'; for ($i = 0; $i -lt 120; $i++) { try { $response = Invoke-WebRequest -UseBasicParsing -Uri ($url + '/healthz') -TimeoutSec 1; if ($response.StatusCode -eq 200) { Start-Process $url; exit 0 } } catch {}; Start-Sleep -Milliseconds 250 }"
 node index.js
 pause

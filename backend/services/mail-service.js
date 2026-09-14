@@ -3,7 +3,7 @@ const path = require("path");
 const nodemailer = require("nodemailer");
 const { label: serviceLabel } = require("../../js/service-catalog");
 
-const EMAIL_LOGO_PATH = path.join(__dirname, "..", "..", "picture", "logo-email.png");
+const EMAIL_LOGO_PATH = path.join(__dirname, "..", "..", "picture", "logo-email-optimized.png");
 const CUSTOMER_TEMPLATE = path.join(__dirname, "..", "uploads", "Customer Email", "code.html");
 const ADMIN_TEMPLATE = path.join(__dirname, "..", "uploads", "Admin email", "code.html");
 

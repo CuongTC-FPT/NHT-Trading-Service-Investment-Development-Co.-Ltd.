@@ -5,6 +5,15 @@ const { requireAdmin } = require("../middleware/admin-auth");
 const { destroyImage, isCloudinaryConfigured, uploadImage } = require("../services/cloudinary-service");
 const { normalizeLegalDocument, validateLegalDocument } = require("../utils/legal-document");
 
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+function requireValidDocumentId(req, res, next) {
+  if (!UUID_PATTERN.test(req.params.id)) {
+    return res.status(400).json({ ok: false, error: "Mã văn bản không hợp lệ." });
+  }
+  return next();
+}
+
 const uploadLegalImage = multer({
   storage: multer.memoryStorage(),
   limits: { fileSize: 5 * 1024 * 1024, files: 1 },
@@ -31,7 +40,7 @@ module.exports = function createLegalDocumentRoutes(database) {
     } catch (error) { next(error); }
   });
 
-  router.get("/legal-documents/:id", async (req, res, next) => {
+  router.get("/legal-documents/:id", requireValidDocumentId, async (req, res, next) => {
     try {
       const document = await queryOne(
         `SELECT id, title, summary, content, document_number AS "documentNumber", issuing_body AS "issuingBody",
@@ -95,7 +104,7 @@ module.exports = function createLegalDocumentRoutes(database) {
     } catch (error) { return next(error); }
   });
 
-  router.put("/admin/legal-documents/:id", requireAdmin, async (req, res, next) => {
+  router.put("/admin/legal-documents/:id", requireAdmin, requireValidDocumentId, async (req, res, next) => {
     try {
       const existing = await queryOne(
         `SELECT id, published_at AS "publishedAt", image_public_id AS "imagePublicId" FROM legal_documents WHERE id = $1`,
@@ -120,7 +129,7 @@ module.exports = function createLegalDocumentRoutes(database) {
     } catch (error) { return next(error); }
   });
 
-  router.delete("/admin/legal-documents/:id", requireAdmin, async (req, res, next) => {
+  router.delete("/admin/legal-documents/:id", requireAdmin, requireValidDocumentId, async (req, res, next) => {
     try {
       const existing = await queryOne(
         `SELECT id, image_public_id AS "imagePublicId" FROM legal_documents WHERE id = $1`,

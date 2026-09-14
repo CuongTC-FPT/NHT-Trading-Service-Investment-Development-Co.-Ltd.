@@ -193,9 +193,8 @@ document.addEventListener("DOMContentLoaded", async () => {
           <time datetime="${escapeHtml(doc.effectiveDate || doc.issuedDate || "")}">${escapeHtml(formatDate(doc.effectiveDate || doc.issuedDate))}</time>
         </div>
         <p class="legal-document-card__number">${escapeHtml(doc.documentNumber || "Văn bản pháp luật")}</p>
-        <h3>${escapeHtml(doc.title)}</h3>
+        <h3><a class="legal-document-card__title-link" href="thong-tu-phap-luat.html?id=${encodeURIComponent(doc.id)}">${escapeHtml(doc.title)}</a></h3>
         <p class="legal-document-card__summary">${escapeHtml(doc.summary || "Nội dung văn bản đang được cập nhật.")}</p>
-        <a href="thong-tu-phap-luat.html?id=${encodeURIComponent(doc.id)}">Xem chi tiết <span aria-hidden="true">→</span></a>
       </article>`).join("");
     if (!visible.length) {
       list.innerHTML = `<div class="legal-empty"><h3>Chưa có kết quả phù hợp</h3><p>Hãy thử từ khóa khác hoặc đặt lại bộ lọc.</p></div>`;
@@ -203,17 +202,21 @@ document.addEventListener("DOMContentLoaded", async () => {
     loadMoreButton.hidden = visible.length >= matches.length;
   };
 
+  const documentId = new URLSearchParams(window.location.search).get("id");
+  if (documentId) {
+    filters.hidden = true;
+    document.querySelector(".legal-library__hero")?.setAttribute("hidden", "");
+    document.querySelector(".legal-results")?.classList.add("legal-results--detail");
+  }
+
   renderLoading();
   try {
-    const documentId = new URLSearchParams(window.location.search).get("id");
     if (documentId) {
       const response = await fetch(`/api/legal-documents/${encodeURIComponent(documentId)}`);
       const data = await response.json();
       if (!response.ok) throw new Error(data.error || "Không tải được văn bản.");
       const doc = data.document;
       document.title = `${doc.title} | NHT`;
-      filters.hidden = true;
-      document.querySelector(".legal-library__hero")?.setAttribute("hidden", "");
       document.querySelector(".legal-results__heading")?.classList.add("legal-results__heading--detail");
       notice.innerHTML = `<a href="thong-tu-phap-luat.html">← Tất cả thông tư</a>`;
       list.className = "legal-document-detail";

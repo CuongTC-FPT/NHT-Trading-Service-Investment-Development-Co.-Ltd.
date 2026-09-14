@@ -145,8 +145,11 @@ async function start() {
 
   app.use("/api", (_req, res) => res.status(404).json({ ok: false, error: "Không tìm thấy API." }));
   app.use((error, _req, res, _next) => {
+    if (error?.type === "entity.parse.failed") {
+      return res.status(400).json({ ok: false, error: "Dữ liệu JSON không hợp lệ." });
+    }
     console.error(error);
-    res.status(500).json({ ok: false, error: "Máy chủ đang gặp sự cố. Vui lòng thử lại sau." });
+    return res.status(500).json({ ok: false, error: "Máy chủ đang gặp sự cố. Vui lòng thử lại sau." });
   });
 
   const server = app.listen(PORT, () => {

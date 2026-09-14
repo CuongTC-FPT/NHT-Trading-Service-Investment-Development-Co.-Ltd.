@@ -4,6 +4,15 @@ const { createLeadsWorkbook } = require("../services/excel-service");
 const { notifyLead } = require("../services/lead-notification-service");
 const { rateLimit } = require("express-rate-limit");
 
+const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+
+function requireValidLeadId(req, res, next) {
+  if (!UUID_PATTERN.test(req.params.id)) {
+    return res.status(400).json({ ok: false, error: "Mã yêu cầu không hợp lệ." });
+  }
+  return next();
+}
+
 module.exports = function createLeadsRoutes(database) {
   const router = express.Router();
   const queryAll = async (sql, params = []) => (await database.query(sql, params)).rows;
@@ -11,8 +20,7 @@ module.exports = function createLeadsRoutes(database) {
 
   router.use(requireAdmin);
 
-  router.post("/:id/retry-email", rateLimit({ windowMs: 60000, limit: 5 }), async (req, res, next) => {
-    if (!/^[0-9a-f-]{36}$/i.test(req.params.id)) return res.status(400).json({ ok: false, error: "Mã yêu cầu không hợp lệ." });
+  router.post("/:id/retry-email", rateLimit({ windowMs: 60000, limit: 5 }), requireValidLeadId, async (req, res, next) => {
     try {
       const lead = await queryOne(
         `SELECT id, name, email, phone, company, tax_code AS "taxCode", service, message,
@@ -39,7 +47,7 @@ module.exports = function createLeadsRoutes(database) {
     } catch (error) { next(error); }
   });
 
-  router.patch("/:id/status", async (req, res, next) => {
+  router.patch("/:id/status", requireValidLeadId, async (req, res, next) => {
     const processingStatus = String(req.body.processingStatus || "").trim();
     if (!["new", "in_progress", "completed"].includes(processingStatus)) {
       return res.status(400).json({ ok: false, error: "Trạng thái xử lý không hợp lệ." });
