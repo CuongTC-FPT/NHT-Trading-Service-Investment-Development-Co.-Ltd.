@@ -14,6 +14,22 @@ document.addEventListener("DOMContentLoaded", () => {
   let termsConfirmed = false;
   let lastFocusedElement = null;
 
+  if (!document.querySelector(".zalo-floating-button")) {
+    const zaloButton = document.createElement("a");
+    const zaloIcon = document.createElement("img");
+    zaloButton.className = "zalo-floating-button";
+    zaloButton.href = "https://zalo.me/0788788919";
+    zaloButton.target = "_blank";
+    zaloButton.rel = "noopener noreferrer";
+    zaloButton.setAttribute("aria-label", "Chat với NHT qua Zalo");
+    zaloButton.title = "Chat với NHT qua Zalo";
+    zaloIcon.src = "../picture/zalo-official.svg";
+    zaloIcon.alt = "";
+    zaloIcon.setAttribute("aria-hidden", "true");
+    zaloButton.appendChild(zaloIcon);
+    document.body.appendChild(zaloButton);
+  }
+
   if (notice) {
     notice.setAttribute("role", "status");
     notice.setAttribute("aria-live", "polite");

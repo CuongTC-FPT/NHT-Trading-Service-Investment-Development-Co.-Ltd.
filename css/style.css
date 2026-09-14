@@ -762,6 +762,97 @@ img {
   }
 }
 
+.zalo-floating-button {
+  position: fixed;
+  right: clamp(1rem, 2.2vw, 2rem);
+  bottom: clamp(1rem, 2.2vw, 2rem);
+  z-index: 45;
+  isolation: isolate;
+  display: grid;
+  width: 3.5rem;
+  height: 3.5rem;
+  place-items: center;
+  align-items: center;
+  border: 1px solid rgb(0 104 255 / 0.16);
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.97);
+  padding: 0.65rem;
+  box-shadow: 0 0.8rem 2rem rgb(18 68 122 / 0.16);
+  color: #243247;
+  animation: zalo-float 3s ease-in-out infinite;
+  transition: box-shadow 180ms ease, transform 180ms ease;
+}
+
+.zalo-floating-button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 2px solid rgb(0 104 255 / 0.42);
+  border-radius: inherit;
+  animation: zalo-pulse 2.8s ease-out infinite;
+}
+
+.zalo-floating-button img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.zalo-floating-button:hover {
+  box-shadow: 0 1rem 2.2rem rgb(0 104 255 / 0.22);
+  animation-play-state: paused;
+    transform: translateY(-3px);
+}
+
+.zalo-floating-button:hover::before {
+  animation-play-state: paused;
+  opacity: 0;
+}
+
+@keyframes zalo-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+@keyframes zalo-pulse {
+  0% { opacity: 0.55; transform: scale(0.94); }
+  75%, 100% { opacity: 0; transform: scale(1.38); }
+}
+
+.zalo-floating-button:focus-visible {
+  outline: 3px solid rgb(22 137 223 / 0.35);
+  outline-offset: 4px;
+}
+
+@media (max-width: 640px) {
+  .zalo-floating-button {
+    width: 3.25rem;
+    height: 3.25rem;
+    padding: 0.6rem;
+  }
+
+  .zalo-floating-button img {
+    width: 100%;
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .zalo-floating-button {
+    animation: none;
+    transition: none;
+  }
+
+  .zalo-floating-button::before {
+    display: none;
+  }
+
+  .zalo-floating-button:hover {
+    transform: none;
+  }
+}
+
 /* Requested palette for the introduction page CTA. */
 #about-cta {
   background: #0f172a;
