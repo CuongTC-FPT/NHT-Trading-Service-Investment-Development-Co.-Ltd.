@@ -1,7 +1,7 @@
 /* Shared service pages: calm, trustworthy and consistent with the NHT public site. */
 .service-card-link { display:flex; align-items:center; justify-content:space-between; gap:1rem; min-height:44px; margin:0 2rem 1.75rem; padding-top:1rem; border-top:1px solid #eaded6; color:#b4410c; font-size:.9rem; font-weight:600; }
-.service-card-link::after,.service-related nav a::after { content:"→"; flex:0 0 auto; transition:transform 180ms ease; }
-.service-card-link:hover::after,.service-related nav a:hover::after { transform:translateX(3px); }
+.service-card-link::after { content:"→"; flex:0 0 auto; transition:transform 180ms ease; }
+.service-card-link:hover::after { transform:translateX(3px); }
 
 .service-detail { width:min(100%,1280px); margin-inline:auto; padding:1.5rem 1.5rem 5rem; }
 .service-detail p,.service-detail li { color:#526078; line-height:1.75; }
@@ -55,15 +55,28 @@
 .service-preparation li::before { content:counter(preparation-item); position:absolute; top:.73rem; left:0; display:grid; width:1.25rem; height:1.25rem; place-items:center; border:1px solid #e4ad90; border-radius:50%; color:#b4410c; font-size:.65rem; font-weight:700; line-height:1; }
 .service-preparation-note { margin-top:.4rem; padding:.8rem 0 0; border-top:1px solid #e05915; border-radius:0; background:transparent; color:#89543e!important; line-height:1.6!important; }
 
-.service-faq { display:grid; grid-template-columns:minmax(14rem,.45fr) minmax(0,1fr); gap:0 clamp(2rem,6vw,6rem); max-width:none; padding-top:clamp(2rem,4vw,4rem); border-top:1px solid #dfd3cb; }
-.service-faq h2 { grid-column:1; grid-row:1/span 3; }
-.service-faq details { grid-column:2; padding:0 0 1.25rem; border-bottom:1px solid #dfd3cb; }
-.service-faq details+details { padding-top:1.25rem; }
-.service-faq summary { position:relative; padding:.2rem 2.5rem .2rem 0; color:#292524; cursor:pointer; font-weight:600; line-height:1.55; list-style:none; }
+.service-faq { display:grid; grid-template-columns:minmax(14rem,.4fr) minmax(0,1fr); gap:0 clamp(2.5rem,7vw,7rem); max-width:none; padding:clamp(2.5rem,5vw,4.5rem) 0; border-top:1px solid #dfd3cb; border-bottom:1px solid #dfd3cb; }
+.service-faq h2 { grid-column:1; grid-row:1/span 3; max-width:8ch; }
+.service-faq h2::before { content:""; display:block; width:3rem; height:3px; margin-bottom:1.25rem; background:#e05915; }
+.service-faq details { grid-column:2; border-bottom:1px solid #dfd3cb; }
+.service-faq details:first-of-type { border-top:1px solid #dfd3cb; }
+.service-faq details[open] { margin:.35rem 0; border-bottom-color:transparent; border-radius:.75rem; background:linear-gradient(90deg,#fff0e6,rgba(255,248,243,.45)); box-shadow:inset 3px 0 #d64c0b; }
+.service-faq summary { position:relative; padding:1.45rem 4.5rem 1.45rem 1.25rem; color:#292524; cursor:pointer; font-weight:650; line-height:1.55; list-style:none; }
 .service-faq summary::-webkit-details-marker { display:none; }
-.service-faq summary::after { content:"+"; position:absolute; top:-.15rem; right:.1rem; color:#c44810; font-family:var(--font-body); font-size:1.6rem; font-weight:400; }
-.service-faq details[open] summary::after { content:"−"; }
-.service-faq details p { padding:.9rem 2.5rem 0 0; font-size:.92rem; }
+.service-faq summary::after { content:"+"; position:absolute; top:1.1rem; right:1.15rem; display:grid; width:2.25rem; height:2.25rem; place-items:center; border:1px solid transparent; border-radius:50%; color:#b4410c; font-family:var(--font-body); font-size:1.35rem; font-weight:400; line-height:1; }
+.service-faq details[open] summary { color:#aa3e0e; }
+.service-faq details[open] summary::after { border-color:#dca989; background:#fffaf7; transform:rotate(45deg); }
+.service-faq details p { max-width:62ch; padding:0 4.5rem 1.5rem 1.25rem; font-size:.9rem; }
+
+@media (prefers-reduced-motion:no-preference) {
+  .service-faq details { transition:background-color 260ms ease,border-color 260ms ease; }
+  .service-faq details:not([open]):hover { background:rgb(255 248 243 / .55); }
+  .service-faq summary { transition:color 220ms ease,transform 260ms cubic-bezier(.16,1,.3,1); }
+  .service-faq details:not([open]):hover summary { transform:translateX(4px); }
+  .service-faq summary::after { transition:transform 260ms cubic-bezier(.16,1,.3,1),background-color 260ms ease,border-color 260ms ease; }
+  .service-faq details[open] p { animation:faq-answer-in 320ms both cubic-bezier(.16,1,.3,1); }
+  @keyframes faq-answer-in { from { opacity:0; transform:translateY(-8px); } to { opacity:1; transform:translateY(0); } }
+}
 
 .service-contact { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:2.5rem; align-items:center; margin:1rem 0 clamp(4rem,8vw,7rem); padding:clamp(2rem,5vw,4rem); border:1px solid #e8c9b9; border-radius:1.15rem; background:linear-gradient(120deg,rgb(255 255 255 / .35),transparent 54%),#ffe8da; }
 .service-contact .service-eyebrow { margin-bottom:.8rem; }
@@ -72,11 +85,34 @@
 .service-text-link:hover,.service-card-link:hover { color:var(--navy); }
 
 .service-related { margin-bottom:1rem; }
-.service-related nav { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); border-top:1px solid #dfd3cb; }
-.service-related nav a { display:flex; align-items:center; justify-content:space-between; gap:1rem; min-height:4.75rem; padding:1rem 0; border-bottom:1px solid #dfd3cb; color:#384357; font-size:.9rem; font-weight:600; }
-.service-related nav a:nth-child(odd) { padding-right:1.5rem; }
-.service-related nav a:nth-child(even) { padding-left:1.5rem; border-left:1px solid #dfd3cb; }
-.service-related nav a:hover { color:var(--primary-hover); }
+.service-related>p { max-width:42rem; margin-bottom:2rem; font-size:.95rem; }
+.service-related nav { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:1rem; }
+.service-related nav a { position:relative; isolation:isolate; display:flex; grid-column:span 2; align-items:flex-start; gap:1rem; min-height:11rem; padding:1.6rem; overflow:hidden; border:1px solid #e5d7cd; border-radius:1rem; background:#fffcf9; color:#384357; }
+.service-related nav a:nth-child(-n+2) { grid-column:span 3; min-height:10rem; }
+.service-related nav a::before { content:""; position:absolute; inset:0; z-index:-1; background:linear-gradient(120deg,#fff0e5,#fffaf6); opacity:0; }
+.service-related-copy { display:flex; flex:1; min-width:0; flex-direction:column; gap:.75rem; }
+.service-related-title { color:#292524; font-size:1rem; font-weight:650; line-height:1.5; }
+.service-related-description { max-width:39ch; color:#657083; font-size:.8rem; font-weight:400; line-height:1.75; }
+.service-related-arrow { position:relative; display:block; flex:0 0 auto; width:2.5rem; height:2.5rem; border:1px solid #ecd8cb; border-radius:50%; background:#fff4ec; color:#b4410c; font-size:0; }
+.service-related-arrow::before { content:""; position:absolute; top:calc(50% - 1px); left:calc(50% - 8px); width:16px; height:2px; border-radius:1px; background:currentColor; }
+.service-related-arrow::after { content:""; position:absolute; top:calc(50% - 5px); left:calc(50% - 2px); width:10px; height:10px; border-top:2px solid currentColor; border-right:2px solid currentColor; transform:rotate(45deg); }
+.service-related nav a:is(:hover,:focus-visible) { border-color:#dca989; box-shadow:0 .8rem 1.8rem rgb(110 62 34 / .08); }
+.service-related nav a:is(:hover,:focus-visible)::before { opacity:1; }
+.service-related nav a:is(:hover,:focus-visible) .service-related-title { color:#b4410c; }
+.service-related nav a:is(:hover,:focus-visible) .service-related-arrow { background:#b4410c; border-color:#b4410c; color:#fff; }
+
+@media (prefers-reduced-motion:no-preference) {
+  .service-related nav a { transition:transform 280ms ease,box-shadow 280ms ease,border-color 280ms ease; }
+  .service-related nav a::before { transition:opacity 280ms ease; }
+  .service-related-arrow { transition:background-color 280ms ease,color 280ms ease; }
+  .service-related-arrow::before,.service-related-arrow::after { transition:translate 280ms ease; }
+  .service-related nav a:is(:hover,:focus-visible) { transform:translateY(-5px); }
+  .service-related nav a:is(:hover,:focus-visible) .service-related-arrow::before,
+  .service-related nav a:is(:hover,:focus-visible) .service-related-arrow::after { translate:2px 0; }
+  .service-related nav a:active { transform:translateY(-1px); }
+  .service-related nav a.is-revealing { animation:related-service-enter 600ms both cubic-bezier(.16,1,.3,1); animation-delay:var(--reveal-delay,0ms); }
+  @keyframes related-service-enter { from { opacity:0; transform:translateY(22px); } to { opacity:1; transform:translateY(0); } }
+}
 
 @media (max-width:1023px) {
   .service-hero { grid-template-columns:1fr 42%; }
@@ -99,9 +135,14 @@
   .service-scope-item,.service-steps li { min-height:0; }
   .service-preparation { position:static; margin-bottom:3.5rem; }
   .service-faq h2,.service-faq details { grid-column:1; grid-row:auto; }
+  .service-faq { padding:2.5rem 0; }
+  .service-faq h2 { max-width:none; margin-bottom:1.25rem; }
+  .service-faq summary { padding:1.2rem 3.75rem 1.2rem 1rem; }
+  .service-faq summary::after { top:.85rem; right:.75rem; }
+  .service-faq details p { padding:0 3rem 1.25rem 1rem; }
   .service-contact { padding:1.5rem; }
   .service-related nav { grid-template-columns:1fr; }
-  .service-related nav a:nth-child(odd),.service-related nav a:nth-child(even) { padding-inline:0; border-left:0; }
+  .service-related nav a,.service-related nav a:nth-child(-n+2) { grid-column:auto; min-height:0; padding:1.35rem; }
 }
 
 @media (max-width:420px) {
