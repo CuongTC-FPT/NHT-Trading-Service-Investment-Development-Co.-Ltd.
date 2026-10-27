@@ -8,7 +8,9 @@
   <title>Quản trị nội dung | NHT</title>
   <link rel="stylesheet" href="../css/tailwind.min.css" />
   <link rel="stylesheet" href="../css/fonts.css" />
-  <link rel="stylesheet" href="../css/style.css?v=81b762d428c0" />
+  <link rel="stylesheet" href="../css/admin-logos.css?v=1" />
+  <link rel="stylesheet" href="../css/legal-editor.css?v=inline-images-1" />
+  <link rel="stylesheet" href="../css/style.css?v=content-panels-cards-20261023" />
 </head>
 <body class="min-h-screen bg-slate-50 text-navy selection:bg-brand/10 selection:text-brand">
   <header class="sticky top-0 z-40 border-b border-slate-200 bg-white/95 backdrop-blur">
@@ -77,9 +79,22 @@
           </span>
         </label>
         <label class="block text-sm font-semibold text-slate-700 md:col-span-2">Tóm tắt<textarea id="legalSummary" rows="3" maxlength="600" class="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-brand"></textarea></label>
-        <label class="block text-sm font-semibold text-slate-700 md:col-span-2">Nội dung<textarea id="legalContent" rows="6" maxlength="30000" class="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-brand"></textarea></label>
+        <div class="block text-sm font-semibold text-slate-700 md:col-span-2">
+          <label id="legalContentLabel" for="legalContentEditor">Nội dung</label>
+          <textarea id="legalContent" hidden></textarea>
+          <div class="legal-editor-shell">
+            <div class="legal-editor-toolbar">
+              <button id="insertLegalImageBtn" type="button">Chèn ảnh vào nội dung</button>
+              <span>JPG, PNG, WebP · tối đa 5 MB/ảnh</span>
+              <input id="legalInlineImage" type="file" accept="image/jpeg,image/png,image/webp" multiple hidden />
+            </div>
+            <div id="legalContentEditor" class="legal-content-editor" contenteditable="true" role="textbox" aria-multiline="true" aria-labelledby="legalContentLabel" aria-describedby="legalContentHelp legalEditorNotice" data-placeholder="Viết hoặc dán nội dung từ Word tại đây…"></div>
+          </div>
+          <p id="legalContentHelp" class="legal-editor-help">Đặt con trỏ giữa các đoạn chữ rồi chọn Chèn ảnh vào nội dung. Có thể chèn nhiều ảnh và viết tiếp bên dưới. Giới hạn 30.000 ký tự.</p>
+          <p id="legalEditorNotice" class="legal-editor-help" role="status" aria-live="polite"></p>
+        </div>
         <label class="block text-sm font-semibold text-slate-700">Liên kết văn bản gốc<input id="legalSourceUrl" type="url" maxlength="2000" placeholder="https://..." class="mt-1.5 w-full rounded-xl border border-slate-200 px-4 py-3 outline-none focus:border-brand" /></label>
-        <div class="block text-sm font-semibold text-slate-700"><label for="legalImage">Ảnh đại diện</label><input id="legalImage" type="file" accept="image/jpeg,image/png,image/webp" class="mt-1.5 block w-full text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-brand/10 file:px-3 file:py-2 file:font-bold file:text-brand hover:file:bg-brand/20" /><input id="legalImageUrl" type="hidden" /><input id="legalImagePublicId" type="hidden" /><img id="legalImagePreview" class="mt-3 hidden h-24 w-36 rounded-lg border border-slate-200 object-cover" alt="Xem trước ảnh đại diện" /></div>
+        <div class="block text-sm font-semibold text-slate-700"><label for="legalImage">Ảnh đại diện (không bắt buộc, hiển thị đầu bài)</label><input id="legalImage" type="file" accept="image/jpeg,image/png,image/webp" class="mt-1.5 block w-full text-sm text-slate-600 file:mr-3 file:rounded-lg file:border-0 file:bg-brand/10 file:px-3 file:py-2 file:font-bold file:text-brand hover:file:bg-brand/20" /><input id="legalImageUrl" type="hidden" /><input id="legalImagePublicId" type="hidden" /><img id="legalImagePreview" class="mt-3 hidden h-24 w-36 rounded-lg border border-slate-200 object-cover" alt="Xem trước ảnh đại diện" /></div>
         <div class="block text-sm font-semibold text-slate-700">
           <span id="legalStatusLabel">Trạng thái</span>
           <div id="legalStatusControl" class="relative mt-1.5">
@@ -137,6 +152,29 @@
       <p id="consultationRequestsNotice" data-notice-base="border-t border-slate-100 px-5 py-3" class="hidden border-t border-slate-100 px-5 py-3 text-sm font-medium text-slate-500" role="status"></p>
     </section>
 
+    <section class="admin-logos" id="adminLogos" aria-labelledby="adminLogosTitle">
+      <div class="admin-logos__heading">
+        <div>
+          <h2 id="adminLogosTitle">Logo khách hàng &amp; đối tác</h2>
+          <p>Thêm hoặc xóa logo trong dải chạy trên trang chủ.</p>
+        </div>
+        <button type="button" id="refreshLogosBtn">Tải lại logo</button>
+      </div>
+      <form id="partnerLogoForm" class="admin-logos__form">
+        <label for="partnerLogoName">Tên khách hàng / đối tác
+          <input id="partnerLogoName" name="name" required maxlength="120" placeholder="Ví dụ: Blue Moon" />
+        </label>
+        <label for="partnerLogoFile">Ảnh logo (JPG, PNG, WebP, tối đa 5 MB)
+          <input id="partnerLogoFile" name="image" type="file" accept="image/jpeg,image/png,image/webp" required />
+        </label>
+        <button type="submit">Thêm logo</button>
+      </form>
+      <img id="partnerLogoPreview" class="admin-logos__preview" alt="Ảnh logo đã chọn" hidden />
+      <p id="adminLogoNotice" role="status" aria-live="polite"></p>
+      <p id="adminLogoCount"></p>
+      <ul id="adminLogoList" class="admin-logos__grid" aria-label="Danh sách logo"></ul>
+    </section>
+
   </main>
 
   <p id="adminNotice" class="pointer-events-none fixed left-1/2 top-20 z-50 -translate-x-1/2 -translate-y-4 rounded-xl border border-slate-200 bg-white px-5 py-3 text-sm font-bold text-slate-600 opacity-0 shadow-xl transition-all duration-300" role="status" aria-live="polite"></p>
@@ -158,7 +196,10 @@
     </div>
   </dialog>
 
-  <script src="../js/service-catalog.js?v=06ea03439aed"></script>
-  <script src="../js/admin.js?v=4b7a05cf91e2"></script>
+  <script src="../js/service-catalog.js?v=tax-procedures-20261023"></script>
+  <script src="../js/legal-content.js?v=inline-images-1"></script>
+  <script src="../js/legal-editor.js?v=inline-images-1"></script>
+  <script src="../js/admin.js?v=inline-images-1"></script>
+  <script src="../js/admin-logos.js?v=1"></script>
 </body>
 </html>

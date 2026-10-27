@@ -15,3 +15,10 @@ backend/uploads/**
 
 # Local PDF documents (not used by the website)
 pdf/*.pdf
+
+# Local website images
+/picture/
+
+# Temporary files and browser test artifacts
+/tmp/
+

@@ -7,7 +7,7 @@ const missing = [];
 for (const filename of fs.readdirSync(htmlRoot).filter((name) => name.endsWith(".html"))) {
   const html = fs.readFileSync(path.join(htmlRoot, filename), "utf8");
   for (const match of html.matchAll(/(?:src|href)=["']([^"']+)["']/g)) {
-    const url = match[1].split("?")[0];
+    const url = match[1].split(/[?#]/)[0];
     if (!url || /^(?:https?:|mailto:|tel:|#|data:)/i.test(url)) continue;
     const target = path.resolve(htmlRoot, url);
     if (!fs.existsSync(target)) missing.push(`${filename}: ${url}`);

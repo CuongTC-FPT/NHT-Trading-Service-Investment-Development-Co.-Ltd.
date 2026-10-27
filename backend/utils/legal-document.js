@@ -6,7 +6,7 @@ function normalizeLegalDocument(input) {
   return {
     title: value("title", 250),
     summary: value("summary", 600),
-    content: value("content", 30000),
+    content: value("content"),
     documentNumber: value("documentNumber", 100),
     issuingBody: value("issuingBody", 200),
     issuedDate: value("issuedDate", 10),
@@ -19,6 +19,7 @@ function normalizeLegalDocument(input) {
 }
 
 function validateLegalDocument(document) {
+  if (document.content.length > 30000) return "Nội dung vượt quá 30.000 ký tự. Vui lòng rút ngắn trước khi lưu.";
   if (!document.title) return "Vui lòng nhập tiêu đề.";
   if (!document.summary && !document.content) return "Vui lòng nhập tóm tắt hoặc nội dung.";
   if (document.sourceUrl && !/^https?:\/\//i.test(document.sourceUrl)) return "Đường dẫn văn bản gốc phải bắt đầu bằng http:// hoặc https://.";

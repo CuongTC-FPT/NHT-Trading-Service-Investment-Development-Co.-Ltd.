@@ -227,7 +227,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           <p class="legal-document-card__number">${escapeHtml([doc.documentNumber, doc.issuingBody].filter(Boolean).join(" · ") || "Thông tin pháp lý")}</p>
           <h1>${escapeHtml(doc.title)}</h1>
           <p class="legal-document-detail__summary">${escapeHtml(doc.summary)}</p>
-          <div class="legal-document-detail__content">${escapeHtml(doc.content)}</div>
+          <div class="legal-document-detail__content">${window.NHTLegalContent.render(doc.content)}</div>
           ${doc.sourceUrl ? `<a class="legal-document-detail__source" href="${escapeHtml(doc.sourceUrl)}" target="_blank" rel="noopener noreferrer">Xem văn bản gốc <span aria-hidden="true">→</span></a>` : ""}
         </article>`;
       return;

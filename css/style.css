@@ -1,4 +1,35 @@
 /* NHT Trust-First Design System */
+.page-services .service-catalog-grid { max-width:780px; margin-inline:auto; gap:1.5rem; }
+@media (min-width:1024px) {
+  .page-services .service-catalog-grid { max-width:1200px; grid-template-columns:repeat(3,minmax(0,1fr)); }
+}
+.page-services .service-catalog-grid .service-card-media { aspect-ratio:auto; height:auto; overflow:visible; }
+.public-layout.page-services main .service-catalog-grid .service-card-image { display:block; width:100%; height:auto; max-height:none; object-fit:contain; border-radius:0; transform:none; }
+.page-services .service-catalog-grid .service-card-media { padding:3%; }
+.public-layout.page-services main .service-catalog-grid .service-card-image { transition:transform 500ms ease; }
+@media (hover:hover) and (prefers-reduced-motion:no-preference) {
+  .public-layout.page-services main .service-catalog-grid article:hover .service-card-image,
+  .public-layout.page-services main .service-catalog-grid article:focus-within .service-card-image { transform:scale(1.05); }
+}
+.page-services .service-catalog-grid article .p-8 { padding:1.75rem 1.75rem 2rem; }
+.public-layout.page-services .service-catalog-grid h3 { font-size:1.15rem; line-height:1.35; }
+.page-services .service-catalog-grid article .p-8 p { font-size:.9rem; line-height:1.85; margin-top:.85rem; }
+.page-services .service-catalog-grid .tax-card-options { margin:0 1.5rem 1.25rem; padding-top:.65rem; min-height:100px; }
+.page-services .service-catalog-grid .tax-card-options a { font-size:.75rem; min-height:40px; }
+@media(max-width:767px) { .page-services .service-catalog-grid { max-width:390px; } .page-services .service-catalog-grid .tax-card-options { min-height:0; } }
+.tax-card-options { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.75rem 1.5rem; margin:0 2rem 1.75rem; padding:1rem 0 0; border-top:1px solid #eaded6; }
+.tax-card-options a { display:inline-flex; align-items:center; gap:.6rem; min-height:44px; padding:.25rem 0; color:#a63e10; font-size:.8rem; font-weight:600; transition:color 180ms ease; }
+.tax-card-options a:hover { color:#292524; }
+.tax-card-options a::after { content:none; display:none; }
+#dich-vu-phap-ly .tax-card-options { display:grid; grid-template-columns:max-content max-content; justify-content:center; justify-items:center; gap:.25rem 1rem; }
+#dich-vu-phap-ly .tax-card-options a[href="giai-the-doanh-nghiep.html"] { grid-column:2; grid-row:1; }
+#dich-vu-phap-ly .tax-card-options a[href="thay-doi-thong-tin-doanh-nghiep.html"] { grid-column:1 / -1; grid-row:2; }
+@media (min-width:768px) {
+  .page-services .tax-card-options { box-sizing:border-box; min-height:109px; align-content:start; align-items:start; }
+}
+.tax-nav-group { display:flex; flex-direction:column; gap:.3rem; padding:.9rem; border:1px solid #eee4dc; border-radius:.75rem; background:white; }
+.tax-nav-group > span { padding:.2rem .6rem; color:#b4410c; font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
+.services-nav-dropdown .tax-nav-group a { min-height:40px; padding:.6rem; border:0; box-shadow:none; }
 :root {
   --primary: #e05915;
   --primary-hover: #bf480d;
@@ -8,7 +39,8 @@
   --footer-background: rgb(255 255 255 / 0.8);
   --radius-card: 1rem;
   --radius-control: 0.75rem;
-  --font-body: 'Montserrat', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  /* Use the installed Word font, with the bundled Vietnamese serif as fallback. */
+  --font-body: 'Constantia', 'Lora', Georgia, "Times New Roman", serif;
   --font-heading: 'Lora', Georgia, "Times New Roman", serif;
 }
 
@@ -76,6 +108,27 @@ dialog {
 p,
 li {
   text-wrap: pretty;
+}
+
+/* Background for standalone prose blocks across public pages. */
+.public-layout main p.content-panel {
+  box-sizing: border-box;
+  padding: clamp(1rem, 2vw, 1.5rem);
+  border: 1px solid #ead5c5;
+  border-radius: 1rem;
+  background: #fffaf5;
+  overflow-wrap: break-word;
+}
+
+.public-layout main p.content-panel + p.content-panel {
+  margin-top: 1rem;
+}
+
+.public-layout main .home-values p.content-panel,
+.public-layout main .service-catalog-grid p.content-panel,
+.public-layout main article p.content-panel {
+  padding: 1rem;
+  border-radius: .75rem;
 }
 
 .site-footer {
@@ -216,10 +269,12 @@ body.page-transition.page-leaving {
   left: 50%;
   z-index: 60;
   display: grid;
-  grid-template-columns: repeat(3, minmax(190px, 1fr));
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: auto;
+  align-items: stretch;
   width: min(760px, calc(100vw - 3rem));
-  gap: 0.75rem;
-  padding: 1.25rem;
+  gap: 0.5rem;
+  padding: 0.75rem;
   border: 1px solid rgb(224 89 21 / 0.16);
   border-top: 0;
   border-radius: 1rem;
@@ -240,6 +295,21 @@ body.page-transition.page-leaving {
   right: 0;
   height: 0.75rem;
 }
+
+.services-nav-dropdown > :is(a, .tax-nav-group) {
+  height:100%;
+  min-width:0;
+  padding:.75rem;
+  border:1px solid #eadfd8;
+  border-radius:.75rem;
+  background:#fff;
+  box-shadow:none;
+}
+.services-nav-dropdown > a { align-items:flex-start; min-height:84px; }
+.services-nav-dropdown > a { font-size:.8rem; }
+.services-nav-dropdown .tax-nav-group { gap:.1rem; }
+.services-nav-dropdown .tax-nav-group > span { padding:.1rem .35rem; font-size:.62rem; }
+.services-nav-dropdown .tax-nav-group a { min-height:32px; padding:.35rem; font-size:.78rem; }
 
 .services-nav-item:hover .services-nav-dropdown,
 .services-nav-item:focus-within .services-nav-dropdown {
@@ -277,7 +347,7 @@ body.page-transition.page-leaving {
   transform: translateY(-2px);
 }
 
-@media (max-width: 900px) and (min-width: 768px) {
+@media (max-width: 1100px) and (min-width: 768px) {
   .services-nav-dropdown {
     grid-template-columns: repeat(2, minmax(170px, 1fr));
     width: min(520px, calc(100vw - 2rem));
@@ -379,72 +449,65 @@ main span.inline-flex.rounded-full[class*="uppercase"] {
 
 /* The home proof points use an asymmetric rhythm instead of three equal cards. */
 @media (min-width: 768px) {
-  .page-home main > section:nth-of-type(2) > div:last-child {
+  .page-home main > .home-values > div:last-child {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
-  .page-home main > section:nth-of-type(2) > div:last-child > :nth-child(1) {
+  .page-home main > .home-values > div:last-child > :nth-child(1) {
     grid-column: span 5;
   }
 
-  .page-home main > section:nth-of-type(2) > div:last-child > :nth-child(2) {
+  .page-home main > .home-values > div:last-child > :nth-child(2) {
     grid-column: span 4;
   }
 
-  .page-home main > section:nth-of-type(2) > div:last-child > :nth-child(3) {
+  .page-home main > .home-values > div:last-child > :nth-child(3) {
     grid-column: span 3;
   }
 }
 
-.page-home main > section:nth-of-type(2) > div:last-child > div {
+.page-home main > .home-values > div:last-child > div {
   border-color: #e2e8f0;
   box-shadow: none;
 }
 
-.page-home main > section:nth-of-type(4) .space-y-6 > div {
-  border-width: 1px 0 0;
-  border-radius: 0;
-  padding-left: 0;
-  padding-right: 0;
-}
-
 /* Pricing remains comparable while the featured service gains clear hierarchy. */
 @media (min-width: 1024px) {
-  .page-pricing main > section:nth-of-type(2) {
+  .page-pricing main > .legacy-pricing-plans {
     grid-template-columns: repeat(12, minmax(0, 1fr));
     align-items: stretch;
   }
 
-  .page-pricing main > section:nth-of-type(2) > :nth-child(1) {
+  .page-pricing main > .legacy-pricing-plans > :nth-child(1) {
     grid-column: span 4;
   }
 
-  .page-pricing main > section:nth-of-type(2) > :nth-child(2) {
+  .page-pricing main > .legacy-pricing-plans > :nth-child(2) {
     grid-column: span 5;
   }
 
-  .page-pricing main > section:nth-of-type(2) > :nth-child(3) {
+  .page-pricing main > .legacy-pricing-plans > :nth-child(3) {
     grid-column: span 3;
   }
 
-  .page-pricing main > section:nth-of-type(4) .grid {
+  .page-pricing main > .legacy-pricing-extras .grid {
     grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
-  .page-pricing main > section:nth-of-type(4) .grid > :nth-child(1) {
+  .page-pricing main > .legacy-pricing-extras .grid > :nth-child(1) {
     grid-column: span 5;
   }
 
-  .page-pricing main > section:nth-of-type(4) .grid > :nth-child(2) {
+  .page-pricing main > .legacy-pricing-extras .grid > :nth-child(2) {
     grid-column: span 4;
   }
 
-  .page-pricing main > section:nth-of-type(4) .grid > :nth-child(3) {
+  .page-pricing main > .legacy-pricing-extras .grid > :nth-child(3) {
     grid-column: span 3;
   }
 }
 
-.page-pricing main > section:nth-of-type(2) > div:not(:nth-child(2)) {
+.page-pricing main > .legacy-pricing-plans > div:not(:nth-child(2)) {
   box-shadow: none;
 }
 
@@ -1099,32 +1162,32 @@ img {
   text-align: left;
 }
 
-.page-pricing main > section:nth-of-type(2) {
+.page-pricing main > .legacy-pricing-plans {
   align-items: stretch;
 }
 
-.page-pricing main > section:nth-of-type(2) > div {
+.page-pricing main > .legacy-pricing-plans > div {
   min-height: 39rem;
   border-width: 1px;
   padding: clamp(1.7rem, 3vw, 2.5rem);
 }
 
-.page-pricing main > section:nth-of-type(2) > div:nth-child(2) {
+.page-pricing main > .legacy-pricing-plans > div:nth-child(2) {
   border-color: #292524;
   background: #292524;
   color: #f8f8f7;
   transform: translateY(-1rem);
 }
 
-.page-pricing main > section:nth-of-type(2) > div:nth-child(2) :is(h3, p, li, span) {
+.page-pricing main > .legacy-pricing-plans > div:nth-child(2) :is(h3, p, li, span) {
   color: #f8f8f7 !important;
 }
 
-.page-pricing main > section:nth-of-type(2) > div:nth-child(2) .text-brand {
+.page-pricing main > .legacy-pricing-plans > div:nth-child(2) .text-brand {
   color: #fb6a2a !important;
 }
 
-.page-pricing main > section:nth-of-type(2) > div:nth-child(2) .border-y {
+.page-pricing main > .legacy-pricing-plans > div:nth-child(2) .border-y {
   border-color: rgb(255 255 255 / 0.14);
 }
 
@@ -1175,7 +1238,7 @@ img {
     font-size: clamp(2.15rem, 9vw, 3rem);
   }
 
-  .page-pricing main > section:nth-of-type(2) > div:nth-child(2) {
+  .page-pricing main > .legacy-pricing-plans > div:nth-child(2) {
     transform: none;
   }
 }
@@ -1976,3 +2039,11 @@ img {
   }
 
 }
+
+/* Homepage navy service panel, matching the supplied reference. */
+.page-home .home-services { background:linear-gradient(125deg,#101a2c,#202938); border-radius:1rem; }
+.page-home .home-services .grid-cols-2 > a { display:block; }
+.page-home .home-services .grid-cols-2 h3 { font-size:.9rem; line-height:1.4; }
+.page-home .home-services span.uppercase { color:#ff833f; padding:0; box-shadow:none; }
+.page-home .home-services a.bg-brand { border-radius:.6rem; }
+@media(max-width:479px) { .page-home .home-services .grid-cols-2 { grid-template-columns:1fr; } }

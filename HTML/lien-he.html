@@ -8,7 +8,7 @@
   <meta name="description" content="Liên hệ Kế toán NHT để nhận tư vấn miễn phí dịch vụ kế toán trọn gói, kê khai thuế, kiểm tra báo cáo tài chính và thủ tục pháp lý thành lập doanh nghiệp." />
   <link rel="stylesheet" href="../css/tailwind.min.css?v=f6a51bff1a00" />
   <link rel="stylesheet" href="../css/fonts.css" />
-  <link rel="stylesheet" href="../css/style.css?v=5db703c18a49" />
+  <link rel="stylesheet" href="../css/style.css?v=content-panels-cards-20261023" />
 </head>
 <body class="public-layout page-contact bg-slate-50 text-navy selection:bg-brand/10 selection:text-brand">
   <div class="relative min-h-screen flex flex-col overflow-x-clip">
@@ -18,7 +18,7 @@
         <a href="index.html" class="flex items-center text-lg font-semibold text-navy">
           <img src="../picture/logo-transparent.webp" alt="NHT Logo" class="site-logo h-10 w-auto max-w-[160px] object-contain" />
         </a>
-        
+
         <!-- Desktop Navigation -->
         <div class="hidden items-center gap-8 md:flex">
           <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
@@ -26,13 +26,13 @@
           <a href="ve-chung-toi.html" class="nav-link-accent transition hover:text-navy">Giới Thiệu</a>
             <div class="services-nav-item">
               <a href="dich-vu.html" class="nav-link-accent transition hover:text-navy">Dịch vụ</a>
-              <div class="services-nav-dropdown" role="menu">
-                <a href="ke-toan-tron-goi.html" role="menuitem">Kế toán trọn gói</a>
+              <div class="services-nav-dropdown" role="menu" aria-label="Danh mục dịch vụ">
+                <a href="ke-toan-thue-doanh-nghiep.html" role="menuitem">Kế toán doanh nghiệp trọn gói</a>
+                <a href="ke-toan-ho-kinh-doanh.html" role="menuitem">Kế toán hộ kinh doanh trọn gói</a>
                 <a href="soat-xet-bao-cao-tai-chinh.html" role="menuitem">Soát xét báo cáo tài chính</a>
-                <a href="co-van-nhan-su-bao-hiem.html" role="menuitem">Cố vấn nhân sự &amp; bảo hiểm</a>
-                <a href="hanh-chinh-phap-ly.html" role="menuitem">Hành chính &amp; pháp lý</a>
-                <a href="ke-toan-noi-bo-tai-chinh.html" role="menuitem">Kế toán nội bộ &amp; tài chính</a>
-                <a href="dich-vu-so-ho-tro-khac.html" role="menuitem">Dịch vụ số &amp; hỗ trợ khác</a>
+                <div class="tax-nav-group"><span>Pháp lý doanh nghiệp</span><a href="thanh-lap-cong-ty.html" role="menuitem">Thành lập công ty</a><a href="thay-doi-thong-tin-doanh-nghiep.html" role="menuitem">Thay đổi thông tin doanh nghiệp</a><a href="giai-the-doanh-nghiep.html" role="menuitem">Giải thể</a></div>
+                <div class="tax-nav-group"><span>Thủ tục thuế</span><a href="mo-ma-so-thue.html" role="menuitem">Mở mã số thuế</a><a href="mo-cuong-che-hoa-don.html" role="menuitem">Mở cưỡng chế hóa đơn</a></div>
+                <a href="dich-vu-chu-ky-so-va-dich-vu-khac.html" role="menuitem">Dịch vụ chữ ký số và dịch vụ khác</a>
               </div>
             </div>
             <a href="bang-gia.html" class="nav-link-accent transition hover:text-navy">Bảng giá</a>
@@ -94,7 +94,7 @@
                 <input id="email" type="email" placeholder="email@congty.com" class="w-full rounded-2xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-sm text-navy placeholder-slate-400 focus:border-brand focus:bg-white focus:ring-1 focus:ring-brand focus:outline-none transition-all duration-200" required />
               </div>
             </div>
-            
+
             <div class="grid gap-5 sm:grid-cols-2">
               <div class="space-y-2">
                 <label for="phone" class="text-xs font-bold text-slate-500 uppercase tracking-wider">Số điện thoại <span class="text-brand">*</span></label>
@@ -121,8 +121,9 @@
                 <option value="soat-xet-bctc">Soát xét báo cáo tài chính</option>
                 <option value="bhxh-tien-luong">Cố vấn nhân sự &amp; bảo hiểm</option>
                 <option value="thu-tuc-phap-ly">Hành chính &amp; pháp lý</option>
+                <option value="thu-tuc-thue">Thủ tục thuế</option>
                 <option value="ke-toan-noi-bo-tai-chinh">Kế toán nội bộ &amp; tài chính</option>
-                <option value="dich-vu-so-ho-tro-khac">Dịch vụ số &amp; hỗ trợ khác</option>
+                <option value="dich-vu-so-ho-tro-khac">Dịch vụ chữ ký số và dịch vụ khác</option>
               </select>
                 <button id="serviceToggle" type="button" aria-labelledby="serviceLabel serviceValue" aria-haspopup="listbox" aria-expanded="false" class="flex w-full items-center justify-between rounded-2xl border border-slate-200 bg-slate-50/50 px-4 py-3.5 text-left text-sm text-navy transition duration-200 hover:border-slate-300 hover:bg-white focus:border-brand focus:bg-white focus:outline-none focus:ring-4 focus:ring-brand/10">
                   <span id="serviceValue" class="text-slate-400">Chọn dịch vụ</span>
@@ -133,8 +134,9 @@
                   <button type="button" data-service-value="soat-xet-bctc" role="option" class="flex w-full items-center justify-between rounded-xl px-3.5 py-3 text-left text-sm font-semibold transition hover:bg-slate-50 focus:bg-slate-50 focus:outline-none"><span>Soát xét báo cáo tài chính</span><span data-service-check aria-hidden="true" class="invisible text-brand">&#10003;</span></button>
                   <button type="button" data-service-value="bhxh-tien-luong" role="option" class="flex w-full items-center justify-between rounded-xl px-3.5 py-3 text-left text-sm font-semibold transition hover:bg-slate-50 focus:bg-slate-50 focus:outline-none"><span>Cố vấn nhân sự &amp; bảo hiểm</span><span data-service-check aria-hidden="true" class="invisible text-brand">&#10003;</span></button>
                   <button type="button" data-service-value="thu-tuc-phap-ly" role="option" class="flex w-full items-center justify-between rounded-xl px-3.5 py-3 text-left text-sm font-semibold transition hover:bg-slate-50 focus:bg-slate-50 focus:outline-none"><span>Hành chính &amp; pháp lý</span><span data-service-check aria-hidden="true" class="invisible text-brand">&#10003;</span></button>
+                  <button type="button" data-service-value="thu-tuc-thue" role="option" class="flex w-full items-center justify-between rounded-xl px-3.5 py-3 text-left text-sm font-semibold transition hover:bg-slate-50 focus:bg-slate-50 focus:outline-none"><span>Thủ tục thuế</span><span data-service-check aria-hidden="true" class="invisible text-brand">&#10003;</span></button>
                   <button type="button" data-service-value="ke-toan-noi-bo-tai-chinh" role="option" class="flex w-full items-center justify-between rounded-xl px-3.5 py-3 text-left text-sm font-semibold transition hover:bg-slate-50 focus:bg-slate-50 focus:outline-none"><span>Kế toán nội bộ &amp; tài chính</span><span data-service-check aria-hidden="true" class="invisible text-brand">&#10003;</span></button>
-                  <button type="button" data-service-value="dich-vu-so-ho-tro-khac" role="option" class="flex w-full items-center justify-between rounded-xl px-3.5 py-3 text-left text-sm font-semibold transition hover:bg-slate-50 focus:bg-slate-50 focus:outline-none"><span>Dịch vụ số &amp; hỗ trợ khác</span><span data-service-check aria-hidden="true" class="invisible text-brand">&#10003;</span></button>
+                  <button type="button" data-service-value="dich-vu-so-ho-tro-khac" role="option" class="flex w-full items-center justify-between rounded-xl px-3.5 py-3 text-left text-sm font-semibold transition hover:bg-slate-50 focus:bg-slate-50 focus:outline-none"><span>Dịch vụ chữ ký số và dịch vụ khác</span><span data-service-check aria-hidden="true" class="invisible text-brand">&#10003;</span></button>
                 </div>
               </div>
             </div>
@@ -155,7 +157,7 @@
         <div class="space-y-6 flex flex-col justify-between">
           <div class="space-y-6">
             <h2 class="text-2xl font-extrabold text-navy">Thông tin liên hệ</h2>
-            
+
             <!-- Address Card -->
             <a href="https://byvn.net/OD3n" target="_blank" rel="noopener noreferrer" aria-label="Mở địa chỉ văn phòng NHT trên bản đồ" class="group rounded-3xl border border-slate-200 bg-white p-6 shadow-premium hover:shadow-md transition-all flex items-start gap-4 focus-visible:border-brand">
               <div class="flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl bg-brand/10 text-brand">
@@ -244,7 +246,7 @@
               Giải pháp kế toán, thuế và tư vấn quản trị tài chính chuyên nghiệp cho doanh nghiệp Việt Nam. Hướng đến sự chính xác, an toàn và phát triển bền vững.
             </p>
           </div>
-          
+
           <div class="lg:col-span-7 grid gap-8 sm:grid-cols-3">
             <div>
               <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Về chúng tôi</h4>
@@ -272,7 +274,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-semibold">
           <p><a href="admin-login.html" class="hover:text-slate-500 transition-colors" tabindex="-1">© <span id="currentYear">2026</span> Công ty TNHH Dịch vụ Tư vấn NHT.</a> All rights reserved.</p>
           <p class="flex gap-4">
@@ -298,7 +300,7 @@
       </header>
 
       <div class="terms-modal__body">
-        <p id="termsModalDescription">Để bảo vệ quyền lợi của bạn, vui lòng đọc và xác nhận đồng ý với các điều khoản trước khi gửi yêu cầu tư vấn.</p>
+        <p id="termsModalDescription" class="content-panel">Để bảo vệ quyền lợi của bạn, vui lòng đọc và xác nhận đồng ý với các điều khoản trước khi gửi yêu cầu tư vấn.</p>
         <label class="terms-consent" for="termsConsent">
           <input id="termsConsent" type="checkbox" />
           <span class="terms-consent__box" aria-hidden="true"></span>
@@ -314,7 +316,7 @@
     </section>
   </div>
 
-  <script src="../js/service-catalog.js?v=06ea03439aed"></script>
+  <script src="../js/service-catalog.js?v=tax-procedures-20261023"></script>
   <script src="../js/main.js?v=4eb8a731d062"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {

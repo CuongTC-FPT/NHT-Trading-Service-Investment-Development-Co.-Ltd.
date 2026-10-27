@@ -12,6 +12,7 @@ const createContactRoutes = require("./routes/contact-routes");
 const createLeadsRoutes = require("./routes/leads-routes");
 const createLegalDocumentRoutes = require("./routes/legal-documents-routes");
 const { isMailConfigured } = require("./services/mail-service");
+const createPartnerLogoRoutes = require("./routes/partner-logos-routes");
 
 const FRONTEND_ROOT = path.join(__dirname, "..");
 const HTML_ROOT = path.join(FRONTEND_ROOT, "HTML");
@@ -24,12 +25,15 @@ const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const PUBLIC_PAGES = [
   ["/", "weekly", "1.0"],
   ["/dich-vu.html", "monthly", "0.9"],
-  ["/ke-toan-tron-goi.html", "monthly", "0.8"],
+  ["/ke-toan-thue-doanh-nghiep.html", "monthly", "0.8"],
+  ["/ke-toan-ho-kinh-doanh.html", "monthly", "0.8"],
+  ["/thanh-lap-cong-ty.html", "monthly", "0.8"],
+  ["/thay-doi-thong-tin-doanh-nghiep.html", "monthly", "0.8"],
+  ["/giai-the-doanh-nghiep.html", "monthly", "0.8"],
+  ["/mo-ma-so-thue.html", "monthly", "0.8"],
+  ["/mo-cuong-che-hoa-don.html", "monthly", "0.8"],
+  ["/dich-vu-chu-ky-so-va-dich-vu-khac.html", "monthly", "0.8"],
   ["/soat-xet-bao-cao-tai-chinh.html", "monthly", "0.8"],
-  ["/co-van-nhan-su-bao-hiem.html", "monthly", "0.8"],
-  ["/hanh-chinh-phap-ly.html", "monthly", "0.8"],
-  ["/ke-toan-noi-bo-tai-chinh.html", "monthly", "0.8"],
-  ["/dich-vu-so-ho-tro-khac.html", "monthly", "0.8"],
   ["/bang-gia.html", "monthly", "0.9"],
   ["/thong-tu-phap-luat.html", "weekly", "0.8"],
   ["/ve-chung-toi.html", "monthly", "0.7"],
@@ -75,7 +79,7 @@ async function start() {
         scriptSrc: ["'self'", "'unsafe-inline'"],
         styleSrc: ["'self'", "'unsafe-inline'"],
         fontSrc: ["'self'", "data:"],
-        imgSrc: ["'self'", "data:", "https://res.cloudinary.com"],
+        imgSrc: ["'self'", "data:", "blob:", "https://res.cloudinary.com"],
         connectSrc: ["'self'"],
         objectSrc: ["'none'"],
         frameAncestors: ["'none'"],
@@ -139,6 +143,7 @@ async function start() {
   app.use(express.static(HTML_ROOT, { ...staticOptions, maxAge: 0, index: "index.html" }));
 
   app.use("/api/admin", authRoutes);
+  app.use("/api", createPartnerLogoRoutes());
   app.use("/api/contact", createContactRoutes(database));
   app.use("/api/leads", createLeadsRoutes(database));
   app.use("/api", createLegalDocumentRoutes(database));

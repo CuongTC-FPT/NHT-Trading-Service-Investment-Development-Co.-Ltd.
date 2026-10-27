@@ -8,8 +8,8 @@
   <meta name="description" content="Dịch vụ kế toán, soát xét tài chính, pháp lý và dịch vụ số tại NHT. Liên hệ nhận báo giá phù hợp với nhu cầu doanh nghiệp." />
   <link rel="stylesheet" href="../css/tailwind.min.css" />
   <link rel="stylesheet" href="../css/fonts.css" />
-  <link rel="stylesheet" href="../css/style.css?v=5db703c18a49" />
-  <link rel="stylesheet" href="../css/pricing.css" />
+  <link rel="stylesheet" href="../css/style.css?v=content-panels-cards-20261023" />
+  <link rel="stylesheet" href="../css/pricing.css?v=category-effects-20261016" />
 </head>
 <body class="public-layout page-pricing bg-slate-50 text-navy selection:bg-brand/10 selection:text-brand">
   <div class="relative min-h-screen flex flex-col overflow-x-clip">
@@ -27,13 +27,13 @@
           <a href="ve-chung-toi.html" class="nav-link-accent transition hover:text-navy">Giới Thiệu</a>
             <div class="services-nav-item">
               <a href="dich-vu.html" class="nav-link-accent transition hover:text-navy">Dịch vụ</a>
-              <div class="services-nav-dropdown" role="menu">
-                <a href="ke-toan-tron-goi.html" role="menuitem">Kế toán trọn gói</a>
+              <div class="services-nav-dropdown" role="menu" aria-label="Danh mục dịch vụ">
+                <a href="ke-toan-thue-doanh-nghiep.html" role="menuitem">Kế toán doanh nghiệp trọn gói</a>
+                <a href="ke-toan-ho-kinh-doanh.html" role="menuitem">Kế toán hộ kinh doanh trọn gói</a>
                 <a href="soat-xet-bao-cao-tai-chinh.html" role="menuitem">Soát xét báo cáo tài chính</a>
-                <a href="co-van-nhan-su-bao-hiem.html" role="menuitem">Cố vấn nhân sự &amp; bảo hiểm</a>
-                <a href="hanh-chinh-phap-ly.html" role="menuitem">Hành chính &amp; pháp lý</a>
-                <a href="ke-toan-noi-bo-tai-chinh.html" role="menuitem">Kế toán nội bộ &amp; tài chính</a>
-                <a href="dich-vu-so-ho-tro-khac.html" role="menuitem">Dịch vụ số &amp; hỗ trợ khác</a>
+                <div class="tax-nav-group"><span>Pháp lý doanh nghiệp</span><a href="thanh-lap-cong-ty.html" role="menuitem">Thành lập công ty</a><a href="thay-doi-thong-tin-doanh-nghiep.html" role="menuitem">Thay đổi thông tin doanh nghiệp</a><a href="giai-the-doanh-nghiep.html" role="menuitem">Giải thể</a></div>
+                <div class="tax-nav-group"><span>Thủ tục thuế</span><a href="mo-ma-so-thue.html" role="menuitem">Mở mã số thuế</a><a href="mo-cuong-che-hoa-don.html" role="menuitem">Mở cưỡng chế hóa đơn</a></div>
+                <a href="dich-vu-chu-ky-so-va-dich-vu-khac.html" role="menuitem">Dịch vụ chữ ký số và dịch vụ khác</a>
               </div>
             </div>
             <a href="bang-gia.html" class="nav-link-accent nav-link-active text-brand">Bảng giá</a>
@@ -88,263 +88,195 @@
         <p class="mt-4 text-lg text-slate-600 font-medium">Chọn dịch vụ phù hợp với doanh nghiệp. Liên hệ NHT để nhận báo giá theo nhu cầu.</p>
       </section>
 
-      <!-- Main services -->
-      <div class="text-center max-w-2xl mx-auto mb-16 relative z-10">
-        <span class="inline-flex rounded-full border border-slate-200 bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-slate-600 font-bold">Dịch vụ chính</span>
-        <h2 id="main-services-title" class="mt-4 text-3xl font-extrabold text-navy">Giải pháp cho doanh nghiệp</h2>
-      </div>
-      <section class="grid gap-8 md:grid-cols-3 relative z-10 fade-up" aria-labelledby="main-services-title">
-        <!-- Plan 1: Ke toan tron goi -->
-        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-premium shadow-premium-hover flex flex-col justify-between">
-          <div>
-            <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-4">Kế toán doanh nghiệp</span>
-            <h3 class="text-2xl font-extrabold text-navy mb-2">Kế toán trọn gói</h3>
-            <p class="text-sm text-slate-500 font-medium mb-6">Mức 700.000đ/tháng áp dụng cho doanh nghiệp không phát sinh doanh thu, gồm báo cáo thuế và sổ sách kế toán.</p>
-
-            <div class="border-y border-slate-100 py-6 mb-8">
-              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Giá từ</span>
-              <span class="text-4xl font-extrabold text-brand">700.000đ</span>
-              <span class="text-sm font-semibold text-slate-500">/tháng</span>
-            </div>
-
-            <ul class="space-y-4 mb-8">
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Hạch toán, sắp xếp chứng từ và in sổ sách</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Báo cáo thuế, báo cáo tài chính năm</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Quyết toán thuế TNDN và TNCN năm</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Hỗ trợ xuất hóa đơn bán ra dưới 20 tờ/tháng</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Báo cáo rủi ro hóa đơn</span>
-              </li>
-            </ul>
-          </div>
-          <a href="lien-he.html?service=ke-toan-tron-goi" class="block w-full text-center rounded-full bg-navy py-3.5 text-sm font-bold text-white shadow-sm transition-all duration-300 hover:bg-navy-light hover:-translate-y-0.5">Liên hệ ngay</a>
-        </div>
-
-        <!-- Plan 2: Soat xet BCTC (Popular) -->
-        <div class="relative rounded-3xl border-2 border-brand bg-white p-8 shadow-premium shadow-glow-hover flex flex-col justify-between">
-          <div class="absolute -top-4 left-1/2 -translate-x-1/2 rounded-full bg-brand px-4 py-1 text-[10px] font-extrabold text-white shadow-md uppercase tracking-wider">
-            Theo doanh thu
-          </div>
-          <div>
-            <span class="inline-flex rounded-full bg-brand/10 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-brand mb-4 mt-2">Soát xét theo năm</span>
-            <h3 class="text-2xl font-extrabold text-navy mb-2">Soát xét báo cáo tài chính</h3>
-            <p class="text-sm text-slate-500 font-medium mb-6">Mức 1.000.000đ/năm áp dụng khi không có doanh thu. Phí thay đổi theo doanh thu và lĩnh vực kinh doanh.</p>
-
-            <div class="border-y border-slate-100 py-6 mb-8">
-              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Giá từ</span>
-              <span class="text-4xl font-extrabold text-brand">1.000.000đ</span>
-              <span class="text-sm font-semibold text-slate-500">/năm</span>
-            </div>
-
-            <ul class="space-y-4 mb-8">
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Rà soát tính hợp lý sổ sách</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Kiểm tra tuân thủ pháp luật thuế</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Báo cáo chi tiết các lỗi sai lệch</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Tư vấn khắc phục và điều chỉnh</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Làm lại sổ sách: cộng 30% phí hồ sơ soát xét</span>
-              </li>
-            </ul>
-          </div>
-          <a href="lien-he.html?service=soat-xet-bctc" class="block w-full text-center rounded-full bg-brand py-3.5 text-sm font-bold text-white shadow-md shadow-brand/15 transition-all duration-300 hover:bg-brand-hover hover:-translate-y-0.5 hover:shadow-lg">Yêu cầu tư vấn</a>
-        </div>
-
-        <!-- Plan 3: Thu tuc hanh chinh -->
-        <div class="rounded-3xl border border-slate-200 bg-white p-8 shadow-premium shadow-premium-hover flex flex-col justify-between">
-          <div>
-            <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-4">Hành chính & pháp lý</span>
-            <h3 class="text-2xl font-extrabold text-navy mb-2">Thủ tục hành chính</h3>
-            <p class="text-sm text-slate-500 font-medium mb-6">Mức 500.000–1.500.000đ/hồ sơ áp dụng cho cấp lại giấy phép hoặc con dấu. Thành lập doanh nghiệp: 3.500.000đ/hồ sơ; hộ kinh doanh: 1.500.000đ/hồ sơ.</p>
-
-            <div class="border-y border-slate-100 py-6 mb-8">
-              <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Cấp lại giấy phép / con dấu từ</span>
-              <span class="text-4xl font-extrabold text-navy">500.000đ</span>
-              <span class="text-sm font-semibold text-slate-500">/hồ sơ</span>
-            </div>
-
-            <ul class="space-y-4 mb-8">
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Đăng ký giấy phép kinh doanh</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Thay đổi thông tin doanh nghiệp</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Tạm ngưng / Giải thể công ty</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Khôi phục mã số thuế, giải trình thuế</span>
-              </li>
-              <li class="flex items-start gap-3">
-                <span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5">
-                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                </span>
-                <span class="text-sm font-medium text-slate-600">Kê khai và sổ sách hộ kinh doanh</span>
-              </li>
-            </ul>
-          </div>
-          <a href="lien-he.html?service=thu-tuc-phap-ly" class="block w-full text-center rounded-full border border-brand text-brand py-3.5 text-sm font-bold transition-all duration-300 hover:bg-brand/5 hover:-translate-y-0.5">Liên hệ tư vấn</a>
-        </div>
-      </section>
-
-      <!-- Additional service cards -->
-      <section class="mt-28 relative z-10" aria-labelledby="additional-services-title">
-        <div class="text-center max-w-2xl mx-auto mb-16">
-          <span class="inline-flex rounded-full border border-slate-200 bg-slate-100 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-slate-600 font-bold">Dịch vụ bổ sung</span>
-          <h2 id="additional-services-title" class="mt-4 text-3xl font-extrabold text-navy">Giải pháp theo nhu cầu</h2>
-        </div>
-        <div class="service-offers grid gap-8 md:grid-cols-3">
-          <article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-premium shadow-premium-hover flex flex-col justify-between">
-            <div>
-              <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-4">Nhân sự</span>
-              <h3 class="text-2xl font-extrabold text-navy mb-2">Cố vấn nhân sự &amp; bảo hiểm</h3>
-              <p class="text-sm text-slate-500 font-medium mb-6">Áp dụng cho doanh nghiệp dưới 20 người, doanh thu dưới 5 tỷ/năm.</p>
-              <div class="border-y border-slate-100 py-6 mb-8">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Giá từ</span>
-                <span class="text-4xl font-extrabold text-brand">1.000.000đ</span>
-                <span class="text-sm font-semibold text-slate-500">/tháng</span>
-              </div>
-              <ul class="space-y-4 mb-8">
-                <li class="flex items-start gap-3"><span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></span><span class="text-sm font-medium text-slate-600">Tư vấn hợp đồng lao động</span></li>
-                <li class="flex items-start gap-3"><span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></span><span class="text-sm font-medium text-slate-600">Đăng ký, khai báo tăng giảm bảo hiểm</span></li>
-                <li class="flex items-start gap-3"><span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></span><span class="text-sm font-medium text-slate-600">Hồ sơ chế độ bảo hiểm</span></li>
-              </ul>
-            </div>
-            <a href="lien-he.html?service=bhxh-tien-luong" class="block w-full text-center rounded-full bg-navy py-3.5 text-sm font-bold text-white shadow-sm transition-all duration-300 hover:bg-navy-light hover:-translate-y-0.5">Liên hệ báo giá</a>
-          </article>
-          <article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-premium shadow-premium-hover flex flex-col justify-between">
-            <div>
-              <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-4">Tài chính</span>
-              <h3 class="text-2xl font-extrabold text-navy mb-2">Kế toán nội bộ</h3>
-              <p class="text-sm text-slate-500 font-medium mb-6">Gói 15 ngày/tháng, doanh thu dưới 5 tỷ/năm.</p>
-              <div class="border-y border-slate-100 py-6 mb-8">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Giá từ</span>
-                <span class="text-4xl font-extrabold text-brand">6.000.000đ</span>
-                <span class="text-sm font-semibold text-slate-500">/tháng</span>
-              </div>
-              <ul class="space-y-4 mb-8">
-                <li class="flex items-start gap-3"><span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></span><span class="text-sm font-medium text-slate-600">Báo cáo và phân tích tài chính</span></li>
-                <li class="flex items-start gap-3"><span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></span><span class="text-sm font-medium text-slate-600">Cố vấn tối ưu chi phí và chiến lược kinh doanh</span></li>
-                <li class="flex items-start gap-3"><span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></span><span class="text-sm font-medium text-slate-600">Hồ sơ tín dụng ngân hàng tính riêng: 1.800.000đ/bộ</span></li>
-              </ul>
-            </div>
-            <a href="lien-he.html?service=ke-toan-noi-bo-tai-chinh" class="block w-full text-center rounded-full bg-navy py-3.5 text-sm font-bold text-white shadow-sm transition-all duration-300 hover:bg-navy-light hover:-translate-y-0.5">Liên hệ báo giá</a>
-          </article>
-          <article class="rounded-3xl border border-slate-200 bg-white p-8 shadow-premium shadow-premium-hover flex flex-col justify-between">
-            <div>
-              <span class="inline-flex rounded-full bg-slate-100 px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-4">Dịch vụ số</span>
-              <h3 class="text-2xl font-extrabold text-navy mb-2">Hóa đơn điện tử</h3>
-              <p class="text-sm text-slate-500 font-medium mb-6">Gói 300 hóa đơn điện tử: 460.000đ tiền gói + 500.000đ phí khởi tạo.</p>
-              <div class="border-y border-slate-100 py-6 mb-8">
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider block mb-1">Giá từ</span>
-                <span class="text-4xl font-extrabold text-brand">960.000đ</span>
-                <span class="text-sm font-semibold text-slate-500">/gói</span>
-              </div>
-              <ul class="space-y-4 mb-8">
-                <li class="flex items-start gap-3"><span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></span><span class="text-sm font-medium text-slate-600">Hóa đơn điện tử</span></li>
-                <li class="flex items-start gap-3"><span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></span><span class="text-sm font-medium text-slate-600">Đã gồm phí khởi tạo</span></li>
-                <li class="flex items-start gap-3"><span class="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-brand/10 text-brand mt-0.5" aria-hidden="true"><svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg></span><span class="text-sm font-medium text-slate-600">Chữ ký số và phần mềm bán hàng tính riêng</span></li>
-              </ul>
-            </div>
-            <a href="lien-he.html?service=dich-vu-so-ho-tro-khac" class="block w-full text-center rounded-full bg-navy py-3.5 text-sm font-bold text-white shadow-sm transition-all duration-300 hover:bg-navy-light hover:-translate-y-0.5">Liên hệ báo giá</a>
-          </article>
-        </div>
-      </section>
-
-      <section class="pricing-notes mt-16" aria-labelledby="pricing-notes-title">
-        <h2 id="pricing-notes-title" class="text-2xl mb-4">Điều kiện áp dụng &amp; dịch vụ tính riêng</h2>
-        <ul class="space-y-3 text-sm text-slate-600">
-          <li>Kế toán: 700.000đ/tháng dành cho doanh nghiệp không phát sinh doanh thu. Với doanh thu dưới 2 tỷ/năm, báo cáo thuế và sổ sách là 1.500.000đ/tháng; gói gồm thêm cân đối là 2.500.000đ/tháng.</li>
-          <li>Soát xét BCTC: nếu cần làm lại sổ sách trong quá trình soát xét, cộng 30% phí hồ sơ soát xét.</li>
-          <li>Chữ ký số: 1.870.000đ/1 năm; 2.750.000đ/2 năm; 3.080.000đ/3 năm.</li>
-          <li>Phần mềm bán hàng: 1.700.000đ/1 năm; 2.600.000đ/2 năm; 3.000.000đ/3 năm; 4.500.000đ/5 năm. Chưa bao gồm thiết bị.</li>
-        </ul>
-        <p class="mt-4 text-sm text-slate-600">Các mức phí áp dụng theo từng hạng mục và điều kiện nêu trên. Liên hệ NHT để xác nhận phạm vi công việc và tổng chi phí cho hồ sơ của bạn.</p>
-      </section>
-
-      <!-- Value Promises Section -->
-      <section class="mt-28 rounded-3xl bg-navy p-8 md:p-16 text-white shadow-xl relative overflow-hidden fade-up">
-        <div class="absolute left-0 top-0 w-96 h-96 bg-brand/10 rounded-full -translate-x-12 -translate-y-12 blur-3xl"></div>
-        <div class="relative z-10 space-y-12">
-          <div class="max-w-2xl">
-            <span class="inline-flex rounded-full bg-white/10 px-4 py-1.5 text-xs font-bold uppercase tracking-wider text-white border border-white/10 backdrop-blur-sm">Điều kiện báo giá</span>
-            <h2 class="mt-4 text-3xl font-extrabold sm:text-4xl">Thống nhất phạm vi trước khi triển khai</h2>
-          </div>
-
-          <div class="grid gap-8 md:grid-cols-3">
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm hover:bg-white/10 transition-colors">
-              <h3 class="text-lg font-bold mb-3">Mức phí theo hồ sơ</h3>
-              <p class="text-sm text-white/80 leading-relaxed">Phí tùy phạm vi công việc và tình trạng hồ sơ.</p>
-            </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm hover:bg-white/10 transition-colors">
-              <h3 class="text-lg font-bold mb-3">Chọn đúng quy mô</h3>
-              <p class="text-sm text-white/80 leading-relaxed">Chọn gói theo doanh thu, số nhân sự và nhu cầu hỗ trợ.</p>
-            </div>
-            <div class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm hover:bg-white/10 transition-colors">
-              <h3 class="text-lg font-bold mb-3">Hỗ trợ theo ủy quyền</h3>
-              <p class="text-sm text-white/80 leading-relaxed">Hỗ trợ hồ sơ và làm việc với cơ quan thuế theo ủy quyền.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+<nav class="pricing-jump" aria-label="Nhóm bảng giá"><a href="#doanh-nghiep">Kế toán doanh nghiệp</a><a href="#ho-kinh-doanh">Hộ kinh doanh</a><a href="#soat-xet">Dịch vụ soát xét</a><a href="#phap-ly">Dịch vụ pháp lý</a><a href="#dich-vu-so">Dịch vụ chữ ký số và dịch vụ khác</a></nav><p class="pricing-hint">Bấm mũi tên hoặc kéo ngang để xem thêm các mức giá.</p><section class="pricing-group" id="doanh-nghiep" aria-labelledby="doanh-nghiep-title">
+      <div class="pricing-group-header"><div><p class="pricing-label">NHÓM DỊCH VỤ 01</p><h2 id="doanh-nghiep-title">Kế toán doanh nghiệp</h2><p>Các gói trọn gói theo quy mô doanh thu.</p></div>
+      <div class="pricing-controls"><span class="pricing-position" aria-live="polite"></span></div></div>
+      <div class="pricing-carousel"><div class="pricing-track" id="doanh-nghiep-track" tabindex="0" role="region" aria-label="Các mức giá Kế toán doanh nghiệp, dùng phím mũi tên để xem thêm"><article class="price-card" aria-label="Kế toán trọn gói · Gói 1: 700.000đ/tháng">
+          <p class="price-kicker">01 / 01</p><h3>Kế toán trọn gói · Gói 1</h3><p class="price-description">Không phát sinh doanh thu</p>
+          <div class="price-amount"><span>Mức phí</span><strong>700.000đ</strong><small>/tháng</small></div>
+          <ul><li>Báo cáo thuế</li><li>Sổ sách kế toán</li></ul>
+          <a class="price-contact" href="lien-he.html?service=ke-toan-tron-goi">Nhận tư vấn</a></article><article class="price-card price-card-featured" aria-label="Kế toán trọn gói · Gói 2: 2.500.000đ/tháng">
+          <p class="price-kicker price-optimal-label">Gói tối ưu</p><h3>Kế toán trọn gói · Gói 2</h3><p class="price-description">Doanh thu dưới 2 tỷ/năm</p>
+          <div class="price-amount"><span>Mức phí</span><strong>2.500.000đ</strong><small>/tháng</small></div>
+          <ul><li>Báo cáo thuế</li><li>Sổ sách kế toán</li><li>Cân đối doanh thu, chi phí</li></ul>
+          <a class="price-contact" href="lien-he.html?service=ke-toan-tron-goi">Nhận tư vấn</a></article><article class="price-card" aria-label="Kế toán trọn gói · Gói 3: 11.500.000đ/tháng">
+          <p class="price-kicker">01 / 03</p><h3>Kế toán trọn gói · Gói 3</h3><p class="price-description">Doanh thu dưới 5 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>11.500.000đ</strong><small>/tháng</small></div>
+          <ul><li>Báo cáo thuế</li><li>Sổ sách kế toán</li><li>Cân đối doanh thu, chi phí</li><li>Cố vấn nhân sự &amp; bảo hiểm</li><li>Kế toán nội bộ</li><li>Tín dụng ngân hàng</li></ul>
+          <a class="price-contact" href="lien-he.html?service=ke-toan-tron-goi">Nhận tư vấn</a></article><article class="price-card" aria-label="Kế toán trọn gói · Gói 4: 16.000.000đ/tháng">
+          <p class="price-kicker">01 / 04</p><h3>Kế toán trọn gói · Gói 4</h3><p class="price-description">Doanh thu dưới 10 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>16.000.000đ</strong><small>/tháng</small></div>
+          <ul><li>Báo cáo thuế</li><li>Sổ sách kế toán</li><li>Cân đối doanh thu, chi phí</li><li>Cố vấn nhân sự &amp; bảo hiểm</li><li>Kế toán nội bộ</li><li>Tín dụng ngân hàng</li></ul>
+          <a class="price-contact" href="lien-he.html?service=ke-toan-tron-goi">Nhận tư vấn</a></article><article class="price-card" aria-label="Kế toán trọn gói · Gói 5: 23.500.000đ/tháng">
+          <p class="price-kicker">01 / 05</p><h3>Kế toán trọn gói · Gói 5</h3><p class="price-description">Doanh thu dưới 20 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>23.500.000đ</strong><small>/tháng</small></div>
+          <ul><li>Báo cáo thuế</li><li>Sổ sách kế toán</li><li>Cân đối doanh thu, chi phí</li><li>Cố vấn nhân sự &amp; bảo hiểm</li><li>Kế toán nội bộ</li><li>Tín dụng ngân hàng</li></ul>
+          <a class="price-contact" href="lien-he.html?service=ke-toan-tron-goi">Nhận tư vấn</a></article><article class="price-card" aria-label="Kế toán trọn gói · Gói 6: 30.500.000đ/tháng">
+          <p class="price-kicker">01 / 06</p><h3>Kế toán trọn gói · Gói 6</h3><p class="price-description">Doanh thu dưới 40 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>30.500.000đ</strong><small>/tháng</small></div>
+          <ul><li>Báo cáo thuế</li><li>Sổ sách kế toán</li><li>Cân đối doanh thu, chi phí</li><li>Cố vấn nhân sự &amp; bảo hiểm</li><li>Kế toán nội bộ</li><li>Tín dụng ngân hàng</li></ul>
+          <a class="price-contact" href="lien-he.html?service=ke-toan-tron-goi">Nhận tư vấn</a></article></div><button type="button" data-direction="-1" aria-label="Xem mức giá trước: Kế toán doanh nghiệp" aria-controls="doanh-nghiep-track">←</button><button type="button" data-direction="1" aria-label="Xem mức giá tiếp: Kế toán doanh nghiệp" aria-controls="doanh-nghiep-track">→</button></div>
+      <p class="content-panel pricing-group-note">Gói dưới 2 tỷ/năm gồm báo cáo thuế, sổ sách và cân đối: 2.500.000đ/tháng. Nếu chỉ sử dụng báo cáo thuế & sổ sách: 1.500.000đ/tháng (trang 5).</p></section><section class="pricing-group" id="ho-kinh-doanh" aria-labelledby="ho-kinh-doanh-title">
+      <div class="pricing-group-header"><div><p class="pricing-label">NHÓM DỊCH VỤ 02</p><h2 id="ho-kinh-doanh-title">Hộ kinh doanh</h2><p>Kê khai, sổ sách và thủ tục đăng ký cho hộ / cá nhân kinh doanh.</p></div>
+      <div class="pricing-controls"><span class="pricing-position" aria-live="polite"></span></div></div>
+      <div class="pricing-carousel"><div class="pricing-track" id="ho-kinh-doanh-track" tabindex="0" role="region" aria-label="Các mức giá Hộ kinh doanh, dùng phím mũi tên để xem thêm"><article class="price-card" aria-label="Thành lập hộ kinh doanh: 1.500.000đ/hồ sơ">
+          <p class="price-kicker">02 / 01</p><h3>Thành lập hộ kinh doanh</h3><p class="price-description">Đăng ký mới cho hộ / cá nhân kinh doanh.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>1.500.000đ</strong><small>/hồ sơ</small></div>
+          <ul><li>Đăng ký và nhận giấy chứng nhận</li><li>Đăng ký mã số thuế</li><li>Kê khai thông tin ban đầu</li></ul>
+          <a class="price-contact" href="lien-he.html?service=thu-tuc-phap-ly">Nhận tư vấn</a></article><article class="price-card price-card-featured" aria-label="Kê khai thuế: 500.000đ/lần kê khai">
+          <p class="price-kicker price-optimal-label">Gói tối ưu</p><h3>Kê khai thuế</h3><p class="price-description">Dịch vụ kê khai cho hộ / cá nhân kinh doanh.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>500.000đ</strong><small>/lần kê khai</small></div>
+          <ul><li>Kê khai thông tin thuế</li><li>Mức phí tính theo từng lần kê khai</li></ul>
+          <a class="price-contact" href="lien-he.html?service=ke-toan-tron-goi">Nhận tư vấn</a></article><article class="price-card" aria-label="Sổ sách hộ kinh doanh: 3.000.000đ/năm">
+          <p class="price-kicker">02 / 03</p><h3>Sổ sách hộ kinh doanh</h3><p class="price-description">Thực hiện 7 loại sổ theo danh mục trong báo giá.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>3.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Sổ bán hàng, vật tư và chi phí</li><li>Theo dõi nghĩa vụ thuế và tiền lương</li><li>Sổ quỹ tiền mặt, tiền gửi ngân hàng</li></ul>
+          <a class="price-contact" href="lien-he.html?service=ke-toan-tron-goi">Nhận tư vấn</a></article></div><button type="button" data-direction="-1" aria-label="Xem mức giá trước: Hộ kinh doanh" aria-controls="ho-kinh-doanh-track">←</button><button type="button" data-direction="1" aria-label="Xem mức giá tiếp: Hộ kinh doanh" aria-controls="ho-kinh-doanh-track">→</button></div>
+      </section><section class="pricing-group" id="soat-xet" aria-labelledby="soat-xet-title">
+      <div class="pricing-group-header"><div><p class="pricing-label">NHÓM DỊCH VỤ 03</p><h2 id="soat-xet-title">Dịch vụ soát xét</h2><p>Đối chiếu mức phí theo doanh thu và lĩnh vực hoạt động.</p></div>
+      <div class="pricing-controls"><span class="pricing-position" aria-live="polite"></span></div></div>
+      <div class="pricing-carousel"><div class="pricing-track" id="soat-xet-track" tabindex="0" role="region" aria-label="Các mức giá Dịch vụ soát xét, dùng phím mũi tên để xem thêm"><article class="price-card" aria-label="Soát xét báo cáo tài chính: 1.000.000đ/năm">
+          <p class="price-kicker">03 / 01</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Không phát sinh doanh thu</p>
+          <div class="price-amount"><span>Mức phí</span><strong>1.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 1.000.000đ/năm</li><li>Thương mại: 1.000.000đ/năm</li><li>Xây dựng: 1.000.000đ/năm</li><li>Sản xuất: 1.000.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card price-card-featured" aria-label="Soát xét báo cáo tài chính: 2.000.000đ/năm">
+          <p class="price-kicker price-optimal-label">Gói tối ưu</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu dưới 1 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>2.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 3.000.000đ/năm</li><li>Thương mại: 2.000.000đ/năm</li><li>Xây dựng: 2.500.000đ/năm</li><li>Sản xuất: 2.500.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card" aria-label="Soát xét báo cáo tài chính: 3.000.000đ/năm">
+          <p class="price-kicker">03 / 03</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu trên 1–4 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>3.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 5.000.000đ/năm</li><li>Thương mại: 3.000.000đ/năm</li><li>Xây dựng: 4.000.000đ/năm</li><li>Sản xuất: 4.000.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card" aria-label="Soát xét báo cáo tài chính: 5.000.000đ/năm">
+          <p class="price-kicker">03 / 04</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu trên 4–10 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>5.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 8.000.000đ/năm</li><li>Thương mại: 5.000.000đ/năm</li><li>Xây dựng: 6.000.000đ/năm</li><li>Sản xuất: 6.000.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card" aria-label="Soát xét báo cáo tài chính: 10.000.000đ/năm">
+          <p class="price-kicker">03 / 05</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu trên 10–18 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>10.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 12.000.000đ/năm</li><li>Thương mại: 10.000.000đ/năm</li><li>Xây dựng: 11.000.000đ/năm</li><li>Sản xuất: 11.000.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card" aria-label="Soát xét báo cáo tài chính: 15.200.000đ/năm">
+          <p class="price-kicker">03 / 06</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu trên 18–40 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>15.200.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 20.400.000đ/năm</li><li>Thương mại: 15.200.000đ/năm</li><li>Xây dựng: 17.800.000đ/năm</li><li>Sản xuất: 17.800.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card" aria-label="Soát xét báo cáo tài chính: 30.000.000đ/năm">
+          <p class="price-kicker">03 / 07</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu trên 40–60 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>30.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 36.000.000đ/năm</li><li>Thương mại: 30.000.000đ/năm</li><li>Xây dựng: 33.000.000đ/năm</li><li>Sản xuất: 33.000.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card" aria-label="Soát xét báo cáo tài chính: 40.000.000đ/năm">
+          <p class="price-kicker">03 / 08</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu trên 60–80 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>40.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 48.000.000đ/năm</li><li>Thương mại: 40.000.000đ/năm</li><li>Xây dựng: 44.000.000đ/năm</li><li>Sản xuất: 44.000.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card" aria-label="Soát xét báo cáo tài chính: 50.000.000đ/năm">
+          <p class="price-kicker">03 / 09</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu trên 80–100 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>50.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 60.000.000đ/năm</li><li>Thương mại: 50.000.000đ/năm</li><li>Xây dựng: 55.000.000đ/năm</li><li>Sản xuất: 55.000.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card" aria-label="Soát xét báo cáo tài chính: 75.000.000đ/năm">
+          <p class="price-kicker">03 / 10</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu trên 100–150 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>75.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 90.000.000đ/năm</li><li>Thương mại: 75.000.000đ/năm</li><li>Xây dựng: 82.500.000đ/năm</li><li>Sản xuất: 82.500.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card" aria-label="Soát xét báo cáo tài chính: 100.000.000đ/năm">
+          <p class="price-kicker">03 / 11</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu trên 150–200 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>100.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 120.000.000đ/năm</li><li>Thương mại: 100.000.000đ/năm</li><li>Xây dựng: 110.000.000đ/năm</li><li>Sản xuất: 110.000.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article><article class="price-card" aria-label="Soát xét báo cáo tài chính: 125.000.000đ/năm">
+          <p class="price-kicker">03 / 12</p><h3>Soát xét báo cáo tài chính</h3><p class="price-description">Doanh thu trên 200 tỷ/năm</p>
+          <div class="price-amount"><span>Từ</span><strong>125.000.000đ</strong><small>/năm</small></div>
+          <ul><li>Dịch vụ: 150.000.000đ/năm</li><li>Thương mại: 125.000.000đ/năm</li><li>Xây dựng: 137.500.000đ/năm</li><li>Sản xuất: 137.500.000đ/năm</li></ul>
+          <a class="price-contact" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a></article></div><button type="button" data-direction="-1" aria-label="Xem mức giá trước: Dịch vụ soát xét" aria-controls="soat-xet-track">←</button><button type="button" data-direction="1" aria-label="Xem mức giá tiếp: Dịch vụ soát xét" aria-controls="soat-xet-track">→</button></div>
+      <p class="content-panel pricing-group-note">Nếu cần làm lại sổ sách trong quá trình soát xét: cộng 30% trên phí hồ sơ soát xét.</p></section><section class="pricing-group" id="phap-ly" aria-labelledby="phap-ly-title">
+      <div class="pricing-group-header"><div><p class="pricing-label">NHÓM DỊCH VỤ 04</p><h2 id="phap-ly-title">Dịch vụ pháp lý</h2><p>Thành lập, thay đổi thông tin và thủ tục hành chính doanh nghiệp.</p></div>
+      <div class="pricing-controls"><span class="pricing-position" aria-live="polite"></span></div></div>
+      <div class="pricing-carousel"><div class="pricing-track" id="phap-ly-track" tabindex="0" role="region" aria-label="Các mức giá Dịch vụ pháp lý, dùng phím mũi tên để xem thêm"><article class="price-card" aria-label="Thành lập doanh nghiệp: 3.500.000đ/hồ sơ">
+          <p class="price-kicker">04 / 01</p><h3>Thành lập doanh nghiệp</h3><p class="price-description">Tổ chức, doanh nghiệp.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>3.500.000đ</strong><small>/hồ sơ</small></div>
+          <ul><li>Giấy phép kinh doanh và con dấu</li><li>Hồ sơ khai thuế ban đầu</li><li>Tạo tài khoản ngân hàng</li></ul>
+          <a class="price-contact" href="lien-he.html?service=thu-tuc-phap-ly">Nhận tư vấn</a></article><article class="price-card price-card-featured" aria-label="Chi nhánh / văn phòng đại diện: 2.000.000đ/hồ sơ">
+          <p class="price-kicker price-optimal-label">Gói tối ưu</p><h3>Chi nhánh / văn phòng đại diện</h3><p class="price-description">Chi nhánh, văn phòng đại diện hoặc địa điểm kinh doanh.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>2.000.000đ</strong><small>/hồ sơ</small></div>
+          <ul><li>Tư vấn thành lập</li><li>Hỗ trợ nộp hồ sơ đăng ký</li><li>Nhận thông báo mã số thuế</li></ul>
+          <a class="price-contact" href="lien-he.html?service=thu-tuc-phap-ly">Nhận tư vấn</a></article><article class="price-card" aria-label="Thay đổi 1 thông tin: 1.000.000đ/hồ sơ">
+          <p class="price-kicker">04 / 03</p><h3>Thay đổi 1 thông tin</h3><p class="price-description">Điều chỉnh thông tin giấy phép kinh doanh.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>1.000.000đ</strong><small>/hồ sơ</small></div>
+          <ul><li>Tư vấn và soạn hồ sơ</li><li>Nộp hồ sơ, nhận giấy phép cập nhật</li></ul>
+          <a class="price-contact" href="lien-he.html?service=thu-tuc-phap-ly">Nhận tư vấn</a></article><article class="price-card" aria-label="Thay đổi từ 2 thông tin: 2.000.000đ/hồ sơ">
+          <p class="price-kicker">04 / 04</p><h3>Thay đổi từ 2 thông tin</h3><p class="price-description">Điều chỉnh từ 2 thông tin trở lên.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>2.000.000đ</strong><small>/hồ sơ</small></div>
+          <ul><li>Chuẩn bị hồ sơ thay đổi</li><li>Cập nhật thông tin doanh nghiệp</li></ul>
+          <a class="price-contact" href="lien-he.html?service=thu-tuc-phap-ly">Nhận tư vấn</a></article><article class="price-card" aria-label="Khôi phục mã số thuế: 5.000.000đ/hồ sơ">
+          <p class="price-kicker">04 / 05</p><h3>Khôi phục mã số thuế</h3><p class="price-description">Áp dụng cho tổ chức, doanh nghiệp.</p>
+          <div class="price-amount"><span>Từ</span><strong>5.000.000đ</strong><small>/hồ sơ</small></div>
+          <ul><li>Phí tùy mức độ hồ sơ</li><li>Hoàn thành nghĩa vụ thuế theo hồ sơ</li></ul>
+          <a class="price-contact" href="lien-he.html?service=thu-tuc-phap-ly">Nhận tư vấn</a></article><article class="price-card" aria-label="Giải thể doanh nghiệp có doanh thu: 3.000.000đ/hồ sơ">
+          <p class="price-kicker">04 / 06</p><h3>Giải thể doanh nghiệp có doanh thu</h3><p class="price-description">Thủ tục giải thể theo tình trạng hồ sơ.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>3.000.000đ</strong><small>/hồ sơ</small></div>
+          <ul><li>Chưa bao gồm chi phí phát sinh</li><li>Hồ sơ giải thể và đóng mã số thuế</li></ul>
+          <a class="price-contact" href="lien-he.html?service=thu-tuc-phap-ly">Nhận tư vấn</a></article><article class="price-card" aria-label="Tạm ngưng kinh doanh: 1.500.000đ/hồ sơ">
+          <p class="price-kicker">04 / 07</p><h3>Tạm ngưng kinh doanh</h3><p class="price-description">Thủ tục tạm ngưng hoạt động kinh doanh.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>1.500.000đ</strong><small>/hồ sơ</small></div>
+          <ul><li>Chuẩn bị và nộp hồ sơ</li><li>Thời gian xử lý theo báo giá: 5–7 ngày làm việc</li></ul>
+          <a class="price-contact" href="lien-he.html?service=thu-tuc-phap-ly">Nhận tư vấn</a></article><article class="price-card" aria-label="Cấp lại giấy phép / con dấu: 500.000đ/hồ sơ">
+          <p class="price-kicker">04 / 08</p><h3>Cấp lại giấy phép / con dấu</h3><p class="price-description">Mức phí từ 500.000đ đến 1.500.000đ/hồ sơ.</p>
+          <div class="price-amount"><span>Từ</span><strong>500.000đ</strong><small>/hồ sơ</small></div>
+          <ul><li>Phí tùy hạng mục hồ sơ</li><li>Thời gian xử lý theo báo giá: 5–7 ngày làm việc</li></ul>
+          <a class="price-contact" href="lien-he.html?service=thu-tuc-phap-ly">Nhận tư vấn</a></article></div><button type="button" data-direction="-1" aria-label="Xem mức giá trước: Dịch vụ pháp lý" aria-controls="phap-ly-track">←</button><button type="button" data-direction="1" aria-label="Xem mức giá tiếp: Dịch vụ pháp lý" aria-controls="phap-ly-track">→</button></div>
+      <p class="content-panel pricing-group-note">Thay đổi trụ sở khác quận có thể phát sinh phí quyết toán thuế, tùy mức độ hồ sơ. Các khoảng thời gian nêu trên được trích từ báo giá; xác nhận khi tiếp nhận hồ sơ.</p></section><section class="pricing-group" id="dich-vu-so" aria-labelledby="dich-vu-so-title">
+      <div class="pricing-group-header"><div><p class="pricing-label">NHÓM DỊCH VỤ 05</p><h2 id="dich-vu-so-title">Dịch vụ chữ ký số và dịch vụ khác</h2><p>Hóa đơn điện tử, chữ ký số và phần mềm quản lý bán hàng.</p></div>
+      <div class="pricing-controls"><span class="pricing-position" aria-live="polite"></span></div></div>
+      <div class="pricing-carousel"><div class="pricing-track" id="dich-vu-so-track" tabindex="0" role="region" aria-label="Các mức giá Dịch vụ chữ ký số và dịch vụ khác, dùng phím mũi tên để xem thêm"><article class="price-card" aria-label="Hóa đơn điện tử: 960.000đ/gói">
+          <p class="price-kicker">05 / 01</p><h3>Hóa đơn điện tử</h3><p class="price-description">300 hóa đơn</p>
+          <div class="price-amount"><span>Mức phí</span><strong>960.000đ</strong><small>/gói</small></div>
+          <ul><li>Giá gói: 460.000đ</li><li>Phí khởi tạo: 500.000đ</li><li>Tổng phí đã gồm khởi tạo</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card price-card-featured" aria-label="Hóa đơn điện tử: 1.150.000đ/gói">
+          <p class="price-kicker price-optimal-label">Gói tối ưu</p><h3>Hóa đơn điện tử</h3><p class="price-description">500 hóa đơn</p>
+          <div class="price-amount"><span>Mức phí</span><strong>1.150.000đ</strong><small>/gói</small></div>
+          <ul><li>Giá gói: 650.000đ</li><li>Phí khởi tạo: 500.000đ</li><li>Tổng phí đã gồm khởi tạo</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Hóa đơn điện tử: 1.600.000đ/gói">
+          <p class="price-kicker">05 / 03</p><h3>Hóa đơn điện tử</h3><p class="price-description">1.000 hóa đơn</p>
+          <div class="price-amount"><span>Mức phí</span><strong>1.600.000đ</strong><small>/gói</small></div>
+          <ul><li>Giá gói: 1.100.000đ</li><li>Phí khởi tạo: 500.000đ</li><li>Tổng phí đã gồm khởi tạo</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Hóa đơn điện tử: 2.800.000đ/gói">
+          <p class="price-kicker">05 / 04</p><h3>Hóa đơn điện tử</h3><p class="price-description">3.000 hóa đơn</p>
+          <div class="price-amount"><span>Mức phí</span><strong>2.800.000đ</strong><small>/gói</small></div>
+          <ul><li>Giá gói: 2.300.000đ</li><li>Phí khởi tạo: 500.000đ</li><li>Tổng phí đã gồm khởi tạo</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Hóa đơn điện tử: 3.200.000đ/gói">
+          <p class="price-kicker">05 / 05</p><h3>Hóa đơn điện tử</h3><p class="price-description">5.000 hóa đơn</p>
+          <div class="price-amount"><span>Mức phí</span><strong>3.200.000đ</strong><small>/gói</small></div>
+          <ul><li>Giá gói: 3.200.000đ</li><li>Phí khởi tạo: Miễn phí</li><li>Tổng phí đã gồm khởi tạo</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Hóa đơn điện tử: 5.700.000đ/gói">
+          <p class="price-kicker">05 / 06</p><h3>Hóa đơn điện tử</h3><p class="price-description">10.000 hóa đơn</p>
+          <div class="price-amount"><span>Mức phí</span><strong>5.700.000đ</strong><small>/gói</small></div>
+          <ul><li>Giá gói: 5.700.000đ</li><li>Phí khởi tạo: Miễn phí</li><li>Tổng phí đã gồm khởi tạo</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Chữ ký số · 1 năm: 1.870.000đ/gói">
+          <p class="price-kicker">05 / 07</p><h3>Chữ ký số · 1 năm</h3><p class="price-description">Chữ ký điện tử NEW-CA hoặc FAST-CA.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>1.870.000đ</strong><small>/gói</small></div>
+          <ul><li>Ký và nộp hồ sơ khai thuế</li><li>Hỗ trợ kê khai bảo hiểm, hải quan</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Chữ ký số · 2 năm: 2.750.000đ/gói">
+          <p class="price-kicker">05 / 08</p><h3>Chữ ký số · 2 năm</h3><p class="price-description">Chữ ký điện tử NEW-CA hoặc FAST-CA.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>2.750.000đ</strong><small>/gói</small></div>
+          <ul><li>Ký và nộp hồ sơ khai thuế</li><li>Hỗ trợ kê khai bảo hiểm, hải quan</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Chữ ký số · 3 năm: 3.080.000đ/gói">
+          <p class="price-kicker">05 / 09</p><h3>Chữ ký số · 3 năm</h3><p class="price-description">Chữ ký điện tử NEW-CA hoặc FAST-CA.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>3.080.000đ</strong><small>/gói</small></div>
+          <ul><li>Ký và nộp hồ sơ khai thuế</li><li>Hỗ trợ kê khai bảo hiểm, hải quan</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Phần mềm bán hàng · 1 năm: 1.700.000đ/gói">
+          <p class="price-kicker">05 / 10</p><h3>Phần mềm bán hàng · 1 năm</h3><p class="price-description">Phần mềm quản lý bán hàng EasyPos.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>1.700.000đ</strong><small>/gói</small></div>
+          <ul><li>Quản lý bán hàng</li><li>Xuất hóa đơn tích hợp máy tính tiền</li><li>Không bao gồm thiết bị</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Phần mềm bán hàng · 2 năm: 2.600.000đ/gói">
+          <p class="price-kicker">05 / 11</p><h3>Phần mềm bán hàng · 2 năm</h3><p class="price-description">Phần mềm quản lý bán hàng EasyPos.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>2.600.000đ</strong><small>/gói</small></div>
+          <ul><li>Quản lý bán hàng</li><li>Xuất hóa đơn tích hợp máy tính tiền</li><li>Không bao gồm thiết bị</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Phần mềm bán hàng · 3 năm: 3.000.000đ/gói">
+          <p class="price-kicker">05 / 12</p><h3>Phần mềm bán hàng · 3 năm</h3><p class="price-description">Phần mềm quản lý bán hàng EasyPos.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>3.000.000đ</strong><small>/gói</small></div>
+          <ul><li>Quản lý bán hàng</li><li>Xuất hóa đơn tích hợp máy tính tiền</li><li>Không bao gồm thiết bị</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article><article class="price-card" aria-label="Phần mềm bán hàng · 5 năm: 4.500.000đ/gói">
+          <p class="price-kicker">05 / 13</p><h3>Phần mềm bán hàng · 5 năm</h3><p class="price-description">Phần mềm quản lý bán hàng EasyPos.</p>
+          <div class="price-amount"><span>Mức phí</span><strong>4.500.000đ</strong><small>/gói</small></div>
+          <ul><li>Quản lý bán hàng</li><li>Xuất hóa đơn tích hợp máy tính tiền</li><li>Không bao gồm thiết bị</li></ul>
+          <a class="price-contact" href="lien-he.html?service=dich-vu-so-ho-tro-khac">Nhận tư vấn</a></article></div><button type="button" data-direction="-1" aria-label="Xem mức giá trước: Dịch vụ chữ ký số và dịch vụ khác" aria-controls="dich-vu-so-track">←</button><button type="button" data-direction="1" aria-label="Xem mức giá tiếp: Dịch vụ chữ ký số và dịch vụ khác" aria-controls="dich-vu-so-track">→</button></div>
+      <p class="content-panel pricing-group-note">Phí phần mềm bán hàng không bao gồm thiết bị. Chữ ký số và hóa đơn điện tử là các gói riêng.</p></section>
     </main>
 
     <!-- Footer -->
@@ -401,6 +333,7 @@
     </footer>
   </div>
 
+  <script src="../js/pricing.js?v=category-effects-20261016" defer></script>
   <script src="../js/main.js?v=4eb8a731d062"></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {

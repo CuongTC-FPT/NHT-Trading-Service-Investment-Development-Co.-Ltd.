@@ -4,12 +4,12 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <link rel="icon" type="image/png" href="../picture/favicon.png" />
-  <title>Soát xét báo cáo tài chính | Dịch vụ NHT</title>
-  <meta name="description" content="Rà soát lại chứng từ và số liệu để nhận diện điểm chưa nhất quán, làm rõ những vấn đề cần xử lý và hỗ trợ doanh nghiệp hoàn thiện hệ thống báo cáo." />
+  <title>Soát xét báo cáo tài chính | NHT</title>
+  <meta name="description" content="Rà soát chứng từ, phát hiện sai sót kế toán và thuế; phân tích hiệu quả kinh doanh, sử dụng vốn và tính pháp lý tài chính. Hỗ trợ hoàn thiện sổ sách theo nhu cầu." />
   <link rel="stylesheet" href="../css/tailwind.min.css" />
   <link rel="stylesheet" href="../css/fonts.css" />
-  <link rel="stylesheet" href="../css/style.css?v=5db703c18a49" />
-  <link rel="stylesheet" href="../css/service-detail.css?v=49a3155fc66d" />
+  <link rel="stylesheet" href="../css/style.css?v=content-panels-cards-20261023" />
+  <link rel="stylesheet" href="../css/service-detail.css?v=section-frames-20261023" />
 </head>
 <body class="public-layout page-service-detail bg-white text-navy selection:bg-brand/10 selection:text-brand">
   <div class="relative min-h-screen flex flex-col overflow-x-clip">
@@ -19,7 +19,7 @@
         <a href="index.html" class="flex items-center text-lg font-semibold text-navy">
           <img src="../picture/logo-transparent.webp" alt="NHT Logo" class="site-logo h-10 w-auto max-w-[160px] object-contain" />
         </a>
-        
+
         <!-- Desktop Navigation -->
         <div class="hidden items-center gap-8 md:flex">
           <nav class="flex items-center gap-6 text-sm font-semibold text-slate-600">
@@ -27,13 +27,13 @@
           <a href="ve-chung-toi.html" class="nav-link-accent transition hover:text-navy">Giới Thiệu</a>
             <div class="services-nav-item">
               <a href="dich-vu.html" class="nav-link-accent nav-link-active text-brand">Dịch vụ</a>
-              <div class="services-nav-dropdown" role="menu">
-                <a href="ke-toan-tron-goi.html" role="menuitem">Kế toán trọn gói</a>
+              <div class="services-nav-dropdown" role="menu" aria-label="Danh mục dịch vụ">
+                <a href="ke-toan-thue-doanh-nghiep.html" role="menuitem">Kế toán doanh nghiệp trọn gói</a>
+                <a href="ke-toan-ho-kinh-doanh.html" role="menuitem">Kế toán hộ kinh doanh trọn gói</a>
                 <a href="soat-xet-bao-cao-tai-chinh.html" role="menuitem">Soát xét báo cáo tài chính</a>
-                <a href="co-van-nhan-su-bao-hiem.html" role="menuitem">Cố vấn nhân sự &amp; bảo hiểm</a>
-                <a href="hanh-chinh-phap-ly.html" role="menuitem">Hành chính &amp; pháp lý</a>
-                <a href="ke-toan-noi-bo-tai-chinh.html" role="menuitem">Kế toán nội bộ &amp; tài chính</a>
-                <a href="dich-vu-so-ho-tro-khac.html" role="menuitem">Dịch vụ số &amp; hỗ trợ khác</a>
+                <div class="tax-nav-group"><span>Pháp lý doanh nghiệp</span><a href="thanh-lap-cong-ty.html" role="menuitem">Thành lập công ty</a><a href="thay-doi-thong-tin-doanh-nghiep.html" role="menuitem">Thay đổi thông tin doanh nghiệp</a><a href="giai-the-doanh-nghiep.html" role="menuitem">Giải thể</a></div>
+                <div class="tax-nav-group"><span>Thủ tục thuế</span><a href="mo-ma-so-thue.html" role="menuitem">Mở mã số thuế</a><a href="mo-cuong-che-hoa-don.html" role="menuitem">Mở cưỡng chế hóa đơn</a></div>
+                <a href="dich-vu-chu-ky-so-va-dich-vu-khac.html" role="menuitem">Dịch vụ chữ ký số và dịch vụ khác</a>
               </div>
             </div>
             <a href="bang-gia.html" class="nav-link-accent transition hover:text-navy">Bảng giá</a>
@@ -76,31 +76,20 @@
     </div>
 
     <!-- Main Content -->
-    <main id="main-content" class="service-detail">
-      <nav class="service-breadcrumb" aria-label="Đường dẫn"><a href="index.html">Trang chủ</a><span aria-hidden="true">/</span><a href="dich-vu.html">Dịch vụ</a><span aria-hidden="true">/</span><span aria-current="page">Soát xét báo cáo tài chính</span></nav>
-      <section class="service-hero" aria-labelledby="service-title">
-        <div><p class="service-eyebrow">Dịch vụ NHT</p><h1 id="service-title">Soát xét báo cáo tài chính</h1><p class="service-intro">Rà soát lại chứng từ và số liệu để nhận diện điểm chưa nhất quán, làm rõ những vấn đề cần xử lý và hỗ trợ doanh nghiệp hoàn thiện hệ thống báo cáo.</p><div class="service-actions"><a class="service-button" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn dịch vụ</a><a class="service-button service-button-secondary" href="bang-gia.html">Xem bảng giá</a></div></div>
-        <img src="../picture/financial-report.webp" alt="Minh họa dịch vụ Soát xét báo cáo tài chính" width="720" height="540" fetchpriority="high" />
-      </section>
-      <div class="service-content-layout"><div>
-        <section class="service-section"><h2>Dịch vụ phù hợp với ai?</h2><p>Doanh nghiệp cần kiểm tra sổ sách trước khi bàn giao kế toán, hoàn thiện báo cáo năm hoặc đánh giá lại chất lượng dữ liệu tài chính.</p></section>
-        <section class="service-section"><h2>NHT hỗ trợ những gì?</h2><div class="service-scope"><div class="service-scope-item"><h3>Rà soát chứng từ và sổ sách</h3><p>Đối chiếu chứng từ với dữ liệu kế toán, kiểm tra sự nhất quán giữa các sổ và báo cáo trong kỳ được lựa chọn.</p></div><div class="service-scope-item"><h3>Nhận diện sai sót</h3><p>Tổng hợp các vấn đề kế toán, thuế và hồ sơ tài chính cần làm rõ; trao đổi nguyên nhân và hướng xử lý với doanh nghiệp.</p></div><div class="service-scope-item"><h3>Phân tích tài chính</h3><p>Phân tích hiệu quả kinh doanh, tình hình sử dụng vốn và các biến động đáng chú ý trên dữ liệu được cung cấp.</p></div><div class="service-scope-item"><h3>Hỗ trợ hoàn thiện</h3><p>Đề xuất điều chỉnh và hỗ trợ hoàn thiện sổ sách theo nhu cầu, phạm vi và dữ liệu thực tế của doanh nghiệp.</p></div></div></section>
-        <section class="service-section"><h2>Kết quả bàn giao</h2><p>Báo cáo tổng hợp vấn đề phát hiện, nội dung trao đổi và kiến nghị xử lý; bộ sổ sách hoàn thiện nếu hạng mục này được thống nhất trong dịch vụ.</p></section>
-        <section class="service-section"><h2>Quy trình phối hợp</h2><ol class="service-steps"><li><h3>Tiếp nhận nhu cầu</h3><p>Xác định mục đích, kỳ số liệu, phạm vi và thời hạn rà soát.</p></li><li><h3>Thống nhất phương án</h3><p>Lập kế hoạch, tiếp nhận hồ sơ và đối chiếu số liệu.</p></li><li><h3>Triển khai công việc</h3><p>Trao đổi sai sót, xác nhận thông tin bổ sung và hướng xử lý.</p></li><li><h3>Bàn giao & đồng hành</h3><p>Thống nhất báo cáo cuối cùng trước khi bàn giao cho doanh nghiệp.</p></li></ol></section>
-      </div><aside class="service-preparation"><h2>Thông tin cần chuẩn bị</h2><p>Chuẩn bị các thông tin đang có để NHT đánh giá nhu cầu và tư vấn phạm vi phù hợp.</p><ul><li>Báo cáo tài chính và tờ khai của kỳ cần rà soát.</li><li>Sổ tổng hợp, sổ chi tiết và bảng cân đối phát sinh.</li><li>Hóa đơn, hợp đồng, chứng từ ngân hàng và hồ sơ liên quan.</li><li>Danh sách vấn đề doanh nghiệp muốn kiểm tra, kỳ rà soát và thời hạn mong muốn.</li></ul><p class="service-preparation-note">Danh mục hồ sơ cụ thể được xác nhận sau khi trao đổi về trường hợp của bạn.</p></aside></div>
-      <section class="service-section service-faq"><h2>Câu hỏi thường gặp</h2><details><summary>Có thể chỉ rà soát một kỳ hoặc một nhóm số liệu không?</summary><p>Phạm vi có thể trao đổi theo nhu cầu, như một năm tài chính hoặc nhóm nghiệp vụ cần kiểm tra. NHT xác nhận khả năng thực hiện sau khi xem hồ sơ.</p></details><details><summary>Có hỗ trợ sửa lại sổ sách không?</summary><p>Có. Nếu cần làm lại sổ sách kế toán trong quá trình soát xét, phí dịch vụ cộng thêm 30% trên phí hồ sơ soát xét. Phạm vi được xác nhận sau khi đánh giá dữ liệu.</p></details><details><summary>Cần bao lâu để hoàn thành?</summary><p>Tiến độ phụ thuộc số kỳ, khối lượng chứng từ và mức độ đầy đủ của hồ sơ. Thời hạn được xác nhận khi thống nhất phạm vi công việc.</p></details></section>
-      <section class="service-contact"><div><p class="service-eyebrow">Cùng NHT bắt đầu</p><h2>Trao đổi nhu cầu, rõ phạm vi công việc</h2><p>Chia sẻ tình trạng hiện tại để nhận tư vấn hạng mục, tiến độ và báo giá phù hợp.</p></div><div class="service-actions"><a class="service-button" href="lien-he.html?service=soat-xet-bctc">Nhận tư vấn</a><a class="service-text-link" href="tel:0788788919">Gọi 0788 788 919</a></div></section>
-      <section class="service-section service-related" aria-labelledby="related-services-title">
-        <h2 id="related-services-title">Khám phá dịch vụ khác</h2>
-        <p>Thêm giải pháp phù hợp cho từng nhu cầu của doanh nghiệp.</p>
-        <nav aria-label="Dịch vụ liên quan">
-          <a href="ke-toan-tron-goi.html"><span class="service-related-copy"><span class="service-related-title">Kế toán trọn gói</span><span class="service-related-description">Đồng hành từ sổ sách kế toán đến kê khai và báo cáo thuế.</span></span><span class="service-related-arrow" aria-hidden="true">→</span></a>
-          <a href="co-van-nhan-su-bao-hiem.html"><span class="service-related-copy"><span class="service-related-title">Cố vấn nhân sự &amp; bảo hiểm</span><span class="service-related-description">Hỗ trợ hồ sơ lao động, tiền lương và nghiệp vụ bảo hiểm.</span></span><span class="service-related-arrow" aria-hidden="true">→</span></a>
-          <a href="hanh-chinh-phap-ly.html"><span class="service-related-copy"><span class="service-related-title">Hành chính &amp; pháp lý</span><span class="service-related-description">Hỗ trợ thủ tục doanh nghiệp và hoàn thiện hồ sơ pháp lý.</span></span><span class="service-related-arrow" aria-hidden="true">→</span></a>
-          <a href="ke-toan-noi-bo-tai-chinh.html"><span class="service-related-copy"><span class="service-related-title">Kế toán nội bộ &amp; tài chính</span><span class="service-related-description">Theo dõi thu chi, quản lý dòng tiền và thông tin tài chính.</span></span><span class="service-related-arrow" aria-hidden="true">→</span></a>
-          <a href="dich-vu-so-ho-tro-khac.html"><span class="service-related-copy"><span class="service-related-title">Dịch vụ số &amp; hỗ trợ khác</span><span class="service-related-description">Hỗ trợ công cụ số và các nghiệp vụ vận hành doanh nghiệp.</span></span><span class="service-related-arrow" aria-hidden="true">→</span></a>
-        </nav>
-      </section>
+    <main id="main-content" class="service-detail tax-detail">
+      <nav class="service-breadcrumb" aria-label="Đường dẫn"><a href="index.html">Trang chủ</a><span>/</span><a href="dich-vu.html">Dịch vụ</a><span>/</span><span aria-current="page">Soát xét báo cáo tài chính</span></nav>
+      <section class="service-hero" aria-labelledby="service-title"><div><p class="service-eyebrow">Dịch vụ NHT</p><h1 id="service-title">Soát xét báo cáo tài chính</h1><p class="service-intro">Rà soát chứng từ, phát hiện sai sót kế toán và thuế; phân tích hiệu quả kinh doanh, sử dụng vốn và tính pháp lý tài chính. Hỗ trợ hoàn thiện sổ sách theo nhu cầu.</p><div class="service-actions"><a class="service-button" href="#lien-he">Nhận tư vấn</a><a class="service-button service-button-secondary" href="bang-gia.html#soat-xet">Xem bảng giá</a></div></div><img src="../picture/financial-report.webp" alt="Soát xét báo cáo tài chính NHT" width="720" height="540" fetchpriority="high" /></section>
+      <div class="tax-page-layout"><div class="tax-page-content">
+        <section id="doi-tuong" class="tax-section tax-section--framed"><p class="tax-section-number">01 / Đối tượng</p><h2>Dịch vụ phù hợp với ai?</h2><p >Doanh nghiệp cần rà soát chứng từ, kiểm tra số liệu kế toán và đánh giá báo cáo tài chính.</p><p class="tax-draft">Nội dung giới thiệu đối tượng sẽ được bổ sung.</p></section>
+        <section id="cong-viec" class="tax-section"><p class="tax-section-number">02 / Phạm vi</p><h2>Nội dung công việc</h2><div class="service-scope"><div class="service-scope-item"><h3>Rà soát chứng từ kế toán</h3><p class="tax-draft">Nội dung công việc chi tiết sẽ được bổ sung.</p></div><div class="service-scope-item"><h3>Kiểm tra và phát hiện sai sót</h3><p class="tax-draft">Nội dung công việc chi tiết sẽ được bổ sung.</p></div><div class="service-scope-item"><h3>Phân tích báo cáo tài chính</h3><p class="tax-draft">Nội dung công việc chi tiết sẽ được bổ sung.</p></div><div class="service-scope-item"><h3>Hỗ trợ hoàn thiện sổ sách</h3><p class="tax-draft">Nội dung công việc chi tiết sẽ được bổ sung.</p></div></div></section>
+        <section id="ho-so" class="tax-section tax-section--framed"><p class="tax-section-number">03 / Chuẩn bị</p><h2>Hồ sơ khách hàng cần chuẩn bị</h2><ul class="tax-documents"><li>Báo cáo tài chính và dữ liệu sổ sách hiện có</li><li>Thông tin doanh nghiệp và kỳ báo cáo cần soát xét</li><li>Hồ sơ, tài liệu hiện có liên quan đến yêu cầu</li></ul><p class="tax-draft">Danh mục hồ sơ chi tiết sẽ được bổ sung theo phạm vi dịch vụ.</p></section>
+        <section id="cam-ket" class="tax-section tax-commitments"><p class="tax-section-number">04 / Đồng hành</p><h2>Cam kết giữa công ty và khách hàng</h2><div class="service-scope"><div class="service-scope-item"><h3>Cam kết của NHT</h3><p class="tax-draft">Nội dung cam kết của công ty sẽ được bổ sung.</p></div><div class="service-scope-item"><h3>Cam kết của khách hàng</h3><p class="tax-draft">Nội dung phối hợp và cam kết của khách hàng sẽ được bổ sung.</p></div></div></section>
+        <section id="chi-phi" class="tax-section tax-cost"><p class="tax-section-number">05 / Chi phí</p><h2>Chi phí dịch vụ</h2><p>Tham khảo các mức phí soát xét báo cáo tài chính và trao đổi với NHT để xác định phạm vi phù hợp.</p><div class="service-actions"><a class="service-button" href="bang-gia.html#soat-xet">Xem bảng giá dịch vụ</a></div></section>
+        <section id="cau-hoi" class="tax-section tax-section--framed"><p class="tax-section-number">06 / Giải đáp</p><h2>Câu hỏi thường gặp</h2><details class="tax-faq"><summary>Cần cung cấp thông tin gì để nhận tư vấn?</summary><p>Bạn có thể liên hệ NHT và chia sẻ nhu cầu, loại hình kinh doanh, tình trạng hồ sơ hiện tại để trao đổi thêm.</p></details><div class="tax-draft tax-faq-placeholder">Các câu hỏi và giải đáp chuyên môn sẽ được bổ sung.</div></section>
+
+      <section id="lien-he" class="service-contact"><div><p class="service-eyebrow">07 / Kết nối</p><h2>Liên hệ trao đổi</h2><p>Trao đổi trực tiếp về nhu cầu soát xét báo cáo tài chính của doanh nghiệp.</p><p>Email: <a href="mailto:ketoannht.hcm@gmail.com">ketoannht.hcm@gmail.com</a></p></div><div class="service-actions"><a class="service-button" href="lien-he.html?service=soat-xet-bctc">Gửi nhu cầu tư vấn</a><a class="service-text-link" href="tel:0788788919">Gọi 0788 788 919</a></div></section>
+      <section id="dich-vu-khac" class="service-section service-related" aria-labelledby="related-services-title"><p class="tax-section-number">08 / Khám phá thêm</p><h2 id="related-services-title">Các dịch vụ khác</h2><nav aria-label="Các dịch vụ khác"><a href="ke-toan-thue-doanh-nghiep.html"><span class="service-related-copy"><span class="service-related-title">Kế toán thuế doanh nghiệp</span><span class="service-related-description">Giải pháp kế toán, thuế và sổ sách cho doanh nghiệp.</span></span></a><a href="ke-toan-ho-kinh-doanh.html"><span class="service-related-copy"><span class="service-related-title">Kế toán thuế hộ kinh doanh</span><span class="service-related-description">Kê khai, theo dõi chứng từ và sổ sách hộ kinh doanh.</span></span></a><a href="thanh-lap-cong-ty.html"><span class="service-related-copy"><span class="service-related-title">Thành lập công ty</span><span class="service-related-description">Khám phá dịch vụ hành chính pháp lý.</span></span></a></nav></section>
+      </div><aside class="tax-sidebar"><p class="service-eyebrow">Nội dung chính</p><nav aria-label="Mục lục dịch vụ"><a href="#doi-tuong">Đối tượng phù hợp</a><a href="#cong-viec">Nội dung công việc</a><a href="#ho-so">Hồ sơ chuẩn bị</a><a href="#cam-ket">Cam kết hai bên</a><a href="#chi-phi">Chi phí dịch vụ</a><a href="#cau-hoi">Câu hỏi thường gặp</a><a href="#lien-he">Liên hệ trao đổi</a><a href="#dich-vu-khac">Các dịch vụ khác</a></nav></aside></div>
     </main>
 
     <!-- Footer -->
@@ -116,7 +105,7 @@
               Giải pháp kế toán, thuế và tư vấn quản trị tài chính chuyên nghiệp cho doanh nghiệp Việt Nam. Hướng đến sự chính xác, an toàn và phát triển bền vững.
             </p>
           </div>
-          
+
           <div class="lg:col-span-7 grid gap-8 sm:grid-cols-3">
             <div>
               <h4 class="text-xs font-extrabold text-navy uppercase tracking-widest mb-4">Về chúng tôi</h4>
@@ -144,7 +133,7 @@
             </div>
           </div>
         </div>
-        
+
         <div class="mt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-semibold">
           <p><a href="admin-login.html" class="hover:text-slate-500 transition-colors" tabindex="-1">© <span id="currentYear">2026</span> Công ty TNHH Dịch vụ Tư vấn NHT.</a> All rights reserved.</p>
           <p class="flex gap-4">
@@ -160,5 +149,6 @@
   <script src="../js/main.js?v=4eb8a731d062"></script>
   <script src="../js/service-related.js" defer></script>
 
+  <script src="../js/tax-toc.js?v=follow-click-20261015" defer></script>
 </body>
 </html>

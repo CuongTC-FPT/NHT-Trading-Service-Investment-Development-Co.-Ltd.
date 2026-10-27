@@ -1,5 +1,15 @@
 # Deploy NHT lên Render và Neon
 
+## Logo khách hàng và đối tác
+
+Bản thử trên trang chủ dùng 15 ảnh tối ưu trong `picture/partners/`. Khi thay ảnh gốc trong `logo-contact/`, chạy `node scripts/prepare-partner-logos.js` để cập nhật bản thử.
+
+Để dùng Cloudinary, upload logo, gắn tag `logo-contact`, và đặt `CLOUDINARY_LOGO_TAG=logo-contact` cùng ba biến Cloudinary hiện có trên backend, sau đó khởi động lại backend. Không cần bật Resource list công khai: backend lấy danh sách bằng Admin API và giữ khóa bí mật ở server.
+
+Sau khi bật, website chỉ hiển thị danh sách Cloudinary. Thêm/gỡ tag để hiện/ẩn ảnh, không cần deploy lại. Danh sách được cache 5 phút trên server; thay đổi trong admin xóa cache ngay để lần tải trang chủ tiếp theo nhận danh sách mới. Đặt public ID có tiền tố `01-`, `02-` nếu cần thứ tự cố định; trường context `alt` dùng làm tên logo. Danh sách rỗng sẽ ẩn cả mục. Khi Cloudinary lỗi, dùng danh sách thành công gần nhất nếu có, nếu chưa có thì ẩn mục, không thay bằng logo thử.
+
+Trong admin, mục **Logo khách hàng & đối tác** cho phép nhập tên và thêm một ảnh JPG, PNG hoặc WebP (tối đa 5 MB), xem trước ảnh, tải lại danh sách và xóa logo sau khi xác nhận. Xóa sẽ xóa ảnh trên Cloudinary và gỡ khỏi trang chủ. Chỉ ảnh trong `nht/partner-logos/` có tag logo đã cấu hình mới được xóa. Chạy `node scripts/admin-logos-test.js` để kiểm tra API bằng Cloudinary giả lập, không thay đổi ảnh thật.
+
 ## 1. Tạo PostgreSQL trên Neon
 
 1. Tạo project và database production trên Neon.

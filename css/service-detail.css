@@ -1,4 +1,35 @@
 /* Shared service pages: calm, trustworthy and consistent with the NHT public site. */
+.service-scope.digital-service-scope { grid-template-columns:1fr; }
+.digital-service-scope .service-scope-item { min-height:0; padding:1.5rem 1.75rem; }
+.tax-audience { display:flex; flex-wrap:wrap; gap:.5rem; margin-bottom:1.5rem; }
+.tax-audience a { padding:.75rem 1.1rem; border:1px solid #dfcfc3; border-radius:999px; font-size:.8rem; font-weight:600; }
+.tax-audience a[aria-current] { background:#292524; border-color:#292524; color:#fff; }
+.tax-page-layout { display:grid; grid-template-columns:minmax(0,1fr) 20rem; gap:clamp(2rem,5vw,5rem); align-items:start; padding-top:4rem; }
+.tax-page-content { min-width:0; }
+.tax-section { margin-bottom:4rem; }
+.tax-section--framed { padding:clamp(1.25rem,3vw,2rem); border:1px solid #ead5c5; border-radius:1rem; background:#fffaf5; }
+.public-layout main .tax-section h2 { margin-bottom:1.25rem; font-size:clamp(1.65rem,3vw,2.4rem); }
+.tax-section-number { margin-bottom:.75rem; color:#b4410c!important; font-size:.7rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; }
+.tax-detail .tax-draft { color:#81828a; font-size:.8rem; line-height:1.75; }
+.tax-documents { display:grid; gap:.65rem; padding-left:1.25rem; margin-bottom:1rem; list-style:disc; }
+.tax-commitments { padding-top:2rem; border-top:1px solid #ddcfc3; }
+.tax-cost { padding:2rem; background:#ffe8da; border:1px solid #e5c7b5; border-radius:1rem; }
+.tax-sidebar { position:sticky; top:7rem; padding:1.8rem; border:1px solid #e5e3e1; border-radius:1.5rem; background:#fff; box-shadow:0 1rem 2.5rem rgb(63 44 32 / .07); }
+.tax-sidebar .service-eyebrow { display:block; margin:0 0 .9rem; padding-bottom:1rem; border-bottom:1px solid #edf0f4; color:#94a3bb!important; font-size:.75rem; font-weight:700; letter-spacing:.1em; }
+.tax-sidebar .service-eyebrow::before { content:none; }
+.tax-sidebar nav { display:grid; gap:.25rem; counter-reset:tax-toc; }
+.tax-sidebar nav a { display:block; padding:.75rem 0; color:#687c99; font-size:.85rem; font-weight:600; line-height:1.55; counter-increment:tax-toc; transition:color 180ms ease; }
+.tax-sidebar nav a::before { content:counter(tax-toc) '. '; }
+.tax-sidebar nav a:hover,.tax-sidebar nav a[aria-current="location"] { color:#e3540c; }
+.tax-sidebar nav a[aria-current="location"] { font-weight:800; }
+.tax-faq { border-top:1px solid #dfcfc3; border-bottom:1px solid #dfcfc3; }
+.tax-faq summary { padding:1.25rem 0; cursor:pointer; font-size:.95rem; font-weight:600; }
+.tax-faq p { padding-bottom:1.25rem; font-size:.85rem; }
+.tax-faq-placeholder { margin-top:1rem; }
+.tax-detail .service-related nav { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.tax-detail .service-related nav a,.tax-detail .service-related nav a:nth-child(-n+2) { grid-column:auto; min-height:11rem; }
+@media(max-width:1023px) { .tax-page-layout { grid-template-columns:1fr; } .tax-sidebar { position:static; grid-row:1; } .tax-sidebar nav { grid-template-columns:repeat(2,minmax(0,1fr)); gap:0 1.5rem; } }
+@media(max-width:767px) { .tax-detail .service-related nav { grid-template-columns:1fr; } .tax-cost { padding:1.5rem; } .tax-section { margin-bottom:3rem; } }
 .service-card-link { display:flex; align-items:center; justify-content:space-between; gap:1rem; min-height:44px; margin:0 2rem 1.75rem; padding-top:1rem; border-top:1px solid #eaded6; color:#b4410c; font-size:.9rem; font-weight:600; }
 .service-card-link::after { content:"→"; flex:0 0 auto; transition:transform 180ms ease; }
 .service-card-link:hover::after { transform:translateX(3px); }
@@ -153,3 +184,21 @@
   .service-detail *,.service-detail *::before,.service-detail *::after { scroll-behavior:auto!important; transition-duration:.01ms!important; }
   .service-button:hover { transform:none; }
 }
+
+@media(max-width:539px) { .tax-sidebar nav { grid-template-columns:1fr; } }
+
+/* Keep the final sections in the same column so the contents stays alongside. */
+.tax-page-content > .service-contact { grid-template-columns:1fr; gap:1rem; margin:0 0 2.5rem; padding:1.5rem; border-radius:.85rem; }
+.tax-page-content > .service-contact h2 { font-size:clamp(1.5rem,2.5vw,2rem); margin-bottom:.6rem; }
+.tax-page-content > .service-contact p { font-size:.85rem; }
+.tax-page-content > .service-contact .service-eyebrow::before { content:none; }
+.tax-page-content > .service-contact .service-actions { flex-direction:row; flex-wrap:wrap; gap:.75rem 1.25rem; }
+.tax-page-content > .service-contact .service-button { min-height:42px; padding:.7rem 1rem; font-size:.72rem; }
+.tax-page-content > .service-related { margin-bottom:0; }
+.tax-page-content > .service-related h2 { font-size:clamp(1.5rem,2.5vw,2rem); }
+.tax-page-content > .service-related nav { grid-template-columns:1fr; gap:.65rem; }
+.tax-page-content > .service-related nav a,.tax-page-content > .service-related nav a:nth-child(-n+2) { grid-column:auto; align-items:center; min-height:0; padding:1rem 1.2rem; border-radius:.75rem; }
+.tax-page-content > .service-related .service-related-copy { gap:.3rem; }
+.tax-page-content > .service-related .service-related-title { font-size:.9rem; }
+.tax-page-content > .service-related .service-related-description { max-width:none; font-size:.75rem; }
+.tax-page-content > .service-related .service-related-arrow { width:2rem; height:2rem; }
