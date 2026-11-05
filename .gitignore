@@ -17,7 +17,8 @@ backend/uploads/**
 pdf/*.pdf
 
 # Local website images
-/picture/
+/picture/*
+!/picture/service-images/
 
 # Temporary files and browser test artifacts
 /tmp/
