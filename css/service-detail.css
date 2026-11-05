@@ -202,3 +202,86 @@
 .tax-page-content > .service-related .service-related-title { font-size:.9rem; }
 .tax-page-content > .service-related .service-related-description { max-width:none; font-size:.75rem; }
 .tax-page-content > .service-related .service-related-arrow { width:2rem; height:2rem; }
+
+/* Content imported from the service descriptions, with the existing page layout. */
+.service-source-section {
+  margin-bottom:1.75rem;
+  padding:clamp(1.25rem,3vw,2.25rem);
+  border:1px solid #e4d1c3;
+  border-top:3px solid #e4ad8b;
+  border-radius:1rem;
+  background:#fff;
+  box-shadow:0 .5rem 1.5rem rgb(89 55 37 / .045);
+}
+.service-source-section:nth-child(even) { background:#fffaf6; }
+.public-layout .service-detail .service-source-section > h2 {
+  margin-bottom:1.35rem;
+  padding-bottom:1.15rem;
+  border-bottom:1px solid #eee0d6;
+  font-size:clamp(1.45rem,2.4vw,2rem);
+  line-height:1.3;
+  overflow-wrap:break-word;
+}
+.service-source-section > .tax-section-number { margin-bottom:.65rem; }
+.service-source-section ul > li::marker { color:#b4410c; }
+.service-source-section:target { border-color:#cc794c; }
+.service-source-section > p:not(.tax-section-number),
+.service-source-section > ul,
+.service-source-section > ol { margin-bottom:1.25rem; }
+.service-source-section ul { display:grid; gap:.7rem; padding-left:1.3rem; list-style:disc; }
+.service-source-section li > ul { margin-top:.7rem; list-style:circle; }
+.service-source-section > :last-child { margin-bottom:0; }
+.service-source-section strong { font-weight:700; }
+.service-source-steps { display:grid; gap:1.5rem; padding-left:1.5rem; list-style:decimal; }
+.service-source-steps li { padding-left:.4rem; }
+.service-source-steps li::marker { color:#b4410c; font-weight:700; }
+.service-table-scroll { max-width:100%; overflow-x:auto; border:1px solid #e6d8cf; border-radius:.75rem; background:#fff; }
+.service-table-scroll table { width:100%; min-width:34rem; border-collapse:collapse; font-size:.85rem; line-height:1.65; }
+.service-table-scroll caption { padding:1rem; color:#292524; font-weight:600; text-align:left; }
+.service-table-scroll th,.service-table-scroll td { padding:.9rem 1rem; border-top:1px solid #e6d8cf; text-align:left; vertical-align:top; }
+.service-table-scroll thead { background:#fff0e5; color:#793f25; }
+.service-table-scroll tbody { color:#526078; }
+.service-table-scroll tbody tr:nth-child(even) { background:#fffaf6; }
+.service-table-scroll tbody th { font-weight:500; }
+.service-content-loaded .tax-sidebar { max-height:calc(100dvh - 8rem); overflow-y:auto; }
+@media(max-width:1023px) {
+  .service-content-loaded .tax-sidebar { max-height:none; overflow-y:visible; }
+}
+
+/* Enterprise accounting packages, following the supplied eight-package reference. */
+.accounting-packages { margin-top:3.5rem; }
+.accounting-packages-heading { margin-bottom:1.5rem; }
+.public-layout .service-detail .accounting-packages-heading h2 { margin-bottom:.65rem; font-size:clamp(1.65rem,3vw,2.4rem); }
+.accounting-packages-heading p { font-size:.95rem; }
+.accounting-packages-grid { display:grid; grid-template-columns:repeat(8,minmax(0,1fr)); gap:.65rem; align-items:stretch; }
+.accounting-package { display:flex; min-width:0; flex-direction:column; align-items:center; padding:.65rem .65rem 1.4rem; border:1px solid #eeded1; border-radius:1.75rem 1.75rem .85rem .85rem; background:#fff; box-shadow:0 .4rem 1.2rem rgb(89 55 37 / .045); font-family:'Montserrat',sans-serif; }
+.public-layout .service-detail .accounting-package-title { display:flex; align-items:center; justify-content:center; align-self:stretch; min-height:3rem; margin:0 0 .9rem; padding:.55rem .4rem; border-radius:999px; background:linear-gradient(105deg,#f57935,#ffd54a); color:#342b1f; font-family:inherit; font-size:1.2rem; font-weight:800; line-height:1.25; letter-spacing:0; }
+.service-detail .accounting-package-revenue { display:flex; align-items:center; justify-content:center; min-height:5.5rem; margin:0 0 .6rem; color:#344535; font-size:.76rem; font-weight:700; line-height:1.6; text-align:center; }
+.accounting-package-icon { display:block; width:3.5rem; height:3.5rem; margin-bottom:.85rem; object-fit:contain; }
+.service-detail .accounting-package-price { display:flex; align-self:stretch; min-height:7rem; flex-direction:column; align-items:center; justify-content:center; margin:0; padding-bottom:1rem; border-bottom:2px solid #344535; color:#344535; text-align:center; }
+.accounting-package-price strong { display:flex; flex-direction:column; align-items:center; font-size:clamp(.95rem,1.45vw,1.2rem); font-weight:800; line-height:1.3; font-variant-numeric:tabular-nums; white-space:nowrap; }
+.accounting-package-price .accounting-package-range { line-height:1; }
+.accounting-package-unit { margin-top:.4rem; font-size:.68rem; font-style:italic; font-weight:600; white-space:nowrap; }
+.accounting-package-features { display:grid; align-self:stretch; align-content:start; gap:.5rem; margin:1rem 0 0; padding-left:1rem; list-style:disc; }
+.service-detail .accounting-package-features li { color:#344535; font-size:.74rem; font-weight:600; line-height:1.65; }
+.accounting-package-sr-only { position:absolute; width:1px; height:1px; padding:0; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
+@media(max-width:1199px) {
+  .accounting-packages-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:1rem; }
+  .accounting-package { padding:.8rem 1rem 1.5rem; }
+  .service-detail .accounting-package-revenue { min-height:4.5rem; font-size:.85rem; }
+  .accounting-package-price strong { font-size:1.4rem; }
+  .accounting-package-unit { font-size:.75rem; }
+  .service-detail .accounting-package-features li { font-size:.82rem; }
+}
+@media(max-width:767px) {
+  .accounting-packages { margin-top:2.5rem; }
+  .accounting-packages-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:.75rem; }
+  .accounting-package { padding:.6rem .75rem 1.25rem; }
+  .accounting-package-price strong { font-size:1.15rem; }
+  .service-detail .accounting-package-revenue { min-height:5rem; font-size:.78rem; }
+  .service-detail .accounting-package-features li { font-size:.76rem; }
+}
+@media(max-width:359px) {
+  .accounting-packages-grid { grid-template-columns:1fr; }
+  .service-detail .accounting-package-revenue { min-height:0; margin-bottom:1rem; }
+}
