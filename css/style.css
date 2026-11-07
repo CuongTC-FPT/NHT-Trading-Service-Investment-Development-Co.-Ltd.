@@ -2053,3 +2053,11 @@ img {
 .page-home .home-services span.uppercase { color:#ff833f; padding:0; box-shadow:none; }
 .page-home .home-services a.bg-brand { border-radius:.6rem; }
 @media(max-width:479px) { .page-home .home-services .grid-cols-2 { grid-template-columns:1fr; } }
+
+/* About page: matching panels and five evenly spaced brand values. */
+.page-about .about-values-grid { display:grid; grid-template-columns:minmax(0,1fr); align-items:stretch; gap:clamp(1.5rem,4vw,3rem); }
+.page-about .about-values-card { display:flex; min-width:0; flex-direction:column; justify-content:center; padding:clamp(1.5rem,3vw,2.5rem); }
+.page-about .about-values-list { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:.65rem; width:100%; margin:2rem 0 0; padding:0; list-style:none; }
+.page-about .about-values-list > li { display:flex; grid-column:span 2; align-items:center; justify-content:center; min-width:0; min-height:44px; padding:.65rem .5rem; border:1px solid #f1c8af; border-radius:999px; background:#fff0e5; color:#b4410c; font-size:clamp(.6875rem,1vw,.8125rem); font-weight:700; line-height:1.4; text-align:center; }
+.page-about .about-values-list > li:nth-last-child(-n+2) { grid-column:span 3; }
+@media(min-width:1024px) { .page-about .about-values-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }

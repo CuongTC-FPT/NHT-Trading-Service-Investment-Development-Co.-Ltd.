@@ -315,3 +315,67 @@
   .accounting-packages-grid { grid-template-columns:1fr; }
   .service-detail .accounting-package-revenue { min-height:0; margin-bottom:1rem; }
 }
+
+/* One shared orange palette for every service detail page. */
+.page-service-detail {
+  --service-accent:var(--primary);
+  --service-accent-text:var(--primary-hover);
+  --service-accent-hover:#9d3b10;
+  --service-accent-soft:#fff0e5;
+  --service-surface:#fff;
+  --service-surface-soft:#fffaf5;
+  --service-border:#ead5c5;
+  --service-text:#292524;
+  --service-muted:#6b6059;
+}
+.page-service-detail .service-detail { color:var(--service-text); }
+.page-service-detail .service-detail :is(h1,h2,h3,.service-related-title) { color:var(--service-text); }
+.page-service-detail .service-detail :is(p,li,dt) { color:var(--service-muted); }
+.page-service-detail :is(.service-intro,.tax-draft,.service-related-description,.service-breadcrumb,.service-breadcrumb a,.tax-sidebar nav a) { color:var(--service-muted); }
+.page-service-detail .service-detail :is(.service-eyebrow,.tax-section-number,.service-hero-label,.service-hero-number,.service-hero-promise,.service-hero-metrics dd,.service-text-link) { color:var(--service-accent-text); }
+.page-service-detail .service-detail :is(.service-eyebrow,.tax-section-number) { color:var(--service-accent-text)!important; }
+.page-service-detail :is(.service-breadcrumb [aria-current="page"],.service-breadcrumb a:hover,.tax-sidebar nav a:hover,.tax-sidebar nav a[aria-current="location"]) { color:var(--service-accent-text); }
+.page-service-detail .tax-sidebar .service-eyebrow { color:var(--service-accent-text)!important; border-color:var(--service-border); }
+.page-service-detail .service-hero .service-eyebrow { background:var(--service-accent-soft); }
+
+.page-service-detail :is(.service-hero-trust,.tax-sidebar,.service-source-section,.service-scope-item,.service-preparation,.service-table-scroll,.accounting-package) { border-color:var(--service-border); background:var(--service-surface); }
+.page-service-detail .service-source-section:nth-child(even) { background:var(--service-surface-soft); }
+.page-service-detail .service-source-section { border-top-color:var(--service-accent); }
+.page-service-detail .service-source-section:target { border-color:var(--service-accent); }
+.page-service-detail .service-detail .service-source-section > h2 { border-bottom-color:var(--service-border); }
+.page-service-detail :is(.service-hero-metrics > div,.tax-cost,.tax-section--framed) { border:1px solid var(--service-border); background:var(--service-accent-soft); }
+.page-service-detail .service-contact { border-color:var(--service-border); background:var(--service-accent-soft); }
+.page-service-detail .service-table-scroll :is(th,td) { border-color:var(--service-border); }
+.page-service-detail .service-table-scroll thead { background:var(--service-accent-soft); color:var(--service-accent-text); }
+.page-service-detail .service-table-scroll tbody { color:var(--service-muted); }
+.page-service-detail .service-table-scroll tbody tr:nth-child(even) { background:var(--service-surface-soft); }
+.page-service-detail .service-source-section li::marker,
+.page-service-detail .service-source-steps li::marker { color:var(--service-accent-text); }
+
+.page-service-detail .service-button { border-color:var(--service-accent-text); background:var(--service-accent-text); color:var(--service-surface); }
+.page-service-detail .service-button:hover { border-color:var(--service-accent-hover); background:var(--service-accent-hover); color:var(--service-surface); }
+.page-service-detail .service-button-secondary { border-color:var(--service-border); background:var(--service-surface); color:var(--service-accent-text); }
+.page-service-detail .service-button-secondary:hover { border-color:var(--service-accent); background:var(--service-accent-soft); color:var(--service-accent-text); }
+.page-service-detail .service-text-link:hover { color:var(--service-accent-hover); }
+.page-service-detail .tax-audience a { border-color:var(--service-border); background:var(--service-surface); color:var(--service-accent-text); }
+.page-service-detail .tax-audience a[aria-current] { border-color:var(--service-accent-text); background:var(--service-accent-text); color:var(--service-surface); }
+.page-service-detail .tax-audience a:hover:not([aria-current]) { border-color:var(--service-accent); background:var(--service-accent-soft); }
+.page-service-detail .service-related nav a { border-color:var(--service-border); background:var(--service-surface); }
+.page-service-detail .service-related nav a::before { background:var(--service-accent-soft); }
+.page-service-detail .service-related nav a:is(:hover,:focus-visible) { border-color:var(--service-accent); }
+.page-service-detail .service-related nav a:is(:hover,:focus-visible) .service-related-title { color:var(--service-accent-text); }
+.page-service-detail .service-related-arrow { border-color:var(--service-border); background:var(--service-accent-soft); color:var(--service-accent-text); }
+.page-service-detail .service-related nav a:is(:hover,:focus-visible) .service-related-arrow { border-color:var(--service-accent-text); background:var(--service-accent-text); color:var(--service-surface); }
+
+.page-service-detail .service-detail .accounting-package-title { background:var(--service-accent-soft); color:var(--service-accent-text); }
+.page-service-detail .service-detail .accounting-package-price { border-color:var(--service-border); color:var(--service-accent-text); }
+.page-service-detail .service-detail :is(.accounting-package-revenue,.accounting-package-features li) { color:var(--service-muted); }
+.page-service-detail .accounting-package-features li::marker { color:var(--service-accent-text); }
+.page-service-detail :is(.service-faq,.service-faq details,.tax-faq,.tax-commitments,.service-steps li,.service-preparation li) { border-color:var(--service-border); }
+.page-service-detail .service-detail :is(.service-faq summary,.tax-faq summary) { color:var(--service-text); }
+.page-service-detail .service-faq details[open] { background:var(--service-accent-soft); box-shadow:inset 3px 0 var(--service-accent); }
+.page-service-detail .service-faq details:not([open]):hover { background:var(--service-surface-soft); }
+.page-service-detail .service-faq details[open] summary { color:var(--service-accent-text); }
+.page-service-detail :is(.service-faq summary::after,.service-steps li::before,.service-preparation li::before) { color:var(--service-accent-text); border-color:var(--service-border); }
+.page-service-detail .service-faq details[open] summary::after { background:var(--service-surface); }
+.page-service-detail .service-preparation-note { color:var(--service-accent-text)!important; border-color:var(--service-border); }

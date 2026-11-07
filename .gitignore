@@ -18,8 +18,8 @@ pdf/*.pdf
 
 # Local website images
 /picture/*
-!/picture/trangchu.png
-!/picture/dichvu.png
+!/picture/trangchu.jpg
+!/picture/dichvu.jpg
 !/picture/service-images/
 
 # Temporary files and browser test artifacts
