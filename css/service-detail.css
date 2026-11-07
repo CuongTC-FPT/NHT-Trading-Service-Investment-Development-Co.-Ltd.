@@ -72,9 +72,6 @@
 .service-hero-metrics dt { color:#65605b; font-size:.75rem; line-height:1.5; }
 .service-hero-metrics dd { margin:0; color:#292524; font-family:var(--font-heading); font-size:2rem; line-height:1.1; letter-spacing:-.04em; }
 .service-hero-metrics > div:last-child dd { color:#b4410c; }
-.service-hero-media { position:relative; margin:0; overflow:hidden; border-radius:.55rem; background:#e8e1da; }
-.public-layout main .service-hero-media img { display:block; width:100%; height:auto; aspect-ratio:16/9; border-radius:0; object-fit:cover; }
-.service-hero-media figcaption { position:absolute; inset:auto 0 0; padding:2.5rem 1.1rem 1rem; background:linear-gradient(transparent,rgb(27 25 23 / .8)); color:#fff; font-size:.75rem; font-weight:600; line-height:1.5; letter-spacing:.025em; }
 
 .service-actions { display:flex; flex-wrap:wrap; align-items:center; gap:.85rem; margin-top:1.75rem; }
 .service-button { display:inline-flex; align-items:center; justify-content:center; min-height:48px; padding:.8rem 1.3rem; border:1px solid var(--primary-hover); border-radius:.7rem; background:var(--primary-hover); box-shadow:0 .7rem 1.5rem rgb(224 89 21 / .14); color:#fff; font-size:.8rem; font-weight:700; letter-spacing:.055em; text-align:center; text-transform:uppercase; }
@@ -172,8 +169,6 @@
 @media (max-width:1023px) {
   .service-hero { grid-template-columns:1fr; gap:2.5rem; }
   .service-hero-proof { grid-template-columns:repeat(2,minmax(0,1fr)); align-items:stretch; }
-  .service-hero-media { grid-column:1/-1; }
-  .public-layout main .service-hero-media img { aspect-ratio:21/8; }
   .service-content-layout { grid-template-columns:minmax(0,1fr) 18rem; gap:2rem; }
   .service-contact { grid-template-columns:1fr; }
   .service-contact .service-actions { flex-direction:row; align-items:center; }
@@ -187,8 +182,6 @@
   .service-hero>div { padding:0; }
   .public-layout .service-detail h1 { font-size:clamp(2.2rem,8.5vw,3.35rem); }
   .service-hero-proof { grid-template-columns:1fr; }
-  .service-hero-media { grid-column:auto; }
-  .public-layout main .service-hero-media img { aspect-ratio:16/9; }
   .service-hero-trust { padding:1.5rem; }
   .service-content-layout { padding-top:4rem; }
   .service-content-layout>div>.service-section:first-child { gap:.75rem; }

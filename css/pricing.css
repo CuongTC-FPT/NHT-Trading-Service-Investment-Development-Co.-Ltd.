@@ -59,3 +59,8 @@
 .page-pricing .pricing-carousel > button { border-radius:50%!important; aspect-ratio:1; }
 .pricing-carousel > button:disabled { visibility:hidden; pointer-events:none; }
 .pricing-carousel > button:focus-visible { outline:3px solid #9c3508; outline-offset:3px; }
+
+/* Price ranges use the shared card typography and fit narrow screens. */
+.price-amount-range { text-align:center; }
+.price-amount-range strong { display:flex; flex-direction:column; align-items:center; gap:.15rem; font-size:clamp(1.35rem,2.25vw,2rem); line-height:1.25; }
+.price-range-separator { font-size:1.1rem; line-height:1; }

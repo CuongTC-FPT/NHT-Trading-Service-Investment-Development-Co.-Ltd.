@@ -10,6 +10,7 @@
   selectGroup(location.hash);
   document.querySelectorAll('.pricing-group').forEach(group => {
     const track = group.querySelector('.pricing-track');
+    if (!track) return;
     const cards = [...track.children];
     const buttons = [...group.querySelectorAll('[data-direction]')];
     const step = () => cards[0].getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap);
