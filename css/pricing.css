@@ -64,3 +64,12 @@
 .price-amount-range { text-align:center; }
 .price-amount-range strong { display:flex; flex-direction:column; align-items:center; gap:.15rem; font-size:clamp(1.35rem,2.25vw,2rem); line-height:1.25; }
 .price-range-separator { font-size:1.1rem; line-height:1; }
+
+.price-actions { display:grid; gap:.6rem; margin-top:auto; }
+.price-actions .price-contact { display:flex; align-items:center; justify-content:center; min-height:44px; margin-top:0; }
+.price-detail { display:flex; align-items:center; justify-content:center; min-height:44px; padding:.8rem; border:1px solid var(--primary-hover); border-radius:.5rem; background:var(--primary-hover); color:#fff; font-size:.75rem; font-weight:700; line-height:1.5; text-align:center; }
+.price-detail:hover { border-color:#9d3b10; background:#9d3b10; color:#fff; }
+.price-card-featured .price-detail { border-color:#ff975e; background:transparent; color:#ffb184; }
+.price-card-featured .price-detail:hover { border-color:#fff0e5; background:#fff0e5; color:#9d3b10; }
+.price-detail:focus-visible,.price-contact:focus-visible { outline:2px solid var(--primary-hover); outline-offset:3px; }
+.price-card-featured :is(.price-detail,.price-contact):focus-visible { outline-color:#ff975e; }
