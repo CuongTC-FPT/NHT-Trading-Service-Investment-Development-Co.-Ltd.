@@ -30,6 +30,11 @@
 .tax-nav-group { display:flex; flex-direction:column; gap:.3rem; padding:.9rem; border:1px solid #eee4dc; border-radius:.75rem; background:white; }
 .tax-nav-group > span { padding:.2rem .6rem; color:#b4410c; font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
 .services-nav-dropdown .tax-nav-group a { min-height:40px; padding:.6rem; border:0; box-shadow:none; }
+.public-layout main .home-hero-intro { max-width:58ch; color:#526078; font-size:clamp(1rem,1.3vw,1.125rem); line-height:1.8; }
+.home-hero-intro p + p { margin-top:1rem; }
+.home-hero-intro a { color:var(--primary-hover); font-weight:600; text-decoration:underline; text-underline-offset:.2em; }
+.home-hero-intro a:focus-visible { outline:2px solid var(--primary); outline-offset:4px; }
+
 :root {
   --primary: #e05915;
   --primary-hover: #bf480d;
@@ -111,7 +116,8 @@ li {
 }
 
 /* Background for standalone prose blocks across public pages. */
-.public-layout main p.content-panel {
+.public-layout main p.content-panel,
+.public-layout main .home-hero-intro.content-panel {
   box-sizing: border-box;
   padding: clamp(1rem, 2vw, 1.5rem);
   border: 1px solid #ead5c5;
