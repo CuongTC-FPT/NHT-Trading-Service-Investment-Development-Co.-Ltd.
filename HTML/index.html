@@ -23,7 +23,7 @@
     }
   </script>
   <link rel="stylesheet" href="../css/tailwind.min.css" />
-  <link rel="stylesheet" href="../css/partner-logos.css?v=2" />
+  <link rel="stylesheet" href="../css/partner-logos.css?v=5" />
   <link rel="stylesheet" href="../css/fonts.css" />
   <link rel="stylesheet" href="../css/style.css?v=content-panels-cards-20261023" />
 </head>
@@ -237,10 +237,20 @@
 
       <section class="partner-logos" data-partner-logos aria-labelledby="partner-logos-title" hidden>
         <div class="partner-logos__heading">
-          <h2 id="partner-logos-title">Khách hàng &amp; đối tác</h2>
+          <span class="partner-logos__eyebrow">Đồng hành &amp; phát triển</span>
+          <h2 id="partner-logos-title">Khách hàng &amp; <span>đối tác</span></h2>
+          <p id="partner-logos-description">Những doanh nghiệp đã tin tưởng, gắn bó và đồng hành cùng dịch vụ tư vấn tài chính kế toán <strong>NHT.</strong></p>
         </div>
-        <div class="partner-logos__viewport" id="partner-logos-viewport" tabindex="0" role="region" aria-label="Logo khách hàng và đối tác">
+        <dl class="partner-logos__stats" aria-label="Kinh nghiệm và dịch vụ NHT">
+          <div><dt>Doanh nghiệp đồng hành</dt><dd>200+</dd></div>
+          <div><dt>Năm kinh nghiệm tư vấn</dt><dd>10+</dd></div>
+          <div><dt>Cam kết phản hồi trong</dt><dd>24h</dd></div>
+        </dl>
+        <div class="partner-logos__viewport" id="partner-logos-viewport" tabindex="0" role="region" aria-label="Logo khách hàng và đối tác" aria-describedby="partner-logos-description">
           <div class="partner-logos__track"></div>
+        </div>
+        <div class="partner-logos__footer">
+          <a href="lien-he.html" class="partner-logos__contact">Trở thành đối tác của chúng tôi</a>
         </div>
       </section>
 
@@ -301,7 +311,7 @@
   </div>
 
   <script src="../js/main.js?v=4eb8a731d062"></script>
-  <script src="../js/partner-logos.js?v=2" defer></script>
+  <script src="../js/partner-logos.js?v=4" defer></script>
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       const observer = new IntersectionObserver((entries) => {
