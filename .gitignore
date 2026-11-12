@@ -19,7 +19,9 @@ pdf/*.pdf
 # Local website images
 /picture/*
 !/picture/trangchu.jpg
+!/picture/trangchu.webp
 !/picture/dichvu.jpg
+!/picture/gia-tri-cot-loi-nht.webp
 !/picture/service-images/
 
 # Temporary files and browser test artifacts

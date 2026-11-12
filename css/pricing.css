@@ -44,7 +44,7 @@
 .price-card-featured .price-amount{border-color:#514945}
 .price-card-featured .price-amount strong{color:#ff7933}
 .price-card-featured .price-contact{background:#df510e;border-color:#df510e;color:white}
-.pricing-group-note{margin-top:1rem;color:#746d67;font-size:.78rem;line-height:1.8}
+.pricing-group-note{margin-top:1rem;color:#746d67;font-size:1rem;line-height:1.8}
 @media(max-width:767px){.pricing-track{grid-auto-columns:calc((100% - 1rem)/2)}.pricing-group-header{align-items:flex-start;flex-direction:column}.pricing-controls{align-self:flex-end}}
 @media(max-width:539px){.pricing-track{grid-auto-columns:88%}.price-card{padding:1.5rem}.price-description{min-height:0}.pricing-group{margin-bottom:3rem}.pricing-jump{justify-content:flex-start}}
 
@@ -64,6 +64,18 @@
 .price-amount-range { text-align:center; }
 .price-amount-range strong { display:flex; flex-direction:column; align-items:center; gap:.15rem; font-size:clamp(1.35rem,2.25vw,2rem); line-height:1.25; }
 .price-range-separator { font-size:1.1rem; line-height:1; }
+
+:is(#doanh-nghiep, #soat-xet) .price-amount > span {
+  font-size: .85rem;
+}
+
+:is(#doanh-nghiep, #soat-xet) .price-amount small {
+  font-size: 1rem;
+}
+
+#soat-xet .pricing-group-note strong {
+  font-weight: 700;
+}
 
 .price-actions { display:grid; gap:.6rem; margin-top:auto; }
 .price-actions .price-contact { display:flex; align-items:center; justify-content:center; min-height:44px; margin-top:0; }

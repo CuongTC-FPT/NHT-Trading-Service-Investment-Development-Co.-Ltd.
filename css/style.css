@@ -27,12 +27,9 @@
 @media (min-width:768px) {
   .page-services .tax-card-options { box-sizing:border-box; min-height:109px; align-content:start; align-items:start; }
 }
-.tax-nav-group { display:flex; flex-direction:column; gap:.3rem; padding:.9rem; border:1px solid #eee4dc; border-radius:.75rem; background:white; }
-.tax-nav-group > span { padding:.2rem .6rem; color:#b4410c; font-size:.7rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; }
-.services-nav-dropdown .tax-nav-group a { min-height:40px; padding:.6rem; border:0; box-shadow:none; }
 .public-layout main .home-hero-intro { max-width:58ch; color:#526078; font-size:clamp(1rem,1.3vw,1.125rem); line-height:1.8; }
 .home-hero-intro p + p { margin-top:1rem; }
-.home-hero-intro a { color:var(--primary-hover); font-weight:600; text-decoration:underline; text-underline-offset:.2em; }
+.home-hero-intro a { color:var(--primary-hover); font-weight:600; text-decoration:none; }
 .home-hero-intro a:focus-visible { outline:2px solid var(--primary); outline-offset:4px; }
 
 :root {
@@ -302,7 +299,7 @@ body.page-transition.page-leaving {
   height: 0.75rem;
 }
 
-.services-nav-dropdown > :is(a, .tax-nav-group) {
+.services-nav-dropdown > a {
   height:100%;
   min-width:0;
   padding:.75rem;
@@ -313,9 +310,6 @@ body.page-transition.page-leaving {
 }
 .services-nav-dropdown > a { align-items:flex-start; min-height:84px; }
 .services-nav-dropdown > a { font-size:.8rem; }
-.services-nav-dropdown .tax-nav-group { gap:.1rem; }
-.services-nav-dropdown .tax-nav-group > span { padding:.1rem .35rem; font-size:.62rem; }
-.services-nav-dropdown .tax-nav-group a { min-height:32px; padding:.35rem; font-size:.78rem; }
 
 .services-nav-item:hover .services-nav-dropdown,
 .services-nav-item:focus-within .services-nav-dropdown {
@@ -2054,10 +2048,228 @@ img {
 .page-home .home-services a.bg-brand { border-radius:.6rem; }
 @media(max-width:479px) { .page-home .home-services .grid-cols-2 { grid-template-columns:1fr; } }
 
-/* About page: matching panels and five evenly spaced brand values. */
-.page-about .about-values-grid { display:grid; grid-template-columns:minmax(0,1fr); align-items:stretch; gap:clamp(1.5rem,4vw,3rem); }
-.page-about .about-values-card { display:flex; min-width:0; flex-direction:column; justify-content:center; padding:clamp(1.5rem,3vw,2.5rem); }
-.page-about .about-values-list { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:.65rem; width:100%; margin:2rem 0 0; padding:0; list-style:none; }
-.page-about .about-values-list > li { display:flex; grid-column:span 2; align-items:center; justify-content:center; min-width:0; min-height:44px; padding:.65rem .5rem; border:1px solid #f1c8af; border-radius:999px; background:#fff0e5; color:#b4410c; font-size:clamp(.6875rem,1vw,.8125rem); font-weight:700; line-height:1.4; text-align:center; }
-.page-about .about-values-list > li:nth-last-child(-n+2) { grid-column:span 3; }
-@media(min-width:1024px) { .page-about .about-values-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
+/* About page: vision, mission and the original NHT values diagram. */
+.page-about .about-values-grid { display:grid; grid-template-columns:minmax(0,1fr); align-items:stretch; gap:clamp(1.5rem,3vw,2.5rem); }
+.page-about .about-values-copy { box-sizing:border-box; padding:clamp(1.5rem,3vw,2.5rem); border:1px solid rgb(120 113 108 / .16); border-radius:var(--public-radius-card); background:#fff; box-shadow:0 1rem 2.5rem rgb(41 37 36 / .08); }
+.page-about .about-values-copy { min-width:0; }
+.public-layout.page-about main .about-values-heading { margin:0 0 1.5rem; color:#ff7f08; font-family:'Montserrat',Arial,sans-serif; font-size:clamp(1.5rem,2.5vw,2.25rem); font-weight:800; line-height:1.15; letter-spacing:0; text-align:center; text-shadow:0 2px 4px rgb(80 50 20 / .18); }
+.page-about .about-values-panel { color:#171717; font-family:'Montserrat',Arial,sans-serif; font-size:clamp(.875rem,1.1vw,1rem); line-height:1.5; }
+.public-layout.page-about .about-values-panel :is(p,li) { font-family:inherit; text-wrap:initial; }
+.page-about .about-values-panel p { margin:0; }
+.page-about .about-values-panel strong { font-weight:700; }
+.page-about .about-values-highlight { color:#ff7f08; }
+.page-about .about-values-panel ul { margin:0; padding-left:1.5em; list-style:disc; }
+.page-about .about-values-panel li { padding-left:.1em; }
+.page-about .about-values-graphic { min-width:0; width:100%; max-width:662px; margin:0 auto; align-self:center; }
+.public-layout.page-about main .about-values-graphic img { display:block; width:100%; height:auto; border-radius:0; }
+@media(min-width:1024px) {
+  .page-about .about-values-grid { grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); }
+  .page-about .about-values-graphic { align-self:end; margin-bottom:1.5rem; }
+}
+
+/* Company history follows the reference's alternating axis layout. */
+.public-layout.page-about main .company-history > h2 {
+  color: var(--primary-hover);
+  text-align: center;
+}
+
+.page-about .company-timeline {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2rem;
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.page-about .company-timeline::before {
+  content: "";
+  position: absolute;
+  top: .5rem;
+  bottom: .5rem;
+  left: .5rem;
+  width: 3px;
+  background: var(--primary);
+}
+
+.page-about .company-timeline-item {
+  position: relative;
+  min-width: 0;
+  padding-left: 2.5rem;
+}
+
+.public-layout.page-about main .company-timeline-period {
+  margin: 0 0 .5rem;
+  color: #292524;
+  font-size: 1.125rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.public-layout.page-about main .company-timeline-content h3 {
+  margin: 0 0 .5rem;
+  color: var(--primary-hover);
+  font-size: 1.25rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.page-about .company-timeline-content > p {
+  margin: 0;
+  color: #526078;
+  font-size: .9375rem;
+  line-height: 1.75;
+}
+
+.page-about .company-timeline-node {
+  position: absolute;
+  top: .25rem;
+  left: .0625rem;
+  width: 1rem;
+  height: 1rem;
+  border: 3px solid var(--page-background);
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 0 1px var(--primary);
+}
+
+@media (min-width: 1024px) {
+  .page-about .company-timeline {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 2.5rem;
+    margin-top: 3rem;
+  }
+
+  .page-about .company-timeline::before {
+    top: 50%;
+    bottom: auto;
+    left: 0;
+    right: 0;
+    width: auto;
+    height: 4px;
+    transform: translateY(-50%);
+    border-radius: 999px;
+  }
+
+  .page-about .company-timeline-item {
+    display: grid;
+    grid-template-rows: 1fr 4.5rem 1fr;
+    padding: 0;
+    text-align: center;
+  }
+
+  .page-about .company-timeline-marker {
+    position: relative;
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .public-layout.page-about main .company-timeline-period {
+    position: absolute;
+    bottom: calc(50% + 1rem);
+    left: calc(50% + 1.25rem);
+    right: 0;
+    margin: 0;
+    text-align: left;
+  }
+
+  .page-about .company-timeline-content {
+    position: relative;
+    grid-column: 1;
+    grid-row: 1;
+    align-self: end;
+    padding: 0 1rem 2.5rem;
+  }
+
+  .page-about .company-timeline-content::after {
+    content: "";
+    position: absolute;
+    bottom: -2.25rem;
+    left: 50%;
+    height: 3.25rem;
+    border-left: 1px dashed var(--primary);
+  }
+
+  .page-about .company-timeline-item:nth-child(even) .company-timeline-content {
+    grid-row: 3;
+    align-self: start;
+    padding: 2.5rem 1rem 0;
+  }
+
+  .page-about .company-timeline-item:nth-child(even) .company-timeline-content::after {
+    top: -2.25rem;
+    bottom: auto;
+  }
+
+  .public-layout.page-about main .company-timeline-item:nth-child(even) .company-timeline-period {
+    top: calc(50% + 1rem);
+    bottom: auto;
+  }
+
+  .page-about .company-timeline-node {
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    width: 1.125rem;
+    height: 1.125rem;
+    transform: translate(-50%, -50%);
+  }
+}
+
+/* Company activity gallery, with one photograph per activity. */
+.page-about .company-activities-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(1.25rem, 2.5vw, 2rem);
+  margin-top: 2rem;
+}
+
+.page-about .company-activity {
+  min-width: 0;
+  margin: 0;
+  padding: .75rem;
+  border: 1px solid #e9dfd8;
+  border-radius: var(--public-radius-card);
+  background: #fff;
+  box-shadow: 0 .75rem 2rem rgb(41 37 36 / .05);
+}
+
+.page-about .company-activity-media {
+  display: grid;
+  position: relative;
+  aspect-ratio: 16 / 10;
+  place-items: center;
+  overflow: hidden;
+  border-radius: var(--public-radius-media);
+  background: #fbf3ed;
+  padding: 1.5rem;
+  color: #766357;
+  font-size: .875rem;
+  text-align: center;
+}
+
+.page-about .company-activity-media::before {
+  content: "";
+  position: absolute;
+  inset: 1rem;
+  border: 1px dashed #d9c8bc;
+  border-radius: .5rem;
+  pointer-events: none;
+}
+
+.page-about .company-activity figcaption {
+  padding: 1.25rem .75rem .75rem;
+}
+
+.public-layout.page-about main .company-activity h3 {
+  margin: 0;
+  font-size: clamp(1.125rem, 1.5vw, 1.375rem);
+  line-height: 1.4;
+}
+
+@media (min-width: 768px) {
+  .page-about .company-activities-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
