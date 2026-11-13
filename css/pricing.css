@@ -27,13 +27,24 @@
 .price-card{display:flex;flex-direction:column;min-width:0;padding:clamp(1.25rem,2.5vw,2rem);border:1px solid #e5dbd4;border-radius:.4rem;background:white;scroll-snap-align:start}
 .price-kicker{color:#b54a19;font-size:.65rem;font-weight:700;letter-spacing:.12em;margin-bottom:1rem}
 .public-layout main .price-card h3{color:#292524;font-family:var(--font-heading);font-size:1.25rem;line-height:1.35;margin-bottom:.75rem}
-.price-description{min-height:3.9rem;color:#778194;font-size:.8rem;line-height:1.65}
+.price-description {
+  min-height: 3.9rem;
+  color: var(--primary-hover);
+  font-size: .875rem;
+  line-height: 1.65;
+}
 .price-amount{margin:1.25rem 0 1.5rem;padding-bottom:1.5rem;border-bottom:1px solid #eadfd8}
 .price-amount>span{display:block;color:#778194;text-transform:uppercase;letter-spacing:.1em;font-size:.6rem;margin-bottom:.45rem}
 .price-amount strong{display:block;color:#de510f;font-size:clamp(1.6rem,2.55vw,2.2rem);line-height:1.25;font-weight:800;white-space:nowrap}
 .price-amount small{color:#778194;font-size:.75rem}
 .price-card ul{display:grid;gap:.75rem;margin:0 0 2rem;padding:0;list-style:none}
-.price-card li{position:relative;padding-left:1rem;color:#667387;font-size:.76rem;line-height:1.65}
+.price-card li {
+  position: relative;
+  padding-left: 1rem;
+  color: #667387;
+  font-size: .875rem;
+  line-height: 1.65;
+}
 .price-card li:before{content:'✓';position:absolute;left:0;color:#e05915}
 .price-contact{display:block;margin-top:auto;padding:.8rem;border:1px solid #d9c7bb;border-radius:.5rem;color:#8d3b15;text-align:center;font-size:.75rem;font-weight:700}
 .price-contact:hover{background:#fff0e6}
@@ -74,6 +85,7 @@
 }
 
 #soat-xet .pricing-group-note strong {
+  color: var(--primary);
   font-weight: 700;
 }
 

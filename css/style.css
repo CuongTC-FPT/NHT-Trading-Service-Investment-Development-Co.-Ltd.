@@ -1,4 +1,62 @@
 /* NHT Trust-First Design System */
+@media (min-width: 1024px) {
+  .page-services .services-intro {
+    align-items: stretch;
+    row-gap: 1.5rem;
+  }
+
+  .page-services .services-intro-lead,
+  .page-services .services-intro-copy,
+  .page-services .services-intro-catalog {
+    display: contents;
+  }
+
+  .page-services .services-intro :is(h1, h2, p.content-panel, .services-intro-actions) {
+    margin: 0;
+  }
+
+  .page-services .services-intro-lead > span {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .page-services .services-intro-catalog > span {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .page-services .services-intro h1 {
+    grid-column: 1;
+    grid-row: 2;
+    align-self: end;
+  }
+
+  .page-services .services-intro h2 {
+    grid-column: 2;
+    grid-row: 2;
+    align-self: end;
+  }
+
+  .page-services .services-intro p.content-panel {
+    grid-row: 3;
+    width: 100%;
+    max-width: none;
+  }
+
+  .page-services .services-intro-copy > p {
+    grid-column: 1;
+  }
+
+  .page-services .services-intro-catalog > p {
+    grid-column: 2;
+  }
+
+  .page-services .services-intro-actions {
+    grid-column: 1;
+    grid-row: 4;
+  }
+}
+
 .page-services .service-catalog-grid { max-width:780px; margin-inline:auto; gap:1.5rem; }
 @media (min-width:1024px) {
   .page-services .service-catalog-grid { max-width:1200px; grid-template-columns:repeat(3,minmax(0,1fr)); }
@@ -14,18 +72,76 @@
 .page-services .service-catalog-grid article .p-8 { padding:1.75rem 1.75rem 2rem; }
 .public-layout.page-services .service-catalog-grid h3 { font-size:1.15rem; line-height:1.35; }
 .page-services .service-catalog-grid article .p-8 p { font-size:.9rem; line-height:1.85; margin-top:.85rem; }
-.page-services .service-catalog-grid .tax-card-options { margin:0 1.5rem 1.25rem; padding-top:.65rem; min-height:100px; }
-.page-services .service-catalog-grid .tax-card-options a { font-size:.75rem; min-height:40px; }
-@media(max-width:767px) { .page-services .service-catalog-grid { max-width:390px; } .page-services .service-catalog-grid .tax-card-options { min-height:0; } }
-.tax-card-options { display:flex; flex-wrap:wrap; align-items:center; justify-content:center; gap:.75rem 1.5rem; margin:0 2rem 1.75rem; padding:1rem 0 0; border-top:1px solid #eaded6; }
-.tax-card-options a { display:inline-flex; align-items:center; gap:.6rem; min-height:44px; padding:.25rem 0; color:#a63e10; font-size:.8rem; font-weight:600; transition:color 180ms ease; }
-.tax-card-options a:hover { color:#292524; }
-.tax-card-options a::after { content:none; display:none; }
-#dich-vu-phap-ly .tax-card-options { display:grid; grid-template-columns:max-content max-content; justify-content:center; justify-items:center; gap:.25rem 1rem; }
-#dich-vu-phap-ly .tax-card-options a[href="giai-the-doanh-nghiep.html"] { grid-column:2; grid-row:1; }
-#dich-vu-phap-ly .tax-card-options a[href="thay-doi-thong-tin-doanh-nghiep.html"] { grid-column:1 / -1; grid-row:2; }
-@media (min-width:768px) {
-  .page-services .tax-card-options { box-sizing:border-box; min-height:109px; align-content:start; align-items:start; }
+@media (min-width: 768px) {
+  .page-services .service-catalog-grid > article {
+    display: grid;
+    grid-row: span 2;
+    grid-template-rows: subgrid;
+    row-gap: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  .page-services .service-catalog-grid { max-width: 390px; }
+}
+
+.tax-card-options {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: start;
+  justify-items: center;
+  gap: .625rem;
+  margin: 0 1.5rem 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eaded6;
+}
+
+.tax-card-options-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .625rem;
+  max-width: 100%;
+}
+
+.tax-card-options a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: fit-content;
+  max-width: 100%;
+  min-width: 0;
+  min-height: 40px;
+  padding: .625rem 1.25rem;
+  border: 1px solid var(--primary-hover);
+  border-radius: 9999px;
+  background: #fffaf5;
+  color: var(--primary-hover);
+  font-size: .875rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-align: center;
+  transition: background-color 180ms ease, border-color 180ms ease, color 180ms ease;
+}
+
+.tax-card-options-row a {
+  padding-inline: .75rem;
+}
+
+.tax-card-options a:hover {
+  border-color: #9d3b10;
+  background: #fff0e5;
+  color: #9d3b10;
+}
+
+.tax-card-options a:focus-visible {
+  outline: 2px solid var(--primary-hover);
+  outline-offset: 3px;
+}
+
+.tax-card-options a::after {
+  content: none;
+  display: none;
 }
 .public-layout main .home-hero-intro { max-width:58ch; color:#526078; font-size:clamp(1rem,1.3vw,1.125rem); line-height:1.8; }
 .home-hero-intro p + p { margin-top:1rem; }
@@ -1204,7 +1320,7 @@ img {
 .page-services main > section:nth-of-type(2) article:hover {
   border-color: rgb(224 89 21 / 0.24);
   box-shadow: 0 1.2rem 2.8rem rgb(41 37 36 / 0.1);
-  transform: translateY(-3px);
+  transform: none;
 }
 
 .page-services main > section:nth-of-type(2) article .absolute.top-4.left-4 {
@@ -2218,14 +2334,25 @@ img {
 }
 
 /* Company activity gallery, with one photograph per activity. */
+.page-about .company-activities > h2 {
+  text-align: center;
+}
+
 .page-about .company-activities-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr);
+  grid-auto-rows: 1fr;
+  align-items: stretch;
   gap: clamp(1.25rem, 2.5vw, 2rem);
   margin-top: 2rem;
 }
 
 .page-about .company-activity {
+  display: grid;
+  grid-template-rows: auto 4.5rem;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   min-width: 0;
   margin: 0;
   padding: .75rem;
@@ -2238,6 +2365,8 @@ img {
 .page-about .company-activity-media {
   display: grid;
   position: relative;
+  box-sizing: border-box;
+  width: 100%;
   aspect-ratio: 16 / 10;
   place-items: center;
   overflow: hidden;
@@ -2259,7 +2388,10 @@ img {
 }
 
 .page-about .company-activity figcaption {
-  padding: 1.25rem .75rem .75rem;
+  display: grid;
+  place-items: center;
+  padding: 1rem .75rem;
+  text-align: center;
 }
 
 .public-layout.page-about main .company-activity h3 {

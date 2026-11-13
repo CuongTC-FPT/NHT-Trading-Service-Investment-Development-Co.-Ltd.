@@ -1,10 +1,29 @@
 (() => {
   const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const jumpLinks = [...document.querySelectorAll('.pricing-jump a')];
-  const selectGroup = hash => jumpLinks.forEach(link => {
-    if (link.hash === hash) link.setAttribute('aria-current', 'location');
-    else link.removeAttribute('aria-current');
+  const positionStorageKey = 'nht-pricing-positions';
+  const isReload = performance.getEntriesByType('navigation')[0]?.type === 'reload';
+  const currentPositions = {};
+  let savedPositions = {};
+  if (isReload) {
+    try {
+      savedPositions = JSON.parse(sessionStorage.getItem(positionStorageKey) || '{}') || {};
+    } catch { /* Storage may be disabled or contain an old value. */ }
+  }
+  window.addEventListener('pagehide', () => {
+    try {
+      sessionStorage.setItem(positionStorageKey, JSON.stringify(currentPositions));
+    } catch { /* Keep the carousel usable when storage is disabled. */ }
   });
+  const jumpLinks = [...document.querySelectorAll('.pricing-jump a')];
+  const selectGroup = hash => {
+    const target = document.getElementById(hash.slice(1));
+    const group = target?.closest('.pricing-group');
+    const activeHash = group ? `#${group.id}` : hash;
+    jumpLinks.forEach(link => {
+      if (link.hash === activeHash) link.setAttribute('aria-current', 'location');
+      else link.removeAttribute('aria-current');
+    });
+  };
   jumpLinks.forEach(link => link.addEventListener('click', () => selectGroup(link.hash)));
   window.addEventListener('hashchange', () => selectGroup(location.hash));
   selectGroup(location.hash);
@@ -15,16 +34,24 @@
     const buttons = [...group.querySelectorAll('[data-direction]')];
     const step = () => cards[0].getBoundingClientRect().width + parseFloat(getComputedStyle(track).columnGap);
     const behavior = () => reduced.matches ? 'instant' : 'smooth';
-    const centerFeatured = () => {
+    const centerInitialCard = () => {
+      const target = document.getElementById(location.hash.slice(1));
+      const targetIndex = cards.indexOf(target);
       const featuredIndex = cards.findIndex(card => card.classList.contains('price-card-featured'));
-      if (featuredIndex < 0) return;
-      const width = cards[featuredIndex].getBoundingClientRect().width;
-      track.scrollTo({left:Math.max(0, featuredIndex * step() - (track.clientWidth - width) / 2), behavior:'instant'});
+      const selectedIndex = targetIndex >= 0 ? targetIndex : featuredIndex;
+      if (selectedIndex < 0) return;
+      const width = cards[selectedIndex].getBoundingClientRect().width;
+      track.scrollTo({left:Math.max(0, selectedIndex * step() - (track.clientWidth - width) / 2), behavior:'instant'});
     };
+    window.addEventListener('hashchange', () => {
+      const target = document.getElementById(location.hash.slice(1));
+      if (cards.includes(target)) centerInitialCard();
+    });
     const update = () => {
       buttons[0].disabled = track.scrollLeft <= 2;
       buttons[1].disabled = track.scrollLeft >= track.scrollWidth - track.clientWidth - 2;
       const first = Math.round(track.scrollLeft / step()) + 1;
+      currentPositions[group.id] = first - 1;
       const visible = Math.max(1, Math.floor((track.clientWidth + 16) / step()));
       group.querySelector('.pricing-position').textContent = `${first}–${Math.min(cards.length,first+visible-1)} / ${cards.length}`;
     };
@@ -67,8 +94,13 @@
     let previousWidth = 0;
     new ResizeObserver(() => {
       if (Math.abs(track.clientWidth - previousWidth) > 1) {
+        const restoreOnReload = previousWidth === 0 && isReload && Number.isFinite(savedPositions[group.id]);
         previousWidth = track.clientWidth;
-        centerFeatured();
+        if (restoreOnReload) {
+          track.scrollTo({left:savedPositions[group.id] * step(), behavior:'instant'});
+        } else {
+          centerInitialCard();
+        }
       }
       update();
     }).observe(track);
