@@ -158,8 +158,8 @@
   --radius-card: 1rem;
   --radius-control: 0.75rem;
   /* Use the installed Word font, with the bundled Vietnamese serif as fallback. */
-  --font-body: 'Constantia', 'Lora', Georgia, "Times New Roman", serif;
-  --font-heading: 'Lora', Georgia, "Times New Roman", serif;
+  --font-body: 'NHT Numerals', 'Constantia', 'Lora', Georgia, "Times New Roman", serif;
+  --font-heading: 'NHT Numerals', 'Lora', Georgia, "Times New Roman", serif;
 }
 
 html {
@@ -171,6 +171,7 @@ html {
 
 body {
   font-family: var(--font-body);
+  font-variant-numeric: lining-nums tabular-nums;
   color: #0f172a;
   background-color: var(--page-background);
   overflow-x: hidden;
@@ -2168,8 +2169,8 @@ img {
 .page-about .about-values-grid { display:grid; grid-template-columns:minmax(0,1fr); align-items:stretch; gap:clamp(1.5rem,3vw,2.5rem); }
 .page-about .about-values-copy { box-sizing:border-box; padding:clamp(1.5rem,3vw,2.5rem); border:1px solid rgb(120 113 108 / .16); border-radius:var(--public-radius-card); background:#fff; box-shadow:0 1rem 2.5rem rgb(41 37 36 / .08); }
 .page-about .about-values-copy { min-width:0; }
-.public-layout.page-about main .about-values-heading { margin:0 0 1.5rem; color:#ff7f08; font-family:'Montserrat',Arial,sans-serif; font-size:clamp(1.5rem,2.5vw,2.25rem); font-weight:800; line-height:1.15; letter-spacing:0; text-align:center; text-shadow:0 2px 4px rgb(80 50 20 / .18); }
-.page-about .about-values-panel { color:#171717; font-family:'Montserrat',Arial,sans-serif; font-size:clamp(.875rem,1.1vw,1rem); line-height:1.5; }
+.public-layout.page-about main .about-values-heading { margin:0 0 1.5rem; color:#ff7f08; font-family:'NHT Numerals','Montserrat',Arial,sans-serif; font-size:clamp(1.5rem,2.5vw,2.25rem); font-weight:800; line-height:1.15; letter-spacing:0; text-align:center; text-shadow:0 2px 4px rgb(80 50 20 / .18); }
+.page-about .about-values-panel { color:#171717; font-family:'NHT Numerals','Montserrat',Arial,sans-serif; font-size:clamp(.875rem,1.1vw,1rem); line-height:1.5; }
 .public-layout.page-about .about-values-panel :is(p,li) { font-family:inherit; text-wrap:initial; }
 .page-about .about-values-panel p { margin:0; }
 .page-about .about-values-panel strong { font-weight:700; }
@@ -2183,7 +2184,9 @@ img {
   .page-about .about-values-graphic { align-self:end; margin-bottom:1.5rem; }
 }
 
-/* Company history follows the reference's alternating axis layout. */
+/* Company history: preserve the alternating orange axis, three milestones per row.
+   DESIGN_VARIANCE: 3; MOTION_INTENSITY: 2; VISUAL_DENSITY: 5.
+   Existing typography and colors remain shared with the rest of the page. */
 .public-layout.page-about main .company-history > h2 {
   color: var(--primary-hover);
   text-align: center;
@@ -2234,7 +2237,8 @@ img {
 .page-about .company-timeline-content > p {
   margin: 0;
   color: #526078;
-  font-size: .9375rem;
+  font-size: 1rem;
+  font-style: italic;
   line-height: 1.75;
 }
 
@@ -2253,19 +2257,12 @@ img {
 @media (min-width: 1024px) {
   .page-about .company-timeline {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2.5rem;
+    gap: 2rem 2.5rem;
     margin-top: 3rem;
   }
 
   .page-about .company-timeline::before {
-    top: 50%;
-    bottom: auto;
-    left: 0;
-    right: 0;
-    width: auto;
-    height: 4px;
-    transform: translateY(-50%);
-    border-radius: 999px;
+    content: none;
   }
 
   .page-about .company-timeline-item {
@@ -2281,13 +2278,38 @@ img {
     grid-row: 2;
   }
 
+  .page-about .company-timeline-marker::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: -1.25rem;
+    right: -1.25rem;
+    height: 4px;
+    transform: translateY(-50%);
+    background: var(--primary);
+  }
+
+  .page-about .company-timeline-item:nth-child(3n + 1) .company-timeline-marker::before {
+    left: 0;
+    border-radius: 999px 0 0 999px;
+  }
+
+  .page-about .company-timeline-item:nth-child(3n) .company-timeline-marker::before {
+    right: 0;
+    border-radius: 0 999px 999px 0;
+  }
+
   .public-layout.page-about main .company-timeline-period {
     position: absolute;
-    bottom: calc(50% + 1rem);
-    left: calc(50% + 1.25rem);
-    right: 0;
+    top: calc(50% + 1rem);
+    bottom: auto;
+    left: 50%;
+    width: max-content;
+    max-width: 100%;
     margin: 0;
-    text-align: left;
+    transform: translateX(-50%);
+    text-align: center;
+    white-space: nowrap;
   }
 
   .page-about .company-timeline-content {
@@ -2316,11 +2338,12 @@ img {
   .page-about .company-timeline-item:nth-child(even) .company-timeline-content::after {
     top: -2.25rem;
     bottom: auto;
+    height: 3.25rem;
   }
 
-  .public-layout.page-about main .company-timeline-item:nth-child(even) .company-timeline-period {
-    top: calc(50% + 1rem);
-    bottom: auto;
+  .public-layout.page-about main .company-timeline-item:nth-child(2) .company-timeline-period {
+    top: auto;
+    bottom: calc(50% + 1rem);
   }
 
   .page-about .company-timeline-node {
@@ -2372,19 +2395,19 @@ img {
   overflow: hidden;
   border-radius: var(--public-radius-media);
   background: #fbf3ed;
-  padding: 1.5rem;
+  padding: 0;
   color: #766357;
   font-size: .875rem;
   text-align: center;
 }
 
-.page-about .company-activity-media::before {
-  content: "";
+.page-about .company-activity-media img {
+  display: block;
   position: absolute;
-  inset: 1rem;
-  border: 1px dashed #d9c8bc;
-  border-radius: .5rem;
-  pointer-events: none;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .page-about .company-activity figcaption {

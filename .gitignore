@@ -22,6 +22,8 @@ pdf/*.pdf
 !/picture/trangchu.webp
 !/picture/dichvu.jpg
 !/picture/gia-tri-cot-loi-nht.webp
+!/picture/CSYT.webp
+!/picture/GKDN.webp
 !/picture/service-images/
 
 # Temporary files and browser test artifacts
