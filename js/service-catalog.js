@@ -6,7 +6,7 @@
     { id: "thu-tuc-phap-ly", name: "Hành chính & pháp lý", page: "dich-vu.html#dich-vu-phap-ly" },
     { id: "thu-tuc-thue", name: "Thủ tục thuế", page: "dich-vu.html#dich-vu-thu-tuc-thue" },
     { id: "ke-toan-noi-bo-tai-chinh", name: "Kế toán nội bộ & tài chính", page: "lien-he.html?service=ke-toan-noi-bo-tai-chinh" },
-    { id: "dich-vu-so-ho-tro-khac", name: "Dịch vụ chữ ký số và dịch vụ khác", page: "dich-vu-chu-ky-so-va-dich-vu-khac.html" },
+    { id: "dich-vu-so-ho-tro-khac", name: "Liên kết phần mềm", page: "dich-vu-chu-ky-so-va-dich-vu-khac.html" },
   ];
   const catalog = { services, label: (value) => services.find((item) => item.id === value)?.name || value || "Không cung cấp" };
   if (typeof module === "object" && module.exports) module.exports = catalog;
