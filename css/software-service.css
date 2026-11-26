@@ -1,0 +1,472 @@
+/* Software consulting: preserve the shared NHT type, palette and navigation. */
+.software-detail {
+  --software-heading: var(--navy);
+  --software-copy: #526078;
+}
+
+.public-layout .software-detail h1 {
+  max-width: none;
+  margin-bottom: 1.5rem;
+  color: var(--software-heading);
+  font-size: clamp(2.5rem, 4.5vw, 4rem);
+  line-height: 1.15;
+  letter-spacing: -.035em;
+}
+
+.software-detail .service-intro {
+  max-width: 62ch;
+  color: var(--software-copy);
+}
+
+.software-detail .service-button {
+  border-radius: .7rem;
+  font-size: .875rem;
+  letter-spacing: .025em;
+}
+
+.software-detail .software-page-layout {
+  grid-template-columns: minmax(0, 1fr) 16rem;
+  gap: clamp(2rem, 4vw, 3.5rem);
+  padding-top: 3rem;
+}
+
+.software-section {
+  margin-bottom: clamp(3rem, 6vw, 4.5rem);
+}
+
+.software-detail :is(.software-section, .software-section h2, .software-process li) {
+  scroll-margin-top: 2rem;
+}
+
+.public-layout .software-detail :is(h2, h3) {
+  color: var(--software-heading);
+}
+
+.public-layout .software-detail h2 {
+  font-size: clamp(1.8rem, 2.8vw, 2.35rem);
+  line-height: 1.25;
+}
+
+.public-layout .software-detail h3 {
+  font-size: 1.2rem;
+  line-height: 1.4;
+}
+
+.software-detail .software-section-intro {
+  max-width: 72ch;
+  margin-bottom: 1.75rem;
+  color: var(--software-copy);
+  font-size: 1rem;
+}
+
+.software-catalog {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1.25rem;
+}
+
+.software-card {
+  display: grid;
+  grid-template-columns: clamp(9rem, 18vw, 12rem) minmax(0, 1fr);
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--service-border);
+  border-radius: 1rem;
+  background: var(--service-surface);
+}
+
+.software-card-visual {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  border-right: 1px solid var(--service-border);
+  background: var(--service-surface-soft);
+}
+
+.software-detail .software-card-visual img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 12rem;
+  object-fit: contain;
+}
+
+.software-card-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: .9rem;
+  padding: 1.5rem;
+}
+
+.software-detail .software-card-copy h3,
+.software-detail .software-card-copy p {
+  margin: 0;
+}
+
+.software-detail .software-card-copy p {
+  color: var(--software-copy);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.software-detail .software-card-copy .software-provider {
+  display: grid;
+  gap: .25rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid var(--service-border);
+  font-size: .9375rem;
+}
+
+.software-provider strong {
+  color: var(--service-accent-text);
+  font-size: .875rem;
+  font-weight: 600;
+}
+
+.software-renewal {
+  display: grid;
+  grid-template-columns: clamp(9rem, 18vw, 12rem) minmax(0, 1fr);
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+  padding: 1.5rem;
+  border: 1px solid var(--service-border);
+  border-radius: 1rem;
+  background: var(--service-accent-soft);
+}
+
+.software-detail .software-renewal img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: .75rem;
+}
+
+.software-detail .software-renewal p {
+  margin: .85rem 0 0;
+  color: var(--software-copy);
+  font-size: 1rem;
+}
+
+.software-detail .software-renewal .software-renewal-scope {
+  color: var(--service-accent-text);
+  font-size: .9375rem;
+}
+
+.software-process {
+  margin: 1.75rem 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: software-step;
+}
+
+.software-process li {
+  position: relative;
+  min-height: 6rem;
+  padding: 0 0 1.75rem 4rem;
+  counter-increment: software-step;
+}
+
+.software-process li::before {
+  content: counter(software-step);
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border: 1px solid var(--service-border);
+  border-radius: 50%;
+  background: var(--service-accent-soft);
+  color: var(--service-accent-text);
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.software-process li:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 3rem;
+  bottom: .5rem;
+  left: 1.25rem;
+  width: 1px;
+  background: var(--service-border);
+}
+
+.software-process li:last-child {
+  min-height: 0;
+  padding-bottom: 0;
+}
+
+.software-detail .software-process p {
+  max-width: 65ch;
+  margin: .5rem 0 0;
+  color: var(--software-copy);
+  font-size: 1rem;
+}
+
+.software-documents {
+  overflow: hidden;
+  border: 1px solid var(--service-border);
+  border-radius: 1rem;
+  background: var(--service-surface);
+}
+
+.software-documents table {
+  width: 100%;
+  border-collapse: collapse;
+  color: var(--software-copy);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.software-documents :is(th, td) {
+  padding: 1rem 1.25rem;
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.software-documents thead {
+  background: var(--service-accent-soft);
+  color: var(--service-accent-text);
+}
+
+.software-documents th {
+  font-weight: 600;
+}
+
+.software-documents tbody th {
+  width: 30%;
+  color: var(--software-heading);
+}
+
+.software-documents tbody tr:nth-child(even) {
+  background: var(--service-surface-soft);
+}
+
+.software-detail .software-note {
+  margin-top: 1rem;
+  color: var(--software-copy);
+  font-size: .9375rem;
+  line-height: 1.75;
+}
+
+.software-cost {
+  padding: clamp(1.25rem, 3vw, 2rem);
+  border: 1px solid var(--service-border);
+  border-radius: 1rem;
+  background: var(--service-surface);
+}
+
+.software-cost-list {
+  display: grid;
+  gap: 1.25rem;
+  margin: 1.5rem 0;
+}
+
+.software-cost-list > div {
+  display: grid;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.3fr);
+  gap: 1.25rem;
+}
+
+.software-detail :is(.software-cost-list, .software-commitments) dt {
+  color: var(--software-heading);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.65;
+}
+
+.software-cost-list dd,
+.software-commitments dd {
+  margin: 0;
+  color: var(--software-copy);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.software-detail .software-pricing-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  min-height: 48px;
+  padding: .8rem 1.3rem;
+  border: 1px solid var(--service-accent-text);
+  border-radius: .7rem;
+  background: var(--service-accent-text);
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  text-align: center;
+  text-decoration: none;
+}
+
+.software-detail .software-pricing-link:hover {
+  border-color: var(--service-accent-hover);
+  background: var(--service-accent-hover);
+  color: #fff;
+}
+
+.software-commitments {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.75rem 2rem;
+}
+
+.software-commitments > div {
+  padding-left: 1.1rem;
+  border-left: 2px solid var(--service-accent);
+}
+
+.software-commitments dd {
+  margin-top: .5rem;
+}
+
+.software-detail .software-contact p {
+  margin-top: 1rem;
+  color: var(--software-copy);
+  font-size: 1rem;
+  overflow-wrap: anywhere;
+}
+
+.software-detail .software-contact .service-button {
+  min-height: 48px;
+  font-size: .875rem;
+}
+
+.software-detail .software-contact .service-text-link {
+  font-size: 1rem;
+}
+
+.software-sidebar {
+  padding: 1.5rem;
+  border-radius: 1rem;
+  box-shadow: none;
+}
+
+.software-detail .software-sidebar .service-eyebrow,
+.software-detail .software-sidebar nav a {
+  font-size: .9375rem;
+  letter-spacing: 0;
+}
+
+.software-detail .software-sidebar nav a {
+  padding-block: .65rem;
+}
+
+@media (max-width: 1023px) {
+  .software-detail .software-page-layout {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .software-sidebar {
+    position: static;
+    grid-row: 1;
+  }
+
+  .software-detail .software-sidebar nav {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: .25rem 1.25rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .software-detail .software-hero .service-actions {
+    margin-top: 1.5rem;
+  }
+
+  .software-detail .software-page-layout {
+    padding-top: 2rem;
+  }
+
+  .software-detail .software-sidebar nav {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .software-commitments {
+    grid-template-columns: 1fr;
+  }
+
+  .software-card-copy {
+    padding: 1.25rem;
+  }
+
+  .software-renewal {
+    gap: 1rem;
+    padding: 1.25rem;
+  }
+
+  .software-documents table,
+  .software-documents tbody {
+    display: block;
+  }
+
+  .software-documents thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .software-documents tbody tr {
+    display: grid;
+    gap: .35rem;
+    padding: 1.15rem 1.25rem;
+  }
+
+  .software-documents tbody :is(th, td) {
+    display: block;
+    width: auto;
+    padding: 0;
+  }
+
+  .software-cost-list > div {
+    grid-template-columns: 1fr;
+    gap: .35rem;
+  }
+}
+
+@media (max-width: 539px) {
+  .software-card,
+  .software-renewal {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .software-card-visual {
+    border-right: 0;
+    border-bottom: 1px solid var(--service-border);
+  }
+
+  .software-detail .software-card-visual img {
+    width: 12rem;
+    max-width: 100%;
+  }
+
+  .software-detail .software-renewal img {
+    width: 6rem;
+  }
+}
+
+@media (max-width: 359px) {
+  .public-layout .software-detail h1 {
+    font-size: 2.1rem;
+  }
+
+  .software-detail .software-sidebar nav {
+    grid-template-columns: 1fr;
+  }
+
+  .software-process li {
+    padding-left: 3.25rem;
+  }
+}
